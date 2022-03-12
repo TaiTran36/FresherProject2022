@@ -1,0 +1,24 @@
+/** Header */
+.avartar {
+  width: 50px;
+  height: 50px;
+  margin-top: 8px;
+}
+
+/** Sidebar */
+.main-sidebar .brand-link {
+  margin: 15px;
+  -webkit-text-decoration-line: none;
+          text-decoration-line: none;
+}
+.main-sidebar .user-panel {
+  margin-bottom: 15px;
+}
+.main-sidebar .sidebar-footer {
+  position: fixed;
+  bottom: 0;
+}
+
+.active, .btn-primary {
+  background-color: #50cdd6 !important;
+}

@@ -1,0 +1,17 @@
+body, .bg-primary {
+  background-color: #56baed !important;
+}
+
+main {
+  margin-top: 100px;
+}
+
+.card {
+  box-shadow: 0 5px 5px 5px rgba(0, 0, 0, 0.15) !important;
+}
+
+.title {
+  text-decoration-color: #56baed !important;
+  text-underline-offset: 3px !important;
+  text-decoration-thickness: 2.5px !important;
+}

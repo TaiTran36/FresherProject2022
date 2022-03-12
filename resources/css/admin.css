@@ -1,0 +1,13 @@
+/** Header */
+/** Sidebar */
+.main-sidebar .brand-link {
+  margin: 15px;
+  text-decoration-line: none;
+}
+.main-sidebar .user-panel {
+  margin-bottom: 15px;
+}
+
+.active {
+  background-color: #56baed !important;
+}
