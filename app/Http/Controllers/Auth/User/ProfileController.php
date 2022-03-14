@@ -6,6 +6,8 @@ use Auth;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File; 
 
 class ProfileController extends Controller
 {
@@ -47,8 +49,23 @@ class ProfileController extends Controller
         $user->email = $request->email; 
         $user->address = $request->address; 
         $user->phone_number = $request->phone_number; 
-        // $user->photo_url = $request->photo_url;
+
+        if($request->hasFile('photo_url')) {
+            // $oldPhoto = $user->photo_url; 
+            // Storage::delete('public/images/'.$oldPhoto); 
+            // $request->photo_url->store(public_path().'/images'); 
+            // $user->photo_url = $request->photo_url->hashName(); 
+            
+            $oldPhoto = $user->photo_url; 
+            File::delete(public_path().'/images/'. $oldPhoto); 
+
+            $image = $request->photo_url; 
+            $image_name = $image->hashName(); 
+            $image->move(public_path('/images'), $image_name); 
+            $user->photo_url = $image_name; 
+        }
+
         $user->save();
-        return back()->with('success', 'Profile updated'); 
+        return back()->withInput($request->all())->with('success', 'Profile updated'); 
     }
 }

@@ -22,3 +22,9 @@
 .active, .btn-primary {
   background-color: #50cdd6 !important;
 }
+
+/** List users */
+.photo {
+  height: 100px;
+  width: 100px;
+}

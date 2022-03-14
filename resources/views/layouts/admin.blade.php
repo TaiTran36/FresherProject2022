@@ -43,7 +43,7 @@
                 <li class="nav-item">
                     <a class="nav-brand">
                         <img class="image rounded-circle avartar p-1 mr-3" 
-                            src="{{asset('/storage/images/'.Auth::user()->photo_url)}}" alt="" >
+                            src="{{asset('images/'.Auth::user()->photo_url)}}" alt="" >
                     </a>
                 </li> 
 

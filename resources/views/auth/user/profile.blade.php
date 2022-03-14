@@ -16,7 +16,7 @@
                         <div class="alert alert-success"><p>{{$message}}</p></div>
                     @endif
 
-                    <form method="POST" action="{{ route('profile') }}">
+                    <form method="POST" enctype="multipart/form-data" action="{{ route('profile') }}">
                         @csrf
 
                         @foreach ($fields as $f => $f_value) 
@@ -29,8 +29,8 @@
                                 @elseif ($f == "email")
                                     <input id={{$f}} type="email" class="form-control @error($f) is-invalid @enderror" name={{$f}} value="{{Auth::user()->$f}}" >
                                 @elseif ($f == "photo_url")
-                                    <img class="img img-fluid" style="max-width: 120px; height: auto;" src={{Auth::user()->$f}} alt="">
-                                    <input id={{$f}} type="file" class="form-control-file @error($f) is-invalid @enderror" name={{$f}} value="{{Auth::user()->$f}}" >
+                                    <img class="img img-fluid" style="max-width: 120px; height: auto;" src="{{asset('images/'.Auth::user()->photo_url)}}" alt="">
+                                    <input id={{$f}} type="file" class="hidden form-control-file @error($f) is-invalid @enderror" name={{$f}} value="{{Auth::user()->$f}}" >
                                 @else
                                     <input id={{$f}} type="text" class="form-control @error($f) is-invalid @enderror" name={{$f}} value="{{Auth::user()->$f}}" >
                                 @endif

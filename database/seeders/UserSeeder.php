@@ -53,7 +53,6 @@ class UserSeeder extends Seeder
                 'email' => $fake->unique()->email,
                 'address' => $fake->address,
                 'phone_number' => $fake->phoneNumber, 
-                'photo_url' => $fake->imageUrl,
                 'password' => $fake->password,
                 'role' => RoleUser::select('role_number')->inRandomOrder()->first()['role_number'],
             ]);

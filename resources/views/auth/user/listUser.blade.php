@@ -54,9 +54,9 @@
 
                                             @if ($f == "photo_url") 
                                                 <td>
-                                                    <img class="img img-fluid" 
-                                                        style="max-width: 120px; height: auto;" 
-                                                        src={{ $user->$f }} alt="">
+                                                    <img class="img img-fluid photo" 
+                                                        
+                                                        src={{asset('images/'.$user->$f)}} alt="">
                                                 </td>
                                             @else 
                                                 <td>{{ $user->$f }}</td>
