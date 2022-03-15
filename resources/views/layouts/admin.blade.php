@@ -23,7 +23,7 @@
 </head>
 <body>
     <div id="admin">
-        <div class="wrapper mr-2">
+        <div class="wrapper mr-1">
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <ul class="navbar-nav">
                 <li class="nav-item">
