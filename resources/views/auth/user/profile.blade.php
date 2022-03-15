@@ -29,7 +29,7 @@
                                 @elseif ($f == "email")
                                     <input id={{$f}} type="email" class="form-control @error($f) is-invalid @enderror" name={{$f}} value="{{Auth::user()->$f}}" >
                                 @elseif ($f == "photo_url")
-                                    <img class="img img-fluid" style="max-width: 120px; height: auto;" src="{{asset('images/'.Auth::user()->photo_url)}}" alt="">
+                                    <img class="img img-fluid" style="max-width: 110px; height: auto;" src="{{asset('images/'.Auth::user()->photo_url)}}" alt="">
                                     <input id={{$f}} type="file" class="hidden form-control-file @error($f) is-invalid @enderror" name={{$f}} value="{{Auth::user()->$f}}" >
                                 @else
                                     <input id={{$f}} type="text" class="form-control @error($f) is-invalid @enderror" name={{$f}} value="{{Auth::user()->$f}}" >
