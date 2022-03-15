@@ -64,7 +64,7 @@
                                         @endforeach
                                         <td>
                                             <a type="submit" class="btn btn-primary" name="detail" value="detail"
-                                                href="{{ route('profile', $user->name) }}">
+                                                href="{{ route('user.edit', $user->username_login) }}">
                                                 {{ __('Detail') }}
                                             </a>
                                         </td>
