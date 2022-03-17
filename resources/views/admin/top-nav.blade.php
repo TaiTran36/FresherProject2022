@@ -8,11 +8,12 @@
             <li class="nav-item dropdown open" style="padding-left: 15px;">
                 <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
                     
-                    <img src="http://media.doisongphapluat.com/695/2021/2/10/Lisa.jpg" alt="">
+                    <img height="50" onerror="this.src='/storage/image_err/no-image.jpg'" src="/storage/images/" alt="">
                     
                     
-                        <span><?=$user->name?>,</span>
-                        <h2><?=$user->email?></h2>
+                        <span><?=$user->name?></span>
+                        <br>
+                        <span><?=$user->email?></span>
                     
                 </a>
             

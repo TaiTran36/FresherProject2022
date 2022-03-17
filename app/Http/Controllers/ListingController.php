@@ -14,8 +14,20 @@ class ListingController extends Controller {
         $model = '\App\Models\\' . ucfirst($modelName);
         $model = new $model;
         $configs = $model->listingConfigs();
-        $conditions = $model->getFilter($request, $configs);
-        $records = $model::where($conditions)->paginate(5);
+        $filterResult = $model->getFilter($request, $configs, $modelName);
+        $orderBy = [
+            'field' => 'created_at',
+            'sort' => 'desc'
+        ];
+        if ($request->input('sort')) {
+            $field = substr($request->input('sort'), 0, strrpos($request->input('sort'), "_"));
+            $sort = substr($request->input('sort'), strrpos($request->input('sort'), "_") + 1);
+            $orderBy = [
+                'field' => $field,
+                'sort' => $sort
+            ];
+        }
+        $records = $model->getRecords($filterResult['conditions'], $orderBy);
         return view('admin.listing', [
             'user' => $adminUser,
             'records' => $records,
@@ -23,7 +35,7 @@ class ListingController extends Controller {
             'modelName' => $modelName,
             'title' =>$model->title,
             'use' =>$model->use,
-
+            'orderBy'=>$orderBy,
         ]);
     }
 }

@@ -2,7 +2,7 @@
 <!-- menu profile quick info -->
 <div class="profile clearfix">
     <div class="profile_pic">
-        <img src="http://media.doisongphapluat.com/695/2021/2/10/Lisa.jpg" alt="..." class="img-circle profile_img">
+        <img  onerror="this.src='/storage/image_err/no-image.jpg'" src="/storage/images/" class="img-circle profile_img"/> 
     </div>
     <div class="profile_info">
         <span>Welcome,</span>
@@ -16,16 +16,19 @@
 <!-- sidebar menu -->
 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
     <div class="menu_section">
-        <h3>Admin</h3>
+        
+        <i class="fa fa-user-secret" aria-hidden="true"></i>Admin
         <ul class="nav side-menu">
-            <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                <ul class="nav child_menu">
-                    <li><a href="{{ route('password.request') }}">User Manage</a></li>
-                    <li><a href="{{ route('password.request') }}">Post Manage</a></li>
+            <li><a><i class="fa fa-home"></i> Manage <span class="fa fa-chevron-down"></span></a>
+                
                     
-                </ul>
+                    <li><a href="{{route('listing.index',['model'=>'Users'])}}">User Manage</a></li>                   
+                    <li><a href="{{route('listing.index',['model'=>'Posts'])}}">Post Manage</a></li>
+                    
+                
+                
             </li>
-            <li><a><i class="fa fa-edit"></i> character <span class="fa fa-chevron-down"></span></a>
+            
                 
             </li>
             

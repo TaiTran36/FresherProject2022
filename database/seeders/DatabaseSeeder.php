@@ -14,10 +14,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        
         for ($i = 0; $i < 10; $i++){
             $this->call([
-                ProfilesSeeder::class
+                Usersseeder::class
             ]); }
-            
+        for ($i = 0; $i < 5; $i++){
+                $this->call([
+                    Postsseeder::class
+                ]); }        
     }
 }

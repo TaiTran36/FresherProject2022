@@ -60,8 +60,20 @@
                         <thead>
                             <tr>
                                 <?php foreach ($configs as $config) { ?>
-                                    <th><?= $config['name'] ?></th>
-                                <?php } ?>
+                                    <?php if (!empty($config['sort'])) { ?>
+                                        <?php if ($orderBy['field'] == $config['field']) { ?>
+                                            <?php if ($orderBy['sort'] == "desc") { ?>
+                                                <th><?= $config['name'] ?><a class="sort-icon" href="{{route('listing.index',['model'=>$modelName,'sort'=>$config['field'].'_asc'])}}"><i class="fa fa-sort-desc" aria-hidden="true"></i></a></th>
+                                            <?php } else { ?>
+                                                <th><?= $config['name'] ?><a class="sort-icon" href="{{route('listing.index',['model'=>$modelName,'sort'=>$config['field'].'_desc'])}}"><i class="fa fa-sort-asc" aria-hidden="true"></i></a></th>
+                                            <?php } ?>
+                                        <?php } else { ?>
+                                            <th><?= $config['name'] ?><a class="sort-icon" href="{{route('listing.index',['model'=>$modelName,'sort'=>$config['field'].'_desc'])}}"><i class="fa fa-sort" aria-hidden="true"></i></a></th>   
+                                        <?php } ?>
+                                    <?php } else { ?>
+                                        <th><?= $config['name'] ?></th>       
+                                    <?php } ?>
+                            <?php } ?>
                             </tr>
                         </thead>
                         <tbody>
