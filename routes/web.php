@@ -50,7 +50,7 @@ Route::resource('post', App\Http\Controllers\Admin\PostController::class)
 Route::get('post', [App\Http\Controllers\Admin\PostController::class, 'index'])
     ->name('post.search');
 
-Route::get('post-search', [App\Http\Controllers\Admin\PostController::class, 'search'])->name('post.search');
+// Route::get('post-search', [App\Http\Controllers\Admin\PostController::class, 'search'])->name('post.search');
 
 Route::resource('user', App\Http\Controllers\Admin\UserController::class)
     ->except(['index', 'search'])

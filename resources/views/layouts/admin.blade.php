@@ -77,7 +77,7 @@
                     
                     @if (Route::has('user.search'))
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('user.search') }}">
+                        <a class="nav-link {{ (request()->is('user')) ? 'active' : '' }}" href="{{ route('user.search') }}">
                             <i class="fa-solid fa-user"></i>
                             <p>{{ __('User') }}</p>
                         <a>
@@ -86,7 +86,7 @@
 
                     @if (Route::has('post.search'))
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('post.search') }}">
+                        <a class="nav-link {{ (request()->is('post')) ? 'active' : '' }}" href="{{ route('post.search') }}">
                             <i class="fa-solid fa-blog"></i>
                             <p>{{ __('Post') }}</p>
                         <a>
