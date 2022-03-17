@@ -23,13 +23,13 @@ class Post extends Model
         'author',
     ];
 
-    public function getDobAttribute($value)
+    public function getCreatedAtAttribute()
     {
-        return Carbon::parse($value)->format('dd/mm/yyyy')->toDateString();
+        return Carbon::createFromFormat('Y-m-d H:s:i', $this->attributes['created_at'])->format('d/m/Y');
     }
     
     public function setCreatedAtAttribute($value) 
     {
-        $this->attributes['created_at'] = Carbon::createFromFormat("dd/mm/yyyy", $value)->toDateString();
+        $this->attributes['created_at'] = Carbon::createFromFormat('Y-m-d H:s:i', $value)->toDateString();
     }
 }
