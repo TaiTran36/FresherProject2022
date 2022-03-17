@@ -26,39 +26,36 @@ Route::post('/passwords/reset', [App\Http\Controllers\Auth\ResetPasswordControll
 Route::get('/user/profile', [App\Http\Controllers\Auth\ProfileController::class, 'show'])->name('profile');
 Route::post('/user/profile', [App\Http\Controllers\Auth\ProfileController::class, 'update'])->name('profile'); 
 
-Route::get('admin/user-list', [App\Http\Controllers\Auth\User\ListUserController::class, 'getUsers'])->name('user.search'); 
+// Route::resource('post', App\Http\Controllers\Admin\PostController::class)
+//     ->except(['index', 'search'])
+//     ->names([
+//         // 'index' => 'post.search', 
+//         'create' => 'post.add',
+//     ])
+//     ->parameters([
+//         'post' => 'post:title',
+//     ]);
 
-// Route::get('/admin/post-list', [App\Http\Controllers\Auth\User\ListPostController::class, 'getPosts'])->name('post.search');
-// Route::post('/admin/post-list/{title}', [App\Http\Controllers\Auth\User\ListPostController::class, 'getDetailPost'])->name('post.search');
+Route::get('post', [App\Http\Controllers\Admin\PostController::class, 'index'])->name('post.search'); 
+Route::get('post/create', [App\Http\Controllers\Admin\PostController::class, 'create'])->name('post.add'); 
+Route::post('post/create', [App\Http\Controllers\Admin\PostController::class, 'store'])->name('post.add'); 
+Route::get('post/{id}/edit', [App\Http\Controllers\Admin\PostController::class, 'edit'])
+    ->name('post.edit');
+Route::put('post/{id}', [App\Http\Controllers\Admin\PostController::class, 'update'])
+    ->name('post.update');   
 
-// Route::get('user/add-post', [App\Http\Controllers\Auth\User\PostController::class, 'show'])->name('post.add');
-// Route::post('user/add-post', [App\Http\Controllers\Auth\User\PostController::class, 'insert'])->name('post.add');
+// Route::resource('user', App\Http\Controllers\Admin\UserController::class)
+//     ->except(['index', 'search'])
+//     ->parameters([
+//         'user' => 'user:username_login',
+//     ]);
 
-// Route::('edit-post')
-// Route::post('user/edit-post', [App\Http\Controllers\Auth\User\PostController::class, 'update'])->name('post.edit');
-
-Route::resource('post', App\Http\Controllers\Admin\PostController::class)
-    ->except(['index', 'search'])
-    ->names([
-        // 'index' => 'post.search', 
-        'create' => 'post.add',
-    ])
-    ->parameters([
-        'post' => 'post:title',
-    ]);
-
-Route::get('post', [App\Http\Controllers\Admin\PostController::class, 'index'])
-    ->name('post.search');
-
-// Route::get('post-search', [App\Http\Controllers\Admin\PostController::class, 'search'])->name('post.search');
-
-Route::resource('user', App\Http\Controllers\Admin\UserController::class)
-    ->except(['index', 'search'])
-    ->parameters([
-        'user' => 'user:username_login',
-    ]);
-
-Route::get('user', [App\Http\Controllers\Admin\UserController::class, 'index'])
-    ->name('user.search');
+Route::get('user', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('user.search');
+Route::get('user/create', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('user.add'); 
+Route::post('user/create', [App\Http\Controllers\Admin\UserController::class, 'store'])->name('user.add'); 
+Route::get('user/{id}/edit', [App\Http\Controllers\Admin\UserController::class, 'edit'])
+    ->name('user.edit');
+Route::put('user/{id}', [App\Http\Controllers\Admin\UserController::class, 'update'])
+    ->name('user.update'); 
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
