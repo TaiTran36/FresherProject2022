@@ -5,16 +5,19 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
+use App\Repositories\UserRepositories;
+
 
 class ProfileController extends Controller
 {
-    
+    public function __construct(UserRepositories $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
     public function index()
     {
-        $getData_all = User::all();
-        $getData = DB::table('users')->paginate(5);
+        $getData_all =  $this->userRepository->getAllUser();
+        $getData = $this->userRepository->pagination(5);
         return view('profile.list')->with('listprofile',$getData_all)->with('listprofile_pagination',$getData);
     }
     public function details($id)
@@ -22,7 +25,7 @@ class ProfileController extends Controller
         $user= new User ;
         if ($user->mySelf()->can('all user') or ( $id==Auth::user()->id))
         {
-        $getData = User::where('id','=', $id)->get();
+        $getData =$this->userRepository->getUser($id);
         return view('profile.detail')->with('profile',$getData); } 
         else echo "You don't have permission !";
     }
@@ -31,39 +34,24 @@ class ProfileController extends Controller
         $user= new User ;
         if ($user->mySelf()->can('all user') or ( $id==Auth::user()->id))
         {
-        $getData = User::where('id',$id)->get();
+        $getData = $this->userRepository->getUser($id);
         return view('profile.edit')->with('getprofileById',$getData);}
         else echo "You don't have permission !";
     }
 public function update(Request $request)
 {
-	date_default_timezone_set("Asia/Ho_Chi_Minh");	
-	DB::table('users')->where('id', $request->id)->update([
-		'name' => $request->name,
-        'date_of_birth'=> $request->date_of_birth,
-        'nickname'=> $request->nickname,
-        'username_login'=> $request->username,
-        'email'=> $request->email,
-        'description'=> $request->description,
-        'avatar' => $request->avatar,
-        'address'=> $request->address,
-        'phone_number'=> $request->phone_number,
-		'updated_at' => date('Y-m-d H:i:s')
-	]);
+    $this->userRepository->update($request);
     $user= new User ;
     if ($user->mySelf()->can('all user'))
     {
-	return redirect('profile'); }
+	return redirect('profile/list'); }
     else
     // return redirect('/profile/Auth::user()->id/details');
     return redirect('/profile/'.Auth::user()->id.'/details');
-
 }
 public function destroy($id)
 {
-
-	$deleteData = DB::table('users')->where('id', '=', $id)->delete();
-	
-	return redirect('profile');
+    $this->userRepository->delete($id);
+	return redirect('profile/list');
 }
 }

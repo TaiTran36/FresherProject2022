@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,30 +20,37 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
+        html,
+        body {
+            overflow-x: hidden;
+        }
+
         #outer-container {
             display: table;
             width: 100%;
             height: 100vh;
         }
-        
+
         #sidebar {
             display: table-cell;
             width: 15%;
             position: fixed;
-            overflow: auto;  
-            padding-bottom: 100%; 
+            overflow: auto;
+            padding-bottom: 100%;
         }
-        
+
         #content {
-            
+
             display: table-cell;
-            background-color:#F4F6F9;
+            background-color: #F4F6F9;
             width: 85%;
             height: 100%;
             vertical-align: top;
         }
-            </style>
+
+    </style>
 </head>
+
 <body>
     <div id="app">
         <div id="outer-container">
@@ -51,10 +59,10 @@
                 @show
             </div>
             <div id="content">
-                    @section('header')
-                    @show
-                <main class="py-4" >
-                     @yield('content')
+                @section('header')
+                @show
+                <main class="py-4">
+                    @yield('content')
                 </main>
                 @section('footer')
                 @show
@@ -62,4 +70,5 @@
         </div>
     </div>
 </body>
+
 </html>

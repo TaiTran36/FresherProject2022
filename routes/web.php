@@ -28,7 +28,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::group(['middleware' => 'auth'], function () {
 Route::group(['middleware' => ['can:all user']], function () {
-    Route::get('profile', 'ProfileController@index'); 
+    Route::get('profile/list', 'ProfileController@index'); 
 });
     Route::get('profile/{id}/details', 'ProfileController@details'); 
     Route::get('profile/{id}/edit', 'ProfileController@edit'); 
@@ -36,7 +36,7 @@ Route::group(['middleware' => ['can:all user']], function () {
 Route::group(['middleware' => ['can:delete user']], function () {
     Route::get('profile/{id}/delete', 'ProfileController@destroy');
 });
-    Route::get('post', 'PostController@index');
+    Route::get('post/list', 'PostController@index');
     Route::get('post/create', 'PostController@create');  
     Route::post('post/insert', 'PostController@insert');  
     Route::get('post/{id}/details', 'PostController@details');
