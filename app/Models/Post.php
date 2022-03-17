@@ -13,9 +13,14 @@ class Post extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'title', 
-        'author', 
+        'author',
+        'title',  
         'content',
+        'url',
+    ];
+
+    protected $guarded = [
+        'author',
     ];
 
     public function getDobAttribute($value)
