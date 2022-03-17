@@ -19,8 +19,9 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="input-group">
-                                <input id="search-input" type="search" class="form-control" placeholder="Search post">  
-                                <button id="search-button" type="submit" class="btn btn-primary" name="search" value="search">
+                                <input id="search-input" type="text" class="form-control" placeholder="Search post" name="search-post">  
+                                
+                                <button id="search-button" type="submit" class="btn btn-primary">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </div>
@@ -32,13 +33,14 @@
                         @endif 
                     </div>
                 </div>
+                </form>
 
                 <div class="card">
                     <div class="card-body">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
+                                    <th scope="col">ID</th>
                                     @foreach ($fields as $f => $f_value) 
                                         <th scope="col">{{ $f_value }}</th>
                                     @endforeach
@@ -48,14 +50,14 @@
                             <tbody> 
                                 @foreach ($posts as $post)
                                     <tr>
-                                        <th scope="row">{{ ++$i }}</th>
+                                        <td>{{ ++$i }}</td>
                                         @foreach ($fields as $f => $f_value) 
                                             @if ($f == 'action')    @break   @endif
                                             <td>{{ $post->$f }}</td>
                                         @endforeach
                                         <td>
-                                            <a type="submit" class="btn btn-primary" name="detail" value="detail"
-                                                href="{{ route('post.edit', $post->title) }}">
+                                            <a class="btn btn-primary" name="detail" value="detail"
+                                                href="{{ route('post.edit', $post->id) }}">
                                                 {{ __('Detail') }}
                                             </a>
                                         </td>
@@ -65,10 +67,10 @@
                         </table>
                     </div>
                 </div>
-            </form>
         </div> 
     <div> 
 </div>
 
+{{ $posts->links() }}
 
 @endsection 

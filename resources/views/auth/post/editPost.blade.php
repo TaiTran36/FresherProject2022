@@ -12,7 +12,7 @@
                         <div class="alert alert-success"><p>{{$message}}</p></div>
                     @endif
 
-                    <form method="POST" action="{{ route('post.update', $post->title) }}">
+                    <form method="POST" action="{{ route('post.update', $post->id) }}">
                         @csrf
                         @method('PUT')
 
@@ -20,6 +20,7 @@
                             <label for="title" class="col-md-2 col-form-label text-md-end">{{ __('Title') }}</label>
 
                             <div class="col-md-9">
+                                <input id="id" type="hidden" class="form-control" name="id" value="{{$post->id}}">
                                 <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{$post->title}}" required autofocus>
                                 
                                 @error('title')

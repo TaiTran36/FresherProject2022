@@ -16,7 +16,7 @@
                         <div class="alert alert-success"><p>{{$message}}</p></div>
                     @endif
 
-                    <form method="POST" enctype="multipart/form-data" action="{{ route('user.update', $user->username_login) }}">
+                    <form method="POST" enctype="multipart/form-data" action="{{ route('user.update', $user->id) }}">
                         @csrf
                         @method('PUT')
 
@@ -25,6 +25,7 @@
                             <label for={{$f}} class="col-md-3 col-form-label text-md-end">{{ __($f_value) }}</label>
 
                             <div class="col-md-8">
+                                <input id="id" type="hidden" class="form-control" name="id" value="{{$user->id}}">
                                 @if ($f == "birth_of_date")
                                     <input id={{$f}} type="date" class="form-control @error($f) is-invalid @enderror" name={{$f}} value="{{$user->$f}}" >
                                 @elseif ($f == "email")

@@ -19,8 +19,8 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="input-group">
-                                <input id="search-input" type="search" class="form-control" placeholder="Search user">  
-                                <button id="search-button" type="submit" class="btn btn-primary" name="search" value="search">
+                                <input id="search-input" type="search" class="form-control" placeholder="Search user" name="search-user">  
+                                <button id="search-button" type="submit" class="btn btn-primary">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </div>
@@ -38,7 +38,7 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
+                                    <th scope="col">ID</th>
                                     @foreach ($fields as $f => $f_value) 
                                         <th scope="col">{{ $f_value }}</th>
                                     @endforeach
@@ -64,7 +64,7 @@
                                         @endforeach
                                         <td>
                                             <a type="submit" class="btn btn-primary" name="detail" value="detail"
-                                                href="{{ route('user.edit', $user->username_login) }}">
+                                                href="{{ route('user.edit', $user->id) }}">
                                                 {{ __('Detail') }}
                                             </a>
                                         </td>
@@ -79,5 +79,6 @@
     <div> 
 </div>
 
+{{ $users->links() }}
 
 @endsection 
