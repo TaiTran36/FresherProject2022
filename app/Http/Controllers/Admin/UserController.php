@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File; 
 use Carbon\Carbon;
+use App\Repositories\UserRepository; 
 
 
 class UserController extends Controller
@@ -17,9 +18,11 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    protected $userRepository; 
+    public function __construct(UserRepository $userRepository)
     {
-        $this->middleware('auth');
+        $this->middleware('auth'); 
+        $this->userRepository = $userRepository; 
     }
 
     /**
@@ -30,11 +33,14 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if (!$this->userCan('view-list-user'))  abort('403', __('Access denied'));
-        $users = User::orderBy('name')->paginate(10); 
-        if(request('search')) {
-            $search = $request->input('search');
-            $users = User::where('name', 'LIKE', "%{$search}%")->orderBy('name')->get();
+
+        $data = [];
+        if(isset($request['search-user'])) {
+            $data['search'] = $request->input('search-user'); 
         }
+
+        $users = $this->userRepository->getListUser($data); 
+
         $fields = array("name" => "Name", "photo_url" => "Avatar", "email" => "Email", "phone_number" => "Phone number", "action" => "Action");
         return view('auth.user.listUser', compact('users', 'fields'))
             ->with('i', (request()->input('page', 1) - 1) * 10); 
@@ -78,12 +84,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
-    {
-        $username_login = $user->username_login;
+    public function edit($userId)
+    { 
+        // $username_login = $user->username_login;
+        $user = $this->userRepository->findUser('id', $userId); 
         $fields = array("name" => "Name", "username_login" => "Username", "nickname" => "Nickname", 'birth_of_date' => "Birthday", 
                 "email" => "Email", "address" => "Address", "phone_number" => "Phone number", "photo_url" => "Profile picture", ); 
-        return view('auth.user.editUser', compact('user', 'username_login', 'fields'));
+        
+        return view('auth.user.editUser', compact('user', 'fields'));
     }
 
     /**
@@ -93,15 +101,18 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, User $user)
+    public function update(UserRequest $request)
     {
-        $user->name = $request->name; 
-        $user->username_login = $request->username_login; 
-        $user->nickname = $request->nickname; 
-        $user->birth_of_date = $request->birth_of_date; 
-        $user->email = $request->email; 
-        $user->address = $request->address; 
-        $user->phone_number = $request->phone_number; 
+        $dataUpdate = [
+            'id' => $request['id'],
+            'name' => $request['name'],  
+            'username_login' => $request['username_login'], 
+            'nickname' => $request['nickname'], 
+            'birth_of_date' => $request['birth_of_date'], 
+            'email' => $request['email'], 
+            'address' => $request['address'], 
+            'phone_number' => $request['phone_number'], 
+        ]; 
 
         if($request->hasFile('photo_url')) {
             $oldPhoto = $user->photo_url; 
@@ -111,10 +122,10 @@ class UserController extends Controller
             $image = $request->photo_url; 
             $image_name = $image->hashName(); 
             $image->move(public_path('/images'), $image_name); 
-            $user->photo_url = $image_name; 
+            $dataUpdate['photo_url'] = $image_name; 
         }
 
-        $user->update($request->all()); 
+        $this->userRepository->updateUser($dataUpdate); 
 
         return redirect()->route('user.search')
             ->with('success', 'User updated successfully'); 

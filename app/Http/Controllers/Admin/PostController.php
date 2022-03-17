@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Auth;
 use App\Models\User;
 use App\Models\Post; 
 use App\Http\Requests\PostRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request; 
+use Illuminate\Support\Str; 
+use App\Repositories\PostRepository;
 
 class PostController extends Controller
 {
@@ -15,9 +18,11 @@ class PostController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    protected $postRepository;
+    public function __construct(PostRepository $postRepository)
     {
         $this->middleware('auth');
+        $this->postRepository = $postRepository;
     }
 
     /**
@@ -26,16 +31,19 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    { 
+    {  
         if (!$this->userCan('view-list-post'))  abort('403', __('Access denied'));
-        $posts = Post::latest()->paginate(10); 
-        if(request('search')) {
-            $search = $request->input('search');
-            $posts = Post::where('title', 'LIKE', "%{$search}%")->latest()->get();
+        
+        $data = [];
+        if(isset($request['search-post'])) { 
+            $data['search'] = $request->input('search-post');
         }
+
+        $posts = $this->postRepository->getListPost($data);
+
         $fields = array("title" => "Title", "author" => "Author", "created_at" => "Created_at", "action" => "Action");
         return view('auth.post.listPost', compact('posts', 'fields'))
-            ->with('i', (request()->input('page', 1) - 1) * 10); 
+            ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     /**
@@ -57,18 +65,18 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         $user = Auth::user(); 
-        // $request->validate([
-        //     'title' => ['required', 'string', 'max:200'], 
-        //     'url' => ['string', 'max: 60', 'nullable'], 
-        //     'content' => ['required', 'string', 'min: 100', 'max: 1000'], 
-        // ]); 
 
-        if(Post::where('title', $request->input('title'))->exists()) {
+        if(!empty($this->postRepository->findPost('title', $request['title']))) {
             return back()->with('error', 'Post exists');
         } else {
-            $post = $request->all(); 
-            $post['author'] = $user->username_login; 
-            $newPost = Post::create($post);
+            $dataInsert = [
+                'title' => $request['title'], 
+                'author' => $user->username_login, 
+                'url' => $request['url'],
+                'content' => $request['content'],
+            ];
+            $this->postRepository->createPost($dataInsert); 
+            
             return redirect()->route('home')->with('status', 'Post created successfully!'); 
         }
     }
@@ -90,10 +98,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($postId)
     {
-        $title = $post->title;
-        return view('auth.post.editPost', compact('post', 'title')); 
+        $post = $this->postRepository->findPost('id', $postId);
+
+        return view('auth.post.editPost', compact('post')); 
     }
 
     /**
@@ -103,9 +112,16 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PostRequest $request, Post $post)
+    public function update(PostRequest $request)
     {
-        $post->update($request->all()); 
+        $dataUpdate = [
+            'id' => $request['id'],
+            'title' => $request['title'],
+            'url' => $request['url'],
+            'content' => $request['content'],
+        ];
+
+        $this->postRepository->updatePost($dataUpdate);
 
         return redirect()->route('post.search')
             ->with('success', 'Post updated successfully'); 
