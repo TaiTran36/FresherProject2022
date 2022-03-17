@@ -57,7 +57,7 @@
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         <div class="preloader flex-column justify-content-center align-items-center" style="height: 0px;">
-            <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60" style="display: none;">
+            <img class="animation__shake" src="asset('uploads/profiles/'.Auth::user()->avatar)" alt="AdminLTELogo" height="60" width="60" style="display: none;">
         </div>
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
 
