@@ -29,21 +29,21 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
-    public function login(Request $request)
-    {
-        $this->validate($request, [
-            'email'           => 'required|max:255|email',
-            'password'           => 'required|confirmed',
-        ]);
-        if (Auth::attempt(['email' => $email, 'password' => $password])) {
-            // Success
-            return redirect()->intended('/panel');
-        } else {
-            // Go back on error (or do what you want)
-            return redirect()->back();
-        }
+    // public function login(Request $request)
+    // {
+    //     $this->validate($request, [
+    //         'email'           => 'required|max:255|email',
+    //         'password'           => 'required|confirmed',
+    //     ]);
+    //     if (Auth::attempt(['email' => $email, 'password' => $password])) {
+    //         // Success
+    //         return redirect()->intended('/panel');
+    //     } else {
+    //         // Go back on error (or do what you want)
+    //         return redirect()->back();
+    //     }
     
-    }
+    // }
     /**
      * Create a new controller instance.
      *
