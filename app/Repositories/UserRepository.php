@@ -25,8 +25,8 @@ class UserRepository {
         return $this->model->paginate(10); 
     }
 
-    public function findUser(String $field, $id) 
+    public function findUser($id) 
     {
-        return $this->model->where($field, $id)->first();
+        return $this->model->where('id', $id)->first();
     }
 }

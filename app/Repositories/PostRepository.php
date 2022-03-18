@@ -31,8 +31,8 @@ class PostRepository {
         return $this->model->latest()->paginate(10); 
     }
 
-    public function findPost(String $field, $id) 
+    public function findPost($id) 
     {
-        return $this->model->where($field, $id)->first();
+        return $this->model->where('id', $id)->first();
     }
 }
