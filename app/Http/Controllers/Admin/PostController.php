@@ -66,18 +66,22 @@ class PostController extends Controller
     {
         $user = Auth::user(); 
 
-        if(!empty($this->postRepository->findPost('title', $request['title']))) {
-            return back()->with('error', 'Post exists');
-        } else {
-            $dataInsert = [
-                'title' => $request['title'], 
-                'author' => $user->username_login, 
-                'url' => $request['url'],
-                'content' => $request['content'],
-            ];
+        $dataInsert = [
+            'title' => $request['title'], 
+            'author' => $user->username_login, 
+            'url' => $request['url'],
+            'content' => $request['content'],
+        ];
+
+        try 
+        {
             $this->postRepository->createPost($dataInsert); 
             
             return redirect()->route('home')->with('status', 'Post created successfully!'); 
+        } 
+        catch (\Exception $e) 
+        {
+            return back()->with('error', 'Post exists')->withInput($request->all()); 
         }
     }
 
@@ -100,7 +104,7 @@ class PostController extends Controller
      */
     public function edit($postId)
     {
-        $post = $this->postRepository->findPost('id', $postId);
+        $post = $this->postRepository->findPost($postId);
 
         return view('auth.post.editPost', compact('post')); 
     }
@@ -121,10 +125,18 @@ class PostController extends Controller
             'content' => $request['content'],
         ];
 
-        $this->postRepository->updatePost($dataUpdate);
-
-        return redirect()->route('post.search')
-            ->with('success', 'Post updated successfully'); 
+        try 
+        {
+            $this->postRepository->updatePost($dataUpdate);
+            
+            return redirect()->route('post.search')
+                ->with('success', 'Post updated successfully'); 
+        } 
+        catch (\Exception $e) 
+        {
+            return back()->with('error', 'Post exists')
+                ->withInput($request->all()); 
+        } 
     }
 
     /**

@@ -86,8 +86,8 @@ class UserController extends Controller
      */
     public function edit($userId)
     { 
-        // $username_login = $user->username_login;
-        $user = $this->userRepository->findUser('id', $userId); 
+        $user = $this->userRepository->findUser($userId); 
+
         $fields = array("name" => "Name", "username_login" => "Username", "nickname" => "Nickname", 'birth_of_date' => "Birthday", 
                 "email" => "Email", "address" => "Address", "phone_number" => "Phone number", "photo_url" => "Profile picture", ); 
         
@@ -125,10 +125,18 @@ class UserController extends Controller
             $dataUpdate['photo_url'] = $image_name; 
         }
 
-        $this->userRepository->updateUser($dataUpdate); 
+        try 
+        {
+            $this->userRepository->updateUser($dataUpdate); 
 
-        return redirect()->route('user.search')
-            ->with('success', 'User updated successfully'); 
+            return redirect()->route('user.search')
+                ->with('success', 'User updated successfully');
+        } 
+        catch (\Exception $e) 
+        {
+            return back()->with('error', 'User exists')
+                ->withInput($request->all());
+        }
     }
 
     /**
