@@ -19,7 +19,7 @@
                             <label for="title" class="col-md-2 col-form-label text-md-end">{{ __('Title') }}</label>
 
                             <div class="col-md-9">
-                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" required autofocus>
+                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{old('title')}}"required autofocus>
                                 
                                 @error('title')
                                     <span class="invalid-feedback" role="alert">
@@ -33,7 +33,7 @@
                             <label for="url" class="col-md-2 col-form-label text-md-end">{{ __('Url') }}</label>
 
                             <div class="col-md-9">
-                                <input id="url" type="text" class="form-control @error('url') is-invalid @enderror" name="url">
+                                <input id="url" type="text" class="form-control @error('url') is-invalid @enderror" name="url" value={{old('url')}}>
                                 
                                 @error('url')
                                     <span class="invalid-feedback" role="alert">
@@ -47,7 +47,7 @@
                             <label for="content" class="col-md-2 col-form-label text-md-end">{{ __('Content') }}</label>
 
                             <div class="col-md-9">
-                                <textarea id="content" type="text" class="form-control @error('content') is-invalid @enderror" rows="10" name="content" required></textarea>
+                                <textarea id="content" type="text" class="form-control @error('content') is-invalid @enderror" rows="10" name="content" required>{{old('content')}}</textarea>
                                 
                                 @error('content')
                                     <span class="invalid-feedback" role="alert">

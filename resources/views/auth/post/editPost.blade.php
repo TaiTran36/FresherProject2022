@@ -21,7 +21,7 @@
 
                             <div class="col-md-9">
                                 <input id="id" type="hidden" class="form-control" name="id" value="{{$post->id}}">
-                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{$post->title}}" required autofocus>
+                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{old('title', $post->title)}}" required autofocus>
                                 
                                 @error('title')
                                     <span class="invalid-feedback" role="alert">
@@ -35,7 +35,7 @@
                             <label for="url" class="col-md-2 col-form-label text-md-end">{{ __('Url') }}</label>
 
                             <div class="col-md-9">
-                                <input id="url" type="text" class="form-control @error('url') is-invalid @enderror" value="{{$post->url}}" name="url">
+                                <input id="url" type="text" class="form-control @error('url') is-invalid @enderror" value="{{old('url',$post->url)}}" name="url">
                                 
                                 @error('url')
                                     <span class="invalid-feedback" role="alert">
@@ -49,7 +49,7 @@
                             <label for="content" class="col-md-2 col-form-label text-md-end">{{ __('Content') }}</label>
 
                             <div class="col-md-9">
-                                <textarea id="content" type="text" class="form-control @error('content') is-invalid @enderror" rows="10" name="content" required>{{$post->content}}</textarea>
+                                <textarea id="content" type="text" class="form-control @error('content') is-invalid @enderror" rows="10" name="content" required>{{old('content', $post->content)}}</textarea>
                                 
                                 @error('content')
                                     <span class="invalid-feedback" role="alert">
