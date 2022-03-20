@@ -32,7 +32,7 @@
                                     <input id={{$f}} type="email" class="form-control @error($f) is-invalid @enderror" name={{$f}} value="{{old($f, $user->$f)}}" >
                                 @elseif ($f == "photo_url")
                                     <img id="preview-image" class="img img-fluid" style="max-width: 110px; height: auto;" src="{{old(asset('images/'.$f), asset('images/'.$user->$f))}}" alt="">
-                                    <input id={{$f}} type="file" class="hidden form-control-file @error($f) is-invalid @enderror" name={{$f}} value="{{old($f, $user->$f)}}" >
+                                    <input id={{$f}} type="file" onchange="document.getElementById('preview-image').src = window.URL.createObjectURL(this.files[0]);" class="hidden form-control-file @error($f) is-invalid @enderror" name={{$f}} value="{{old($f, $user->$f)}}" >
                                 @else
                                     <input id={{$f}} type="text" class="form-control @error($f) is-invalid @enderror" name={{$f}} value="{{old($f, $user->$f)}}" >
                                 @endif
