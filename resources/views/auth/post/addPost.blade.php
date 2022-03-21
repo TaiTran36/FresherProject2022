@@ -4,27 +4,26 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
+            <div class="card">body">
                     @if($message = Session::get('success'))
                         <div class="alert alert-success"><p>{{$message}}</p></div>
                     @elseif($message = Session::get('error'))
                         <div class="alert alert-success"><p>{{$message}}</p></div>
                     @endif
 
-                    <form method="POST" action="{{ route('post.add') }}">
-                        @csrf
+                    <form method="POST" action="{{ route('post.store') }}">
+
 
                         <div class="row mb-3">
                             <label for="title" class="col-md-2 col-form-label text-md-end">{{ __('Title') }}</label>
 
                             <div class="col-md-9">
-                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{old('title')}}"required autofocus>
+                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{old('title')}}" autofocus>
                                 
                                 @error('title')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
-                                    </span>
+   >
                                 @enderror
                             </div>
                         </div>
