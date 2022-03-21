@@ -114,6 +114,7 @@ class UserController extends Controller
             'phone_number' => $request['phone_number'], 
         ]; 
 
+        $user = $this->userRepository->findUser($dataUpdate['id']);
         if($request->hasFile('photo_url')) {
             $oldPhoto = $user->photo_url; 
             if($oldPhoto != "default-profile.png")
@@ -125,18 +126,15 @@ class UserController extends Controller
             $dataUpdate['photo_url'] = $image_name; 
         }
 
-        try 
+        if ($this->userRepository->checkExist($dataUpdate) == FALSE) 
         {
-            $this->userRepository->updateUser($dataUpdate); 
-
-            return redirect()->route('user.search')
-                ->with('success', 'User updated successfully');
-        } 
-        catch (\Exception $e) 
-        {
-            return back()->with('error', 'User exists')
-                ->withInput($request->all());
+            return back()->with('error', 'User exists')->withInput($request->all());
         }
+        
+        $this->userRepository->updateUser($dataUpdate);
+
+        return redirect()->route('user.search')
+            ->with('success', 'User updated successfully');
     }
 
     /**
