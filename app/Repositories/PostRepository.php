@@ -26,13 +26,33 @@ class PostRepository {
     public function getListPost($data) 
     {
         if(!empty($data)) { 
-            return $this->model->where('title', 'LIKE', "%" . $data['search'] . "%")->latest()->paginate(10);
+            return $this->model->where('title', 'LIKE', "%" . $data['search'] . "%")->latest()->paginate(5)->withQueryString();
         } 
-        return $this->model->latest()->paginate(10); 
+        return $this->model->latest()->paginate(5); 
     }
 
     public function findPost($id) 
     {
         return $this->model->where('id', $id)->first();
+    }
+
+    public function findPostByTitle($data) 
+    {
+        return $this->model->where('title', $data['title'])->first(); 
+    } 
+
+    public function checkExist($data) 
+    {
+        $post = $this->model->where('id', '!=', $data['id'])->where('title', $data['title'])->first();
+        if($post) {
+            return FALSE; 
+        }
+
+        return TRUE; 
+    }
+
+    public function deletePost($id) 
+    {
+        return $this->model->where('id', $id)->delete();
     }
 }
