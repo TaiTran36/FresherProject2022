@@ -20,7 +20,7 @@ class PostsSeeder extends Seeder
         $faker = Faker::create('vi_VN');  
         DB::table('posts')->insert([
             'title' => $faker->sentence($nbWords=6, $variableNbWords=true),
-            'url'=> 'post/',
+            'url'=>  str_replace('+', '-', urlencode($faker->sentence($nbWords=3, $variableNbWords=true))),
             'content'=>$faker->sentence($nbWords=6, $variableNbWords=true),  
             'writer_id'=> random_int(1,3),
         ]);

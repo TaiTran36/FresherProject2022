@@ -9,7 +9,6 @@
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" type="text/css"
             rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap.min.css" type="text/css" rel="stylesheet" />
-
     </head>
 
     <body>

@@ -1,11 +1,11 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => 'dev-develop',
-        'version' => 'dev-develop',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'b140b662942d2f11cdf8db92ff9e151386b91a86',
+        'reference' => '675da1e66d6cd0823b3e8b2333cf7cefcb21b5b8',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -430,6 +430,15 @@
                 0 => 'v9.2.0',
             ),
         ),
+        'jason-guru/laravel-make-repository' => array(
+            'pretty_version' => '0.0.3',
+            'version' => '0.0.3.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../jason-guru/laravel-make-repository',
+            'aliases' => array(),
+            'reference' => '693d3d189c0b19262a896eb888c3a7b870a2de43',
+            'dev_requirement' => true,
+        ),
         'jaybizzle/crawler-detect' => array(
             'pretty_version' => 'v1.2.110',
             'version' => '1.2.110.0',
@@ -482,12 +491,12 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => 'dev-develop',
-            'version' => 'dev-develop',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'b140b662942d2f11cdf8db92ff9e151386b91a86',
+            'reference' => '675da1e66d6cd0823b3e8b2333cf7cefcb21b5b8',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(

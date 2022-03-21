@@ -24,7 +24,7 @@
 
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="{{ asset('/profile/' . Auth::user()->avatar) }}" class="rounded-circle"
+                        <img src="{{ asset('/profile/' . Auth::user()->avatar) }}" onerror="this.src='/profile/error_img/not_found.png'" class="rounded-circle"
                             alt="User Image">
                     </div>
                     <div class="pull-left info">

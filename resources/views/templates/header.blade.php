@@ -1,45 +1,84 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-    <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">
-            {{ config('app.name', 'Laravel') }}
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<style>
+    /* Style the header with a grey background and some padding */
+.header {
+  overflow: hidden;
+  background-color: white;
+  padding: 10px 10px;
+  height: 9%;
+}
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav me-auto">
-            </ul>
+/* Style the header links */
+.header a {
+  float: left;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  line-height: 25px;
+  border-radius: 4px;
+}
 
-            <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ms-auto">
-                <!-- Authentication Links -->
-                @guest
-                    @if (Route::has('login'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                    @endif
+/* Style the logo link (notice that we set the same value of line-height and font-size to prevent the header to increase when the font gets bigger */
+.header a.logo {
+  font-size: 200%;
+  font-weight: bold;
+  padding-left: 15px;
+  padding-top: 10px;
+}
 
-                    @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                    @endif
-                @else
-                    {{-- <img style="width:10%;height:10%" src="{{asset('/profile/'.Auth::user()->avatar)}}" class="rounded-circle" alt="User Image"> --}}
-                    <li>
-                        <a>
-                            {{ Auth::user()->username_login }}
-                        </a> <br>
-                        <a>
-                            {{ Auth::user()->email }}
-                        </a>
-                    </li>
-                @endguest
-            </ul>
-        </div>
+/* Change the background color on mouse-over */
+.header a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Style the active/current link*/
+.header a.active {
+  background-color: dodgerblue;
+  color: white;
+}
+
+/* Float the link section to the right */
+.header-right {
+  float: right;
+  padding-right: 3%;
+}
+
+/* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
+@media screen and (max-width: 500px) {
+  .header a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  .header-right {
+    float: none;
+  }
+}
+
+</style>
+<div class="header">
+    <a href="#default" class="logo">Laravel Project</a>
+    <div class="header-right">
+    @guest
+        @if (Route::has('login'))
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+            </li>
+        @endif
+
+        @if (Route::has('register'))
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+            </li>
+        @endif
+    @else
+            {{-- <img style="width:10%;height:10%" src="{{asset('/profile/'.Auth::user()->avatar)}}" class="rounded-circle" alt="User Image"> --}}
+            <a>
+                {{ Auth::user()->username_login }}
+            </a> <br>
+            <a>
+                {{ Auth::user()->email }}
+            </a>
+    @endguest
     </div>
-</nav>
+  </div>

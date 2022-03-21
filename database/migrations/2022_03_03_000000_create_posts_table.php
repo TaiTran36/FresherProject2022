@@ -21,8 +21,8 @@ return new class extends Migration
             $table->foreignId('writer_id');
             $table->timestamps();
 
-            $table->foreign('writer_id') //cột khóa ngoại là cột `l_ma` trong table `sanpham`
-            ->references('id')->on('users') //cột sẽ tham chiếu đến là cột `l_ma` trong table `loai`
+            $table->foreign('writer_id') 
+            ->references('id')->on('users') 
             ->onDelete('CASCADE')
             ->onUpdate('CASCADE');
         });

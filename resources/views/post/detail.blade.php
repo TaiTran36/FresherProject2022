@@ -7,7 +7,7 @@
     <?php //Hiển thị thông báo thành công
     ?>
     <div class="page-header">
-        <h4>Posts List</h4>
+        <h2>Post Details</h2>
     </div>
 
     @if (Session::has('success'))
@@ -55,7 +55,6 @@
 
                             </tbody>
                         </table>
-                        <center><button type="submit" class="btn btn-primary">Edit</button></center>
                     </form>
                 @endforeach
             </div>

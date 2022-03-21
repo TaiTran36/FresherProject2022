@@ -1,10 +1,12 @@
 <?php
 namespace App\Repositories;
 
+use App\Http\Requests\ProfilesEditRequest;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 
 class UserRepositories
@@ -34,6 +36,7 @@ public function getUser($id){
     return $getData;
 }
 public function create(RegisterRequest $request, string $profile_image_url){
+    $dt = Carbon::now('Asia/Ho_Chi_Minh');
     $data = $request->all();
     $user= User::create([
         'name' => $data['name'],
@@ -46,12 +49,13 @@ public function create(RegisterRequest $request, string $profile_image_url){
         'address'=> $data['address'],
         'phone_number'=> $data['phone_number'],
         'avatar' => $profile_image_url,
+        'created_at'=>$dt->toDateTimeString() 
     ]);
     return $user;
 }
 public function update(Request $request)
 {
-	date_default_timezone_set("Asia/Ho_Chi_Minh");	
+	$dt = Carbon::now('Asia/Ho_Chi_Minh');
 	DB::table('users')->where('id', $request->id)->update([
 		'name' => $request->name,
         'date_of_birth'=> $request->date_of_birth,
@@ -62,7 +66,7 @@ public function update(Request $request)
         'avatar' => $request->avatar,
         'address'=> $request->address,
         'phone_number'=> $request->phone_number,
-		'updated_at' => date('Y-m-d H:i:s')
+        'updated_at'=>$dt->toDateTimeString() 
 	]);
 }
 public function delete($id){

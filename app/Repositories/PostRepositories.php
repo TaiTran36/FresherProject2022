@@ -4,6 +4,7 @@ namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Carbon\Carbon;
 
 class PostRepositories
 {
@@ -36,12 +37,13 @@ public function details($id){
 }
 public function insert(Request $request)
 {
-	date_default_timezone_set("Asia/Ho_Chi_Minh");	
+	$dt = Carbon::now('Asia/Ho_Chi_Minh');
     DB::table('posts')->insert([
         'title' => $request->title,
-        'url'=> $request->url,
+        'url'=> str_replace('+', '-', urlencode($request->url)),
         'content'=>$request->content,  
         'writer_id'=> auth()->user()->id,
+        'created_at'=>$dt->toDateTimeString() 
     ]);
 }
 public function getPost($id)
@@ -56,12 +58,13 @@ public function getPost_writer_id($id)
 }
 public function update(Request $request){
     
-	date_default_timezone_set("Asia/Ho_Chi_Minh");	
+	$dt = Carbon::now('Asia/Ho_Chi_Minh');
  
 	DB::table('posts')->where('id', $request->id)->update([
         'title' => $request->title,
-        'url'=> $request->url,
-        'content'=>$request->content
+        'url'=> str_replace('+', '-',urlencode(urldecode($request->url))),
+        'content'=>$request->content,
+        'updated_at'=>$dt->toDateTimeString() 
     	]);	
 }
 public function delete($id){

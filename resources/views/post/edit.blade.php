@@ -5,7 +5,7 @@
 @section('content')
 
     <div class="page-header">
-        <h4>Edit Post</h4>
+        <h2>Edit Post</h2>
     </div>
 
     <?php //Hiển thị thông báo thành công
@@ -37,7 +37,7 @@
     <p><a class="btn btn-primary" href="/post/list">Back</a></p>
     <div class="col-xs-4 col-xs-offset-4">
         <center>
-            <h4>Edit Post</h4>
+            <h2>Edit Post</h2>
         </center>
         <form action="{{ url('/post/update') }}" method="post">
             <input type="hidden" id="_token" name="_token" value="{!! csrf_token() !!}" />
@@ -58,7 +58,7 @@
                     value="{{ $getpostById[0]->content }}" required />
             </div>
 
-            <center><button type="submit" class="btn btn-primary">Lưu lại</button></center>
+            <center><button type="submit" class="btn btn-primary">Save</button></center>
         </form>
     </div>
 

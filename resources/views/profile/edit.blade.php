@@ -34,10 +34,14 @@
 
     <?php //Hiển thị form sửa
     ?>
+    @if (Auth::user()->can('all user'))
     <p><a class="btn btn-primary" href="/profile/list">Back</a></p>
-    <div class="col-xs-4 col-xs-offset-4">
+@else     
+<p><a class="btn btn-primary" href="/profile/{{ $getprofileById[0]->id }}/details">Back</a></p>
+@endif
+<div class="col-xs-4 col-xs-offset-4">
         <center>
-            <h4>Edit User-profile</h4>
+            <h2>Edit User-profile</h2>
         </center>
         <form action="{{ url('/profile/update') }}" enctype="multipart/form-data" method="post">
             <input type="hidden" id="_token" name="_token" value="{!! csrf_token() !!}" />
@@ -74,8 +78,12 @@
             </div>
             <div class="form-group">
                 <label for="avatar">Avatar</label>
-                <input type="text" class="form-control" id="avatar" name="avatar" placeholder="avatar"
-                    value="{{ $getprofileById[0]->avatar }}" required />
+                <div>
+                <img style="width:7%;height:7%" onerror="this.src='/profile/error_img/not_found.png'"
+                    src="{{ asset('/profile/' .$getprofileById[0]->avatar) }}" alt="User Image">
+                <input type="file" class="form-control" id="avatar" name="avatar" placeholder="avatar"
+                    value="{{ $getprofileById[0]->avatar }}"  />
+                </div>
             </div>
             <div class="form-group">
                 <label for="address">Address</label>
@@ -87,7 +95,7 @@
                 <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="phone number"
                     maxlength="15" value="{{ $getprofileById[0]->phone_number }}" required />
             </div>
-            <center><button type="submit" class="btn btn-primary">Lưu lại</button></center>
+            <center><button type="submit" class="btn btn-primary">Save</button></center>
         </form>
     </div>
 

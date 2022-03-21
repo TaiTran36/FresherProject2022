@@ -136,6 +136,7 @@ class ComposerStaticInit3ba27b6c1896f4c404f3885d0c3b1efc
         array (
             'Jenssegers\\Agent\\' => 17,
             'Jaybizzle\\CrawlerDetect\\' => 24,
+            'JasonGuru\\LaravelMakeRepository\\' => 32,
         ),
         'I' => 
         array (
@@ -466,6 +467,10 @@ class ComposerStaticInit3ba27b6c1896f4c404f3885d0c3b1efc
         array (
             0 => __DIR__ . '/..' . '/jaybizzle/crawler-detect/src',
         ),
+        'JasonGuru\\LaravelMakeRepository\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jason-guru/laravel-make-repository/src',
+        ),
         'Illuminate\\Support\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Macroable',
@@ -645,7 +650,6 @@ class ComposerStaticInit3ba27b6c1896f4c404f3885d0c3b1efc
         'App\\Models\\Permission' => __DIR__ . '/../..' . '/app/Models/Permission.php',
         'App\\Models\\Post' => __DIR__ . '/../..' . '/app/Models/Post.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
-        'App\\Models\\profiles' => __DIR__ . '/../..' . '/app/Models/profiles.php',
         'App\\Notifications\\PasswordReset' => __DIR__ . '/../..' . '/app/Notifications/PasswordReset.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
@@ -654,6 +658,8 @@ class ComposerStaticInit3ba27b6c1896f4c404f3885d0c3b1efc
         'App\\Providers\\FortifyServiceProvider' => __DIR__ . '/../..' . '/app/Providers/FortifyServiceProvider.php',
         'App\\Providers\\JetstreamServiceProvider' => __DIR__ . '/../..' . '/app/Providers/JetstreamServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
+        'App\\Repositories\\PostRepositories' => __DIR__ . '/../..' . '/app/Repositories/PostRepositories.php',
+        'App\\Repositories\\UserRepositories' => __DIR__ . '/../..' . '/app/Repositories/UserRepositories.php',
         'App\\View\\Components\\AppLayout' => __DIR__ . '/../..' . '/app/View/Components/AppLayout.php',
         'App\\View\\Components\\GuestLayout' => __DIR__ . '/../..' . '/app/View/Components/GuestLayout.php',
         'Asm89\\Stack\\Cors' => __DIR__ . '/..' . '/asm89/stack-cors/src/Cors.php',
@@ -3078,6 +3084,11 @@ class ComposerStaticInit3ba27b6c1896f4c404f3885d0c3b1efc
         'Illuminate\\View\\ViewFinderInterface' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewFinderInterface.php',
         'Illuminate\\View\\ViewName' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewName.php',
         'Illuminate\\View\\ViewServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewServiceProvider.php',
+        'JasonGuru\\LaravelMakeRepository\\Exceptions\\GeneralException' => __DIR__ . '/..' . '/jason-guru/laravel-make-repository/src/exceptions/GeneralException.php',
+        'JasonGuru\\LaravelMakeRepository\\MakeRepository' => __DIR__ . '/..' . '/jason-guru/laravel-make-repository/src/MakeRepository.php',
+        'JasonGuru\\LaravelMakeRepository\\RepositoryServiceProvider' => __DIR__ . '/..' . '/jason-guru/laravel-make-repository/src/RepositoryServiceProvider.php',
+        'JasonGuru\\LaravelMakeRepository\\Repository\\BaseRepository' => __DIR__ . '/..' . '/jason-guru/laravel-make-repository/src/repository/BaseRepository.php',
+        'JasonGuru\\LaravelMakeRepository\\Repository\\RepositoryContract' => __DIR__ . '/..' . '/jason-guru/laravel-make-repository/src/repository/RepositoryContract.php',
         'Jaybizzle\\CrawlerDetect\\CrawlerDetect' => __DIR__ . '/..' . '/jaybizzle/crawler-detect/src/CrawlerDetect.php',
         'Jaybizzle\\CrawlerDetect\\Fixtures\\AbstractProvider' => __DIR__ . '/..' . '/jaybizzle/crawler-detect/src/Fixtures/AbstractProvider.php',
         'Jaybizzle\\CrawlerDetect\\Fixtures\\Crawlers' => __DIR__ . '/..' . '/jaybizzle/crawler-detect/src/Fixtures/Crawlers.php',

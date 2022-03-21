@@ -7,7 +7,7 @@
     <?php //Hiển thị thông báo thành công
     ?>
     <div class="page-header">
-        <h4>User-profile</h4>
+        <h2>User-profile</h2>
     </div>
 
     @if (Session::has('success'))
@@ -33,11 +33,10 @@
     @endif
     @if (Auth::user()->can('all user'))
         <p><a class="btn btn-primary" href="/profile/list">Back</a></p>
-    @endcan
+    @endif
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="table-responsive">
-                {{-- <p><a class="btn btn-primary" href="/{{ url('/profile/create') }}">Thêm mới</a></p> --}}
                 @foreach ($profile as $profile)
                     <form action="/profile/{{ $profile->id }}/edit">
                         <table id="DataList" class="table table-bordered table-hover">
@@ -68,7 +67,7 @@
                                 </tr>
                                 <tr>
                                     <td> Avatar</td>
-                                    <td> <img style="width:10%;height:10%"
+                                    <td> <img style="width:10%;height:10%" onerror="this.src='/profile/error_img/not_found.png'"
                                             src="{{ asset('/profile/' . $profile->avatar) }}" alt="User Image"></td>
                                 </tr>
                                 <tr>
@@ -81,7 +80,9 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <center><button type="submit" class="btn btn-primary">Edit</button></center>
+                        @if ($profile->id == Auth::user()->id)
+                        <center><a class="btn btn-primary" href="/profile/{{ $profile->id }}/edit">Edit</a></center>
+                        @endif
                     </form>
                 @endforeach
             </div>

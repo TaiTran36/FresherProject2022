@@ -18,37 +18,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <style>
-        html,
-        body {
-            overflow-x: hidden;
-        }
-
-        #outer-container {
-            display: table;
-            width: 100%;
-            height: 100vh;
-        }
-
-        #sidebar {
-            display: table-cell;
-            width: 15%;
-            position: fixed;
-            overflow: auto;
-            padding-bottom: 100%;
-        }
-
-        #content {
-
-            display: table-cell;
-            background-color: #F4F6F9;
-            width: 85%;
-            height: 100%;
-            vertical-align: top;
-        }
-
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">    <link href="{{ asset('css/app2.css') }}" rel="stylesheet" type="text/css" >
 </head>
 
 <body>
