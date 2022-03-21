@@ -43,7 +43,7 @@ class PostController extends Controller
 
         $fields = array("title" => "Title", "author" => "Author", "created_at" => "Created_at", "action" => "Action");
         return view('auth.post.listPost', compact('posts', 'fields'))
-            ->with('i', (request()->input('page', 1) - 1) * 10);
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -73,16 +73,13 @@ class PostController extends Controller
             'content' => $request['content'],
         ];
 
-        try 
-        {
-            $this->postRepository->createPost($dataInsert); 
-            
-            return redirect()->route('home')->with('status', 'Post created successfully!'); 
+        if($this->postRepository->findPostByTitle($dataInsert)) {
+            return back()->with('error', 'Post exists'); 
         } 
-        catch (\Exception $e) 
-        {
-            return back()->with('error', 'Post exists')->withInput($request->all()); 
-        }
+        
+        $this->postRepository->createPost($dataInsert); 
+
+        return redirect()->route('post.search')->with('status', 'Post created successfully!'); 
     }
 
     /**
@@ -91,9 +88,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($postId)
     {
-        //
+        $post = $this->postRepository->findPost($postId);
+        
+        return view('auth.post.showPost', compact('post')); 
     }
 
     /**
@@ -118,25 +117,24 @@ class PostController extends Controller
      */
     public function update(PostRequest $request)
     {
+        $url = Str::replace(' ', '-', $request['url']);
+
         $dataUpdate = [
             'id' => $request['id'],
             'title' => $request['title'],
-            'url' => $request['url'],
+            'url' => $url,
             'content' => $request['content'],
-        ];
+        ];  
 
-        try 
+        if ($this->postRepository->checkExist($dataUpdate) == FALSE) 
         {
-            $this->postRepository->updatePost($dataUpdate);
+            return back()->with('error', 'Post exists')->withInput($request->all());
+        } 
             
-            return redirect()->route('post.search')
-                ->with('success', 'Post updated successfully'); 
-        } 
-        catch (\Exception $e) 
-        {
-            return back()->with('error', 'Post exists')
-                ->withInput($request->all()); 
-        } 
+        $this->postRepository->updatePost($dataUpdate);
+            
+        return redirect()->route('post.search')
+            ->with('success', 'Post updated successfully'); 
     }
 
     /**
@@ -145,9 +143,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($postId)
     {
-        //
+        $this->postRepository->deletePost($postId); 
+
+        return redirect()->route('post.search')->with('success', 'Post deleted successfully!'); 
     }
 
     public function search(Request $request) 

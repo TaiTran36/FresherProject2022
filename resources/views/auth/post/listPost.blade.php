@@ -56,10 +56,28 @@
                                             <td>{{ $post->$f }}</td>
                                         @endforeach
                                         <td>
-                                            <a class="btn btn-primary" name="detail" value="detail"
-                                                href="{{ route('post.edit', $post->id) }}">
-                                                {{ __('Detail') }}
+                                            <div class="row">
+                                            <div class="col-md-3">
+                                            <a class="btn btn-info" href="{{ route('post.show', $post->id) }}">
+                                                {{ __('Show') }}
+                                            </a> 
+                                            </div>
+                                            <div class="col-md-3">
+                                            <a class="btn btn-primary" href="{{ route('post.edit', $post->id) }}">
+                                                {{ __('Edit') }}
                                             </a>
+                                            </div>
+                                            <div class="col-md-3">
+                                            <a class="btn btn-danger" href="{{ route('post.delete', $post->id) }}"
+                                                onclick="event.preventDefault(); document.getElementById('delete-post').submit();">
+                                                {{ __('Delete') }}
+                                            </a>                  
+                                            
+                                            <form id="delete-post" action="{{ route('post.delete', $post->id) }}" method="POST" class="d-none">
+                                                @csrf 
+                                                @method('DELETE')
+                                            </form>
+                                            </div></div>
                                         </td>
                                     </tr>
                                 @endforeach   

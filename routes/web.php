@@ -27,12 +27,14 @@ Route::get('/user/profile', [App\Http\Controllers\Auth\ProfileController::class,
 Route::post('/user/profile', [App\Http\Controllers\Auth\ProfileController::class, 'update'])->name('profile'); 
 
 Route::get('post', [App\Http\Controllers\Admin\PostController::class, 'index'])->name('post.search'); 
+Route::get('post/{id}', [App\Http\Controllers\Admin\PostController::class, 'show'])->name('post.show'); 
 Route::get('post/create', [App\Http\Controllers\Admin\PostController::class, 'create'])->name('post.add'); 
-Route::post('post/create', [App\Http\Controllers\Admin\PostController::class, 'store'])->name('post.add'); 
+Route::post('post', [App\Http\Controllers\Admin\PostController::class, 'store'])->name('post.store'); 
 Route::get('post/{id}/edit', [App\Http\Controllers\Admin\PostController::class, 'edit'])
     ->name('post.edit');
 Route::put('post/{id}', [App\Http\Controllers\Admin\PostController::class, 'update'])
     ->name('post.update');   
+Route::delete('post/{id}', [App\Http\Controllers\Admin\PostController::class, 'destroy'])->name('post.delete');
 
 Route::get('user', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('user.search');
 Route::get('user/create', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('user.add'); 
@@ -43,3 +45,5 @@ Route::put('user/{id}', [App\Http\Controllers\Admin\UserController::class, 'upda
     ->name('user.update'); 
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
+
+Route::get('/demo', [App\Http\Controllers\DemoController::class, 'show'])->name('demo');
