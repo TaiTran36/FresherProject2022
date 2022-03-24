@@ -22,7 +22,7 @@ class PostSeeder extends Seeder
             Post::create([
                 'author' => User::where('role', 3)->select('username_login')->inRandomOrder()->first()['username_login'],
                 'title' => $fake->text($maxNbChars = 80),
-                'content' => $fake->realText(),
+                'content' => $fake->realText(rand(250, 10000)),
             ]);
         }
     }

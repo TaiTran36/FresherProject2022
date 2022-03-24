@@ -36,14 +36,10 @@ class PostRepository {
         return $this->model->where('id', $id)->first();
     }
 
-    public function findPostByTitle($data) 
+    public function checkExistUrl($data) 
     {
-        return $this->model->where('title', $data['title'])->first(); 
-    } 
+        $post = $this->model->where('id', '!=', $data['id'])->where('url', $data['url'])->first(); 
 
-    public function checkExist($data) 
-    {
-        $post = $this->model->where('id', '!=', $data['id'])->where('title', $data['title'])->first();
         if($post) {
             return FALSE; 
         }

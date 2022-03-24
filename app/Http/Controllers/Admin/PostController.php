@@ -75,9 +75,10 @@ class PostController extends Controller
             'content' => $request['content'],
         ];
 
-        if($this->postRepository->findPostByTitle($dataInsert)) {
-            return back()->with('error', 'Post exists'); 
-        } 
+        if ($this->postRepository->checkExistUrl($dataUpdate) == FALSE) 
+        {
+            return back()->with('error', 'Url exists')->withInput($request->all());
+        }  
         
         $this->postRepository->createPost($dataInsert); 
 
@@ -129,11 +130,6 @@ class PostController extends Controller
             'url' => $url,
             'content' => $request['content'],
         ];  
-
-        if ($this->postRepository->checkExistTitle($dataUpdate) == FALSE) 
-        {
-            return back()->with('error', 'Title exists')->withInput($request->all());
-        } 
 
         if ($this->postRepository->checkExistUrl($dataUpdate) == FALSE) 
         {
