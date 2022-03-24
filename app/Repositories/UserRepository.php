@@ -20,9 +20,9 @@ class UserRepository {
     public function getListUser($data) 
     {
         if(!empty($data)) { 
-            return $this->model->where('name', 'LIKE', "%" . $data['search'] . "%")->paginate(10);
+            return $this->model->where('name', 'LIKE', "%" . $data['search'] . "%")->paginate(5)->withQueryString();
         } 
-        return $this->model->paginate(10); 
+        return $this->model->paginate(5); 
     }
 
     public function findUser($id) 
