@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <form method="GET" action="{{ route('post.show', $post->id) }}">
+                    <form method="GET" action="{{ ($post->url == null) ? route('post.show', $post->id) : route('post.show', $post->url) }}">
                         <div class="row mb-3">
                             <label for="title" class="col-md-2 col-form-label text-md-end">{{ __('Title') }}</label>
 

@@ -13,7 +13,7 @@
                     @endif
 
                     <form method="POST" action="{{ route('post.store') }}">
-
+                        @csrf 
 
                         <div class="row mb-3">
                             <label for="title" class="col-md-2 col-form-label text-md-end">{{ __('Title') }}</label>

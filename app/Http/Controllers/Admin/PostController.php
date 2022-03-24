@@ -67,15 +67,20 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         $user = Auth::user(); 
-
+        $title = $request['title']; 
+        if(empty($title)) 
+        {
+            $title = Str::limit($request['content'], $limit = 70, $end = '...'); 
+        }
+        
         $dataInsert = [
-            'title' => $request['title'], 
+            'title' => $title, 
             'author' => $user->username_login, 
             'url' => $request['url'],
             'content' => $request['content'],
         ];
 
-        if ($this->postRepository->checkExistUrl($dataUpdate) == FALSE) 
+        if ($this->postRepository->findPostByUrl($dataInsert['url']) == FALSE) 
         {
             return back()->with('error', 'Url exists')->withInput($request->all());
         }  
@@ -93,8 +98,13 @@ class PostController extends Controller
      */
     public function show($postId)
     {
-        $post = $this->postRepository->findPost($postId);
-        
+        if (is_numeric($postId)) 
+        {
+            $post = $this->postRepository->findPost($postId);
+        } else {
+            $post = $this->postRepository->findPostByUrl($postId);
+        }
+
         return view('auth.post.showPost', compact('post')); 
     }
 
@@ -108,7 +118,12 @@ class PostController extends Controller
     {
         if (!$this->userCan('edit-another-post'))  abort('403', __('Access denied'));
 
-        $post = $this->postRepository->findPost($postId);
+        if (is_numeric($postId)) 
+        {
+            $post = $this->postRepository->findPost($postId);
+        } else {
+            $post = $this->postRepository->findPostByUrl($postId);
+        }
 
         return view('auth.post.editPost', compact('post')); 
     }

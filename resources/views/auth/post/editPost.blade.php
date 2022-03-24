@@ -12,7 +12,7 @@
                         <div class="alert alert-success"><p>{{$message}}</p></div>
                     @endif
 
-                    <form method="POST" action="{{ route('post.update', $post->id) }}">
+                    <form method="POST" action="{{ ($post->url == null) ? route('post.edit', $post->id) : route('post.edit', $post->url) }}">
                         @csrf
                         @method('PUT')
 

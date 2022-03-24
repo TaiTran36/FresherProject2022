@@ -36,6 +36,11 @@ class PostRepository {
         return $this->model->where('id', $id)->first();
     }
 
+    public function findPostByUrl($url) 
+    {
+        return $this->model->where('url', $url)->first();
+    }
+
     public function checkExistUrl($data) 
     {
         $post = $this->model->where('id', '!=', $data['id'])->where('url', $data['url'])->first(); 

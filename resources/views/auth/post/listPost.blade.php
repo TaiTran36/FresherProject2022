@@ -59,30 +59,32 @@
                                 <td>
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <a class="btn btn-info" href="{{ route('post.show', $post->id) }}">
+                                            <a class="btn btn-info" 
+                                                href="{{ ($post->url == null) ? route('post.show', $post->id) : route('post.show', $post->url) }}">
                                                 {{ __('Show') }}
                                             </a>
                                         </div>
 
                                         @if (Auth::check() && Auth::user()->role == 1)
-                                        <div class="col-md-3">
-                                            <a class="btn btn-primary" href="{{ route('post.edit', $post->id) }}">
-                                                {{ __('Edit') }}
-                                            </a>
-                                        </div>
+                                            <div class="col-md-3">
+                                                <a class="btn btn-primary" 
+                                                    href="{{ ($post->url == null) ? route('post.edit', $post->id) : route('post.edit', $post->url) }}">
+                                                    {{ __('Edit') }}
+                                                </a>
+                                            </div>
 
-                                        <div class="col-md-3">
-                                            <a class="btn btn-danger" href="{{ route('post.destroy', $post->id) }}"
-                                                onclick="event.preventDefault(); document.getElementById('delete-post').submit();">
-                                                {{ __('Delete') }}
-                                            </a>
+                                            <div class="col-md-3">
+                                                <a class="btn btn-danger" href="{{ route('post.destroy', $post->id) }}"
+                                                    onclick="event.preventDefault(); document.getElementById('delete-post').submit();">
+                                                    {{ __('Delete') }}
+                                                </a>
 
-                                            <form id="delete-post" action="{{ route('post.destroy', $post->id) }}"
-                                                method="POST" class="d-none">
-                                                @csrf
-                                                @method('DELETE')
-                                            </form>
-                                        </div>
+                                                <form id="delete-post" action="{{ route('post.destroy', $post->id) }}"
+                                                    method="POST" class="d-none">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+                                            </div>
                                         @endif
                                     </div>
                                 </td>
@@ -93,11 +95,11 @@
                 </div>
             </div>
         </div>
-        <div>
-        </div>
+    <div>
+</div>
 
-        <div class="d-flex justify-content-center">
-            {{ $posts->links() }}
-        </div>
+<div class="d-flex justify-content-center">
+    {{ $posts->links() }}
+</div>
 
-        @endsection
+@endsection
