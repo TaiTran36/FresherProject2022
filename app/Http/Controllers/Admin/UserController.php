@@ -76,7 +76,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = $this->userRepository->findUser($id); 
-        $fields = array("name" => "Name", "photo_url" => "Avatar", "email" => "Email", "phone_number" => "Phone number", "action" => "Action");
+        $fields = array("name" => "Name", "photo_url" => "Avatar", "email" => "Email", "phone_number" => "Phone number");
         return view('auth.user.showUser', compact('user', 'fields'));  
     }
 
