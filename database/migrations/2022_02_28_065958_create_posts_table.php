@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('author');
-            $table->string('title')->unique();
+            $table->string('title');
             $table->string('url')->unique()->nullable();
             $table->text('content');
             $table->timestamp('created_at')->useCurrent();
