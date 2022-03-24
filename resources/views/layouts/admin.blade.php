@@ -111,9 +111,9 @@
             </div>
         </aside>
 
-        <div class="content-wrapper"> 
+        <main class="content-wrapper"> 
             @yield('content-admin')
-        </div>
+        </main>
 
         <footer class="main-footer">
             <p> Copyright &copy; 
