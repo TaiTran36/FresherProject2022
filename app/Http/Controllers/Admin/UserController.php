@@ -75,7 +75,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = $this->userRepository->findUser($id); 
+        $fields = array("name" => "Name", "photo_url" => "Avatar", "email" => "Email", "phone_number" => "Phone number", "action" => "Action");
+        return view('auth.user.showUser', compact('user', 'fields'));  
     }
 
     /**
@@ -145,6 +147,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->userRepository->deleteUser($id); 
+
+        return redirect()->route('user.search')->with('success', 'User deleted successfully!');
     }
 }

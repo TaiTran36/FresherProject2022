@@ -39,4 +39,9 @@ class UserRepository {
 
         return TRUE; 
     }
+
+    public function deleteUser($id) 
+    {
+        return $this->model->where('id', $id)->delete();  
+    }
 }
