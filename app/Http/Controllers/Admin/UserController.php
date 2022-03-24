@@ -77,6 +77,7 @@ class UserController extends Controller
     {
         $user = $this->userRepository->findUser($id); 
         $fields = array("name" => "Name", "photo_url" => "Avatar", "email" => "Email", "phone_number" => "Phone number");
+       
         return view('auth.user.showUser', compact('user', 'fields'));  
     }
 
@@ -88,6 +89,8 @@ class UserController extends Controller
      */
     public function edit($userId)
     { 
+        if (!$this->userCan('edit-another-profile'))  abort('403', __('Access denied'));
+
         $user = $this->userRepository->findUser($userId); 
 
         $fields = array("name" => "Name", "username_login" => "Username", "nickname" => "Nickname", 'birth_of_date' => "Birthday", 
@@ -147,6 +150,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        if (!$this->userCan('delete-user'))  abort('403', __('Access denied'));
+
         $this->userRepository->deleteUser($id); 
 
         return redirect()->route('user.search')->with('success', 'User deleted successfully!');

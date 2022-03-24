@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Post;
+use App\Policies\PostPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -13,7 +15,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        // 'App\Models\Model' => 'App\Policies\ModelPolicy', 
+        Post::class => PostPolicy::class,
     ];
 
     /**
@@ -37,6 +40,12 @@ class AuthServiceProvider extends ServiceProvider
             return false; 
         });
 
+        Gate::define('delete-user', function ($user) {
+            if ($user->role == 1) 
+                return true; 
+            return false; 
+        });
+
         Gate::define('view-list-post', function ($user) {
             if ($user->role == 1 or $user->role == 2) 
                 return true; 
@@ -50,6 +59,12 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('edit-another-post', function ($user) {
+            if ($user->role == 1 or $user->role == 2) 
+                return true; 
+            return false; 
+        });
+
+        Gate::define('delete-another-post', function ($user) {
             if ($user->role == 1 or $user->role == 2) 
                 return true; 
             return false; 

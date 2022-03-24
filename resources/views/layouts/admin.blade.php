@@ -59,11 +59,19 @@
         </nav>
 
         <aside id="sidebar" class="main-sidebar sidebar-dark-primary elevation-4">
-            <a class="brand-link" href="{{ url('/admin') }}">
-                <span class="brand-text font-weight-light">
-                    {{ __('Admin') }}
-                </span>
-            </a>
+            @if (Auth::user()->role == 1) 
+                <a class="brand-link" href="{{ url('/admin') }}">
+                    <span class="brand-text font-weight-light">
+                        {{ __('Admin') }}
+                    </span>
+                </a>
+            @elseif (Auth::user()->role == 2) 
+                <a class="brand-link" href="{{ url('/modder') }}">
+                    <span class="brand-text font-weight-light">
+                        {{ __('Modder') }}
+                    </span>
+                </a>
+            @endif
 
             <div class="sidebar">
             <nav class="mt-2">

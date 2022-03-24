@@ -53,6 +53,8 @@ class PostController extends Controller
      */
     public function create()
     {
+        if (!$this->userCan('create-post'))  abort('403', __('Access denied'));
+
         return view('auth.post.addPost'); 
     }
 
@@ -103,6 +105,8 @@ class PostController extends Controller
      */
     public function edit($postId)
     {
+        if (!$this->userCan('edit-another-post'))  abort('403', __('Access denied'));
+
         $post = $this->postRepository->findPost($postId);
 
         return view('auth.post.editPost', compact('post')); 
@@ -126,9 +130,14 @@ class PostController extends Controller
             'content' => $request['content'],
         ];  
 
-        if ($this->postRepository->checkExist($dataUpdate) == FALSE) 
+        if ($this->postRepository->checkExistTitle($dataUpdate) == FALSE) 
         {
-            return back()->with('error', 'Post exists')->withInput($request->all());
+            return back()->with('error', 'Title exists')->withInput($request->all());
+        } 
+
+        if ($this->postRepository->checkExistUrl($dataUpdate) == FALSE) 
+        {
+            return back()->with('error', 'Url exists')->withInput($request->all());
         } 
             
         $this->postRepository->updatePost($dataUpdate);
@@ -145,6 +154,8 @@ class PostController extends Controller
      */
     public function destroy($postId)
     {
+        if (!$this->userCan('delete-another-post'))  abort('403', __('Access denied'));
+
         $this->postRepository->deletePost($postId); 
 
         return redirect()->route('post.search')->with('success', 'Post deleted successfully!'); 
