@@ -57,27 +57,32 @@
                                         @endforeach
                                         <td>
                                             <div class="row">
-                                            <div class="col-md-3">
-                                            <a class="btn btn-info" href="{{ route('post.show', $post->id) }}">
-                                                {{ __('Show') }}
-                                            </a> 
+                                                <div class="col-md-3">
+                                                    <a class="btn btn-info" href="{{ route('post.show', $post->id) }}">
+                                                        {{ __('Show') }}
+                                                    </a> 
+                                                </div>
+
+                                                @if (Auth::check() && Auth::user()->role == 1)
+                                                    <div class="col-md-3">
+                                                        <a class="btn btn-primary" href="{{ route('post.edit', $post->id) }}">
+                                                            {{ __('Edit') }}
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                        <a class="btn btn-danger" href="{{ route('post.destroy', $post->id) }}"
+                                                            onclick="event.preventDefault(); document.getElementById('delete-post').submit();">
+                                                            {{ __('Delete') }}
+                                                        </a>                  
+                                                        
+                                                        <form id="delete-post" action="{{ route('post.destroy', $post->id) }}" method="POST" class="d-none">
+                                                            @csrf 
+                                                            @method('DELETE')
+                                                        </form>
+                                                    </div>
+                                                @endif
                                             </div>
-                                            <div class="col-md-3">
-                                            <a class="btn btn-primary" href="{{ route('post.edit', $post->id) }}">
-                                                {{ __('Edit') }}
-                                            </a>
-                                            </div>
-                                            <div class="col-md-3">
-                                            <a class="btn btn-danger" href="{{ route('post.delete', $post->id) }}"
-                                                onclick="event.preventDefault(); document.getElementById('delete-post').submit();">
-                                                {{ __('Delete') }}
-                                            </a>                  
-                                            
-                                            <form id="delete-post" action="{{ route('post.delete', $post->id) }}" method="POST" class="d-none">
-                                                @csrf 
-                                                @method('DELETE')
-                                            </form>
-                                            </div></div>
                                         </td>
                                     </tr>
                                 @endforeach   
@@ -89,6 +94,8 @@
     <div> 
 </div>
 
-{{ $posts->links() }}
+<div class="d-flex justify-content-center">
+    {{ $posts->links() }}
+</div>
 
 @endsection 
