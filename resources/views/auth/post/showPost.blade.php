@@ -6,12 +6,6 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    @if($message = Session::get('success'))
-                        <div class="alert alert-success"><p>{{$message}}</p></div>
-                    @elseif($message = Session::get('error'))
-                        <div class="alert alert-success"><p>{{$message}}</p></div>
-                    @endif
-
                     <form method="GET" action="{{ route('post.show', $post->id) }}">
                         <div class="row mb-3">
                             <label for="title" class="col-md-2 col-form-label text-md-end">{{ __('Title') }}</label>
