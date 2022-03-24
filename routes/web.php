@@ -26,23 +26,23 @@ Route::post('/passwords/reset', [App\Http\Controllers\Auth\ResetPasswordControll
 Route::get('/user/profile', [App\Http\Controllers\Auth\ProfileController::class, 'show'])->name('profile');
 Route::post('/user/profile', [App\Http\Controllers\Auth\ProfileController::class, 'update'])->name('profile'); 
 
-Route::get('post', [App\Http\Controllers\Admin\PostController::class, 'index'])->name('post.search'); 
-Route::get('post/{id}', [App\Http\Controllers\Admin\PostController::class, 'show'])->name('post.show'); 
-Route::get('post/create', [App\Http\Controllers\Admin\PostController::class, 'create'])->name('post.add'); 
+Route::get('post', [App\Http\Controllers\Admin\PostController::class, 'index'])->name('post.search');  
+Route::get('post/create', [App\Http\Controllers\Admin\PostController::class, 'create'])->name('post.create'); 
+Route::get('post/{id}', [App\Http\Controllers\Admin\PostController::class, 'show'])->name('post.show');
 Route::post('post', [App\Http\Controllers\Admin\PostController::class, 'store'])->name('post.store'); 
 Route::get('post/{id}/edit', [App\Http\Controllers\Admin\PostController::class, 'edit'])
     ->name('post.edit');
 Route::put('post/{id}', [App\Http\Controllers\Admin\PostController::class, 'update'])
     ->name('post.update');   
-Route::delete('post/{id}', [App\Http\Controllers\Admin\PostController::class, 'destroy'])->name('post.delete');
+Route::delete('post/{id}', [App\Http\Controllers\Admin\PostController::class, 'destroy'])->name('post.destroy');
 
 Route::get('user', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('user.search');
-Route::get('user/create', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('user.add'); 
-Route::post('user/create', [App\Http\Controllers\Admin\UserController::class, 'store'])->name('user.add'); 
+Route::get('user/{id}', [App\Http\Controllers\Admin\UserController::class, 'show'])->name('user.show');
 Route::get('user/{id}/edit', [App\Http\Controllers\Admin\UserController::class, 'edit'])
     ->name('user.edit');
 Route::put('user/{id}', [App\Http\Controllers\Admin\UserController::class, 'update'])
     ->name('user.update'); 
+Route::delete('user/{id}', [App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('user.destroy');
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
 

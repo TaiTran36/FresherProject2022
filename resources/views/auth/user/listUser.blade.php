@@ -63,10 +63,33 @@
                                             @endif
                                         @endforeach
                                         <td>
-                                            <a type="submit" class="btn btn-primary" name="detail" value="detail"
-                                                href="{{ route('user.edit', $user->id) }}">
-                                                {{ __('Detail') }}
-                                            </a>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <a class="btn btn-info" href="{{ route('user.show', $user->id) }}">
+                                                        {{ __('Show') }}
+                                                    </a>
+                                                </div>
+
+                                                @if (Auth::check() && Auth::user()->role == 1)
+                                                    <div class="col-md-3">
+                                                        <a class="btn btn-primary" href="{{ route('user.edit', $user->id) }}">
+                                                            {{ __('Edit') }}
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                        <a class="btn btn-danger" href="{{ route('user.destroy', $user->id) }}"
+                                                            onclick="event.preventDefault(); document.getElementById('delete-user').submit();">
+                                                            {{ __('Delete') }}
+                                                        </a>                  
+                                                        
+                                                        <form id="delete-user" action="{{ route('user.destroy', $user->id) }}" method="POST" class="d-none">
+                                                            @csrf 
+                                                            @method('DELETE')
+                                                        </form>
+                                                    </div>
+                                                @endif
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach   
