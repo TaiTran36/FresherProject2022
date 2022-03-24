@@ -61,7 +61,7 @@
                                     <a class="dropdown-item" href="{{ route('profile') }}">{{ __('Profile') }}</a>
                                     
                                     @if (Auth::check() && Auth::user()->role == 3)
-                                        <a class="dropdown-item" href="{{ route('post.add') }}">{{ __('Add post') }}</a>
+                                        <a class="dropdown-item" href="{{ route('post.create') }}">{{ __('Add post') }}</a>
                                     @endif
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
