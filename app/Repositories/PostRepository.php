@@ -14,14 +14,9 @@ class PostRepository
     }
     public function listPost()
     {
-        
+        return $this->model->with('userInfo')->paginate(1);
     }
-
-    public function getUserId()
-    {
-        return $this->model->with('userInfo')->where('user_id', Auth::id())->get();
-    }
-
+    
     public function find($id)
     {
         return $this->model->find($id);
@@ -40,6 +35,6 @@ class PostRepository
 
     public function searchPost($search)
     {
-        return $this->model->where('post_title', 'like', "%$search%")->get();
+        return $this->model->where('post_title', 'like', "%$search%")->paginate(1);
     }
 }

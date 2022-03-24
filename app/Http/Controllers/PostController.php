@@ -42,7 +42,7 @@ class PostController extends Controller
     function list()
     {
 
-        $post = Post::with('userInfo')->where('user_id', Auth::id())->get();
+        $post = $this->postRepository->listPost();
         if ($post->isEmpty()) {
             return redirect('post/add');
         }
@@ -51,27 +51,26 @@ class PostController extends Controller
             $auth_id = $value['userInfo']['role_id'];
         }
 
-        if ($auth_id == 1) {
-
-            $users = Post::with('userInfo')
-                ->get();
-            $list = Profile::get();
-        } else if ($auth_id == 2) {
-            $users = Post::with('userInfo')->where('user_id', '<>', 1)
-                ->get();
-            $list = Profile::where('id', '<>', 1)->get();
-        } else {
-            $users = Post::with('userInfo')->where('user_id', $auth_id)
-                ->get();
-            $list = Profile::where('id', $auth_id)->get();
-        }
+        // if ($auth_id == 1) {
+        //     $users = Post::with('userInfo')
+        //         ->paginate(1);
+        //     $list = Profile::paginate(1);
+        // }
+        // if ($auth_id == 2) {
+        //     $users = Post::with('userInfo')->where('user_id', '<>', 1)
+        //         ->paginate(1);
+        //     $list = Profile::where('id', '<>', 1)->paginate(1);
+        // } else {
+            // $users = Post::with('userInfo')->where('user_id', $auth_id)
+            //     ->paginate(1);
+            // $list = Profile::where('id', $auth_id)->paginate(1);
+        //}
 
         $data = [
             'posts' => $post,
             'auth_id' => $auth_id,
 
         ];
-
         return view('post.list', compact('data'));
     }
 
@@ -97,14 +96,14 @@ class PostController extends Controller
         $data['post_body'] = $request->input('post_body');
         $data['post_url'] = $request->input('post_url');
         $data['post_author'] = $request->input('post_author');
-        
+
         $this->postRepository->updatePost($data, $id);
-        
+
         return redirect('post/list')->with('status', 'Sửa thành công');
     }
     public function show($id)
     {
-        $posts = Post::find($id);
+        $posts = $this->postRepository->find($id);
         return view('post.show', compact('posts'));
     }
 
@@ -112,6 +111,7 @@ class PostController extends Controller
     {
         $search = $request->input('search');
         $searchTitle = $this->postRepository->searchPost($search);
+        $searchTitle->append($request->all());
         return view('post.search', compact('searchTitle'));
     }
 }

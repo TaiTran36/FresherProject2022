@@ -1,6 +1,6 @@
 <?php
 $list = $data['data'];
-$menu = $data['menu'];
+// $menu = $data['menu'];
 $auth_id = $data['auth_id'];
 
 ?>
@@ -9,10 +9,13 @@ $auth_id = $data['auth_id'];
 <div id="content" class="container-fluid">
     <div class="card">
         <div class="form-search form-inline">
-        <form action="{{route('admin.search')}}" method="POST">
+            <form action="{{route('admin.search')}}" method="POST">
                 @csrf
+                @if($auth_id==1 or $auth_id == 2)
                 <input type="search" name="search" class="form-control form-search" placeholder="Tìm kiếm" value="">
+
                 <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                @endif
             </form>
         </div>
         <div class="card-header font-weight-bold d-flex justify-content-between align-items-center">
@@ -49,12 +52,14 @@ $auth_id = $data['auth_id'];
                 <tbody>
                     @foreach($list as $key => $user)
                     <tr>
+
                         <td>
                             <input type="checkbox">
                         </td>
                         <td scope="row">{{$key+1}}</td>
                         <td>{{$user->name}}</td>
-                        <td><img src="{{ asset('uploads/profiles/'.$user->avatar) }}" alt="" style="width: 100px"></td>
+                        <td><img src="{{ asset(!empty($user->avatar == 'photo_default.png' ) ? 'images/photo_default.png' : 'uploads/profiles/' . $user->avatar) }}" alt="" height="120" width="120"></td>
+
                         <td>{{$user->email}}</td>
                         <td>{{$user->phone}}</td>
 
@@ -70,21 +75,33 @@ $auth_id = $data['auth_id'];
 
                         @if($auth_id==2)
                         <td>
+                            @if(Auth::id() == $user->id)
+                            <a href="{{route('admin.edit', $user->id)}}" class="btn btn-success btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
+                            @endif
                             <a href="{{route('admin.show', $user->id)}}" class="btn btn-warning btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Show"><i class="fa fa-eye" aria-hidden="true"></i></a>
+
+                        </td>
+                        @endif
+                        @if($auth_id==3)
+                        <td>
+                            @if(Auth::id() == $user->id)
+                            <a href="{{route('admin.edit', $user->id)}}" class="btn btn-success btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
+                            @endif
+                            <a href="{{route('admin.show', $user->id)}}" class="btn btn-warning btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Show"><i class="fa fa-eye" aria-hidden="true"></i></a>
+
                         </td>
                         @endif
 
-                        @if($auth_id==3)
-                        <td>
-                            <a href="{{route('admin.edit', $user->id)}}" class="btn btn-success btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
-                            <a href="{{route('admin.show', $user->id)}}" class="btn btn-warning btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Show"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                        </td>
-                        @endif
                     </tr>
                     @endforeach
 
 
             </table>
+
+        </div>
+        <div class="d-flex justify-content-center">
+
+            <span style="">{{ $list->links('pagination::bootstrap-4') }}</span>
 
         </div>
     </div>

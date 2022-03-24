@@ -54,4 +54,5 @@ class Profile extends Authenticatable
     public function role() {
         return $this->belongsTo('App\Models\Role');
     }
+    
 }

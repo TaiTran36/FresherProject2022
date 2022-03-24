@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('username_login');
             $table->string('email');
             $table->string('description')->nullable();
-            $table->string('avatar')->default('uploads/profiles/photo_default.png');
+            $table->string('avatar');
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
             $table->integer('role_id')->default(3);

@@ -50,10 +50,17 @@
 
                     </tr>
                     @endforeach
+
+                    
                     @endif
 
                 </tbody>
             </table>
+
+        </div>
+        <div class="d-flex justify-content-center">
+
+            <span>{{ $searchName->links('pagination::bootstrap-4') }}</span>
 
         </div>
     </div>

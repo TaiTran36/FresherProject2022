@@ -37,18 +37,36 @@ $auth_id = $data['auth_id'];
                         <td>{{$post->post_title}}</td>
                         <td>{{$post->post_author}}</td>
                         <td>{{$post->created_at}}</td>
+                        @if($auth_id == 1 or $auth_id == 2)
                         <td>
-
+                            
                             <a href="{{route('post.edit', $post->id)}}" class="btn btn-success btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
                             <a href="{{route('delete_post', $post->id)}}" class="btn btn-danger btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
                             <a href="{{route('post.show', $post->id)}}" class="btn btn-warning btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Show"><i class="fa fa-eye" aria-hidden="true"></i></a>
-
+                            
                         </td>
+                        @endif
+                        @if($auth_id == 3)
+                        <td>
+                            @if(Auth::id() == $post->id)
+                            <a href="{{route('post.edit', $post->id)}}" class="btn btn-success btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
+                            <a href="{{route('delete_post', $post->id)}}" class="btn btn-danger btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
+                            @endif
+                            <a href="{{route('post.show', $post->id)}}" class="btn btn-warning btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Show"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                            
+                        </td>
+                        @endif
+                        
                     </tr>
 
                     @endforeach
                 </tbody>
             </table>
+
+        </div>
+        <div class="d-flex justify-content-center">
+
+            <span>{{ $posts->links('pagination::bootstrap-4') }}</span>
 
         </div>
     </div>

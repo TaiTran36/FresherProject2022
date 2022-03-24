@@ -3,7 +3,7 @@
 <div id="content" class="container-fluid">
     <div class="card">
         <div class="card-header font-weight-bold">
-            Chỉnh sửa người dùng
+            Thông tin người dùng
         </div>
         <div class="card-body">
             <form action="" method="POST">
@@ -47,7 +47,9 @@
                 </div>
                 <div class="form-group">
                     <label for="avatar">Avatar</label>
-                    <input class="form-control" type="text" value="{{$user->avatar}}" name="avatar" id="avatar" disabled>
+                    <!-- <input class="form-control" type="file" value="" name="avatar" id="avatar"> -->
+                    <br>
+                    <img src="{{ asset('uploads/profiles/'.$user->avatar) }}" alt="" style="width: 200px">
                     @error('avatar')
                         <small class="text-danger">{{$message}}</small>
                     @enderror
@@ -66,7 +68,7 @@
                         <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
-                
+               
             </form>
         </div>
     </div>

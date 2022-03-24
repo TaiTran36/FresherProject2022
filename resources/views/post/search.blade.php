@@ -1,3 +1,6 @@
+<?php 
+$auth_id = $data['auth_id']
+?>
 @extends('layouts.master')
 @section('content')
 <div class="container-fluid py-5">
@@ -34,7 +37,7 @@
                         <td>{{$post->post_author}}</td>
                         <td>{{$post->created_at}}</td>
                         <td>
-
+                        @if($auth_id == 1)
                             <a href="{{route('post.edit', $post->id)}}" class="btn btn-success btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
                             <a href="{{route('delete_post', $post->id)}}" class="btn btn-danger btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
                             <a href="{{route('post.show', $post->id)}}" class="btn btn-warning btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Show"><i class="fa fa-eye" aria-hidden="true"></i></a>
@@ -47,6 +50,11 @@
 
                 </tbody>
             </table>
+
+        </div>
+        <div class="d-flex justify-content-center">
+
+            <span>{{ $searchTitle->links('pagination::bootstrap-4') }}</span>
 
         </div>
     </div>

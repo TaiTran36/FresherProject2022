@@ -9,11 +9,6 @@ class UserRepository {
     public function __construct(Profile $user) {
         $this->model = $user;
     }
-    public function getAll()
-    {
-        return $this->model->all();
-    }
-
     public function find($id) {
         return $this->model->find($id);
     }
@@ -28,6 +23,10 @@ class UserRepository {
 
     public function searchUser($search)
     {
-        return $this->model->where('name', 'like', "%$search%")->get();
+        return $this->model->where('name', 'like', "%$search%")->paginate(1);
+    }
+
+    function getRoleId($id) {
+        return $this->model->where('id', $id)->pluck('role_id');
     }
 }
