@@ -3,12 +3,9 @@
 @section('content-admin')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-body"> 
                     <form method="GET" action="{{ route('user.show', $user->id) }}">
                         @foreach ($fields as $f => $f_value) 
-                        <div class="row mb-3">
+                        <div class="row mb-3 mt-4">
                             <label for={{$f}} class="col-md-3 col-form-label text-md-end">{{ __($f_value) }}</label>
 
                             <div class="col-md-8">
@@ -21,9 +18,6 @@
                         </div>
                         @endforeach
                     </form>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 @endsection
