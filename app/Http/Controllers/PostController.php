@@ -90,6 +90,10 @@ class PostController extends Controller
     }
     public function edit($url)
     {
+        if ($url != Auth::user()->post_url) {
+            $message = "Bạn không có quyền truy cập vào trang này";
+            echo "<script type='text/javascript'>alert('$message'); window.location.href='../list';</script>";
+        }
         $posts = $this->postRepository->find($url);
         return view('post.edit', compact('posts'));
     }
