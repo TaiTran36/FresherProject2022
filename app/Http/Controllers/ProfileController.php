@@ -1,51 +1,72 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Requests\ProfilesEditRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Models\profiles;
-use Illuminate\Support\Facades\Session;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use App\Repositories\UserRepositories;
+use Illuminate\Support\Facades\File;
+
 class ProfileController extends Controller
 {
-    public function index()
+    public function __construct(UserRepositories $userRepository)
     {
-        $getData_all = profiles::all();
-        $getData = DB::table('profiles')->paginate(5);
+        $this->userRepository = $userRepository;
+    }
+    public function index()
+    {   
+        
+        $getData_all =  $this->userRepository->getAllUser();
+        $getData = $this->userRepository->pagination(5);
         return view('profile.list')->with('listprofile',$getData_all)->with('listprofile_pagination',$getData);
+        
     }
     public function details($id)
     {
-        $getData = profiles::where('id','=', $id)->get();
-        return view('profile.detail')->with('profile',$getData);
+        $user= new User ;
+        if ($user->mySelf()->can('all user') or ( $id==Auth::user()->id))
+        {
+        $getData =$this->userRepository->getUser($id);
+        return view('profile.detail')->with('profile',$getData); } 
+        else return redirect('post/list')->with('thongbao','Bạn không có quyền xem');
     }
     public function edit($id)
     {
-    
-        $getData = profiles::where('id',$id)->get();
-        return view('profile.edit')->with('getprofileById',$getData);
+        $user= new User ;
+        if ($user->mySelf()->can('edit user') or ( $id==Auth::user()->id))
+        {
+        $getData = $this->userRepository->getUser($id);
+        return view('profile.edit')->with('getprofileById',$getData);}
+        else return redirect('profile/list')->with('thongbao','Bạn không có quyền sửa');
     }
 public function update(Request $request)
-{	
- 
-	DB::table('profiles')->where('id', $request->id)->update([
-		'name' => $request->name,
-        'date_of_birth'=> $request->date_of_birth,
-        'nickname'=> $request->nickname,
-        'username'=> $request->username,
-        'email'=> $request->email,
-        'description'=> $request->description,
-        'avatar'=> $request->avatar,
-        'address'=> $request->address,
-        'phone_number'=> $request->phone_number,
-		'updated_at' => date('Y-m-d H:i:s')
-	]);
-	
-	return redirect('profile');
+{
+    $get_old_avatar_file = DB::table('users')->select('avatar')->where('id',$request->id)->get();
+    if(File::exists(public_path($get_old_avatar_file[0]->avatar))) {
+    File::delete(public_path($get_old_avatar_file[0]->avatar));
+    }
+    // $request->avatar=Auth::user()->avatar;
+if($request->file('avatar')!=null){
+    $profileImage = $request->file('avatar');
+    $profileImageSaveAsName = time() .rand(99,99999)."-".$profileImage->getClientOriginalName();
+    $upload_path = '../public/storage/images';
+    $profile_image_url = $profileImageSaveAsName;
+    $profileImage->move($upload_path, $profileImageSaveAsName);
+    $request->avatar=$profile_image_url;
+}
+    $this->userRepository->update($request);
+    $user= new User ;
+    if ($user->mySelf()->can('edit user'))
+    {
+	return redirect('profile/list'); }
+    return redirect('/profile/'.Auth::user()->id.'/details');
 }
 public function destroy($id)
 {
-	$deleteData = DB::table('profiles')->where('id', '=', $id)->delete();
-	
-	return redirect('profile');
-}
+    $this->userRepository->delete($id);
+	return redirect('profile/list')->with('thongbao' , 'Xóa thành công');
+    }
 }

@@ -20,13 +20,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->date('date_of_birth')->nullable();
-            $table->string('nickname')->nullable();
-            $table->string('username')->nullable();
-            $table->string('description')->nullable();
-            $table->string('avatar', 2048)->nullable();
-            $table->string('address')->nullable();
-            $table->string('phone_number')->nullable();
+            $table->foreignId('current_team_id')->nullable();
+            $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps();
         });
     }

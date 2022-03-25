@@ -16,10 +16,15 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('URL');
+            $table->string('url');
             $table->string('content');
-            $table->string('user_post');
+            $table->foreignId('writer');
             $table->timestamps();
+
+            $table->foreign('writer') 
+            ->references('id')->on('users') 
+            ->onDelete('CASCADE')
+            ->onUpdate('CASCADE');
         });
     }
 
@@ -30,6 +35,5 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
     }
 };

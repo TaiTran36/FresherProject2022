@@ -1,4 +1,4 @@
-@extends('layouts.profile')
+@extends('layouts.admin')
 
 @section('title','User-profile')
 
@@ -27,7 +27,7 @@
 		</button>
 	</div>
 @endif
-<p><a class="btn btn-primary" href="/profile">Back</a></p>
+
 <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-12">
 		<div class="table-responsive">
@@ -78,7 +78,7 @@
 					  </tr>
 				</tbody>
 			</table>
-			<center><button type="submit" class="btn btn-primary">Edit</button></center>
+			<p><a style="margin-left : 40%" class="btn btn-primary" href="/profile/list">Back</a></p>
 			</form>
 			@endforeach
 		</div>

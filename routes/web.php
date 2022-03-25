@@ -5,10 +5,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ListingController;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,12 +19,7 @@ use App\Http\Controllers\ListingController;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return view('welcome');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
@@ -49,20 +42,27 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-Route::get('admin/login', function () {
-    return view('admin.login');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['can:all user']], function () {
+    Route::get('profile/list', 'App\Http\Controllers\ProfileController@index'); 
 });
+    Route::get('profile/{id}/details', 'App\Http\Controllers\ProfileController@details'); 
+    Route::get('profile/{id}/edit', 'App\Http\Controllers\ProfileController@edit'); 
+    Route::post('profile/update', 'App\Http\Controllers\ProfileController@update'); 
+Route::group(['middleware' => ['can:delete user']], function () {
+    Route::get('profile/{id}/delete', 'App\Http\Controllers\ProfileController@destroy');
+});
+    Route::get('post/list', 'App\Http\Controllers\PostController@index');
+    Route::get('post/create', 'App\Http\Controllers\PostController@create');  
+    Route::post('post/insert', 'App\Http\Controllers\PostController@insert');  
+    Route::get('post/{id}/details', 'App\Http\Controllers\PostController@details');
 
-Route::post('/admin/login', [AdminController::class, 'loginPost'])->name('admin.loginPost');
-Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+    Route::get('post/{id}/edit', 'App\Http\Controllers\PostController@edit'); 
+    Route::post('post/update', 'App\Http\Controllers\PostController@update'); 
+    Route::get('post/{id}/delete', 'App\Http\Controllers\PostController@destroy');
 
-Route::middleware(['admin'])->group(function (){
-    Route::get('/admin/dashboards', [AdminController::class, 'dashboards'])->name('admin.dashboards');
-    Route::get('/admin/statistic', [AdminController::class, 'statistic'])->name('admin.statistic')->middleware('admin');
-    Route::get('/admin/listing/{model}', [ListingController::class, 'index'])->name('listing.index');
-    Route::post('/admin/listing/{model}', [ListingController::class, 'index'])->name('listing.index');
-    Route::get('/admin/editing/{model}', [EditingController::class, 'create'])->name('listing.create');
-    
 });
 
 

@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use DB;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Faker\Factory as Faker;
+
 
 class PostsSeeder extends Seeder
 {
@@ -16,13 +16,14 @@ class PostsSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
+    { 
         $faker = Faker::create('vi_VN');  
         DB::table('posts')->insert([
-            'title' => $faker->title,
-            'URL' => $faker->word,
-            'content' =>$faker->word,
-            'user_post'=>$faker->word,
+            'title' => $faker->sentence($nbWords=6, $variableNbWords=true),
+            'url'=>  str_replace('+', '-', urlencode($faker->sentence($nbWords=3, $variableNbWords=true))),
+            'content'=>$faker->sentence($nbWords=6, $variableNbWords=true),  
+            'writer_id'=> random_int(1,3),
         ]);
+
     }
 }

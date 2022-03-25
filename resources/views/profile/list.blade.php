@@ -1,43 +1,38 @@
-@extends('layouts.profile')
-
-@section('title','User-profile')
+@extends('layouts.admin')
 
 @section('content')
 
-<?php //Hiển thị thông báo thành công?>
-<div class="page-header"><h4>User-profile List</h4></div>
+<div class="page-header"><h4>Profile List</h4></div>
 
-@if ( Session::has('success') )
-	<div class="alert alert-success alert-dismissible" role="alert">
-		<strong>{{ Session::get('success') }}</strong>
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-			<span class="sr-only">Close</span>
-		</button>
-	</div>
-@endif
 
-<?php //Hiển thị thông báo lỗi?>
-@if ( Session::has('error') )
-	<div class="alert alert-danger alert-dismissible" role="alert">
-		<strong>{{ Session::get('error') }}</strong>
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-			<span class="sr-only">Close</span>
-		</button>
+
+<form action="" method="GET" class="form-inline" >
+	<div class="form-group">
+		<input class="form-control" name="key" placeholder="Search">
 	</div>
-@endif
-<div class="row">
+	<button type="submit" class="btn btn-primary">
+		<i class="fa fa-search"></i>
+	</button>
+</form>
+<div class="row" style="margin-top :40px">
+	<div class="col-xs-12 col-sm-12 col-md-12">
+		@if (Session::has('thongbao'))
+		<div class="alert alert-success">
+			{{ Session::get('thongbao') }}
+		</div>
+		
+	@endif
+<div class="row" style="margin-top :40px">
 	<div class="col-xs-12 col-sm-12 col-md-12">
 		<div class="table-responsive">
-			{{-- <p><a class="btn btn-primary" href="/{{ url('/profile/create') }}">Thêm mới</a></p> --}}
+			
 			<table id="DataList" class="table table-bordered table-hover">
 				<thead>
 					<tr>
                         <th>No.</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Avatar</th>
+                        <th width = "100px">Avatar</th>
                         <th>Phone_number</th>
                         <th colspan="3">Action</th>
                       </tr>
@@ -50,20 +45,21 @@
 				      <td><?php echo $index ?></td>
                       <td>{{ $profile->name }}</td>
                       <td>{{ $profile->email }}</td>
-                      <td>{{ $profile->avatar }}</td>
+                      <td><img height="100" onerror="this.src='/storage/image_err/no-image.jpg'" src="/storage/images/{{ $profile->avatar }}" /></td>
                       <td>{{ $profile->phone_number}}</td>
-					  <td><a class="btn btn-info" href="/profile/{{ $profile->id }}/details">Details</a></td>
-						<td><a class="btn btn-primary" href="/profile/{{ $profile->id }}/edit">Edit</a></td>
-						<td><a class="btn btn-danger" href="/profile/{{ $profile->id }}/delete">Delete</a></td>
+					  <td><a class="btn btn-info" href="/profile/{{ $profile->id }}/details"><i class="fa fa-eye" aria-hidden="true"> Details</a></td>
+						<td><a class="btn btn-primary" href="/profile/{{ $profile->id }}/edit"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a></td>
+						<td><a class="btn btn-danger" href="/profile/{{ $profile->id }}/delete"><i class="fa fa-trash" aria-hidden="true"> Delete</a></td>
 					</tr>
 					<?php $index++ ?>
 				@endforeach
 				</tbody>
 			</table>
+			
 		</div>
-		<h2> Total: <?php echo count($listprofile); ?> records. </h2>
-		<div style="margin: auto ;width: 40%;padding: 10px;">
-			{{$listprofile_pagination->links("pagination::bootstrap-4")}}
+		
+		<div style="width: 40%;padding: 10px;">
+			{{$listprofile_pagination->appends(request()->all())->links("pagination::bootstrap-4")}}
 			</div>
 	</div>
 </div>

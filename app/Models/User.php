@@ -8,15 +8,22 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
+use App\Notifications\PasswordReset; 
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
+    protected $table = 'users';
+
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use HasRoles;
+
 
     /**
      * The attributes that are mass assignable.
@@ -27,6 +34,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'name','date_of_birth','nickname','description','avatar','address','phone_number'
     ];
 
     /**
@@ -58,4 +66,22 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+
+/**
+ * @param  string  $token
+ * @return void
+ */
+
+    public function role(){
+        return $this->belongsTo(Role::class);
+    }
+    public function mySelf()
+    {
+        $user = Auth::user(); 
+        if ($user) {
+            return User::find($user->id);
+        }
+    }
+
 }

@@ -1,52 +1,60 @@
 <?php
 
-
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\DB;
+
 use Illuminate\Http\Request;
-use App\Models\Posts;
-use Illuminate\Support\Facades\Session;
+use App\Models\User;
+use App\Repositories\PostRepositories;
+use Illuminate\Support\Facades\Auth;
+
 class PostController extends Controller
 {
+    public function __construct(PostRepositories $postRepository)
+    {
+        $this->postRepository = $postRepository;
+    }
     public function index()
     {
-        $getData_all = posts::all();
-        $getData = DB::table('profiles')->paginate(5);
+        $getData_all= $this->postRepository->getPostAndWriter();
+        $getData= $this->postRepository->pagination(5);
         return view('post.list')->with('listpost',$getData_all)->with('listpost_pagination',$getData);
     }
     public function details($id)
     {
-        $getData = posts::where('id','=', $id)->get();
+        $getData = $this->postRepository->details($id);
         return view('post.detail')->with('post',$getData);
     }
+    public function create()
+    {
+        return view('post.create');
+    }
+    public function insert(Request $request)
+{
+    $this->postRepository->insert($request);
+	return redirect('post/list');
+}
     public function edit($id)
     {
-    
-        $getData = posts::where('id',$id)->get();
-        return view('post.edit')->with('getpostById',$getData);
+        $getData = $this->postRepository->getPost($id);
+        $writer_id=$this->postRepository->getPost_writer_id($id);
+        $user= new User ;
+        if ($user->mySelf()->can('edit post') or ( $writer_id==Auth::user()->id))
+        return view('post.edit')->with('getpostById',$getData); 
+        else return redirect('post/list')->with('thongbao','Bạn không có quyền sửa');
     }
 public function update(Request $request)
-{	
- 
-	DB::table('post')->where('id', $request->id)->update([
-		'name' => $request->name,
-        'date_of_birth'=> $request->date_of_birth,
-        'nickname'=> $request->nickname,
-        'username'=> $request->username,
-        'email'=> $request->email,
-        'description'=> $request->description,
-        'avatar'=> $request->avatar,
-        'address'=> $request->address,
-        'phone_number'=> $request->phone_number,
-		'updated_at' => date('Y-m-d H:i:s')
-	]);
-	
-	return redirect('post');
+{
+    $this->postRepository->update($request);
+	return redirect('post/list');
 }
 public function destroy($id)
 {
-	$deleteData = DB::table('posts')->where('id', '=', $id)->delete();
-	
-	return redirect('post');
-}
+    $writer_id=$this->postRepository->getPost_writer_id($id);
+    $user= new User ;
+    if ($user->mySelf()->can('edit post') or ( $writer_id==Auth::user()->id))
+    {
+	$this->postRepository->delete($id);
+	return redirect('post/list')->with('thongbao','Xóa thành công ');}
+    else return redirect('post/list')->with('thongbao','Bạn không có quyền xóa');
+    }
 }

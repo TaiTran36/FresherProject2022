@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -20,10 +22,6 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
-    public function username()
-    {
-        return 'username_login';
-    }
 
     /**
      * Where to redirect users after login.

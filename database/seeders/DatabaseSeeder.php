@@ -17,11 +17,14 @@ class DatabaseSeeder extends Seeder
         
         for ($i = 0; $i < 10; $i++){
             $this->call([
-                Usersseeder::class
+                UsersSeeder::class
             ]); }
-        for ($i = 0; $i < 5; $i++){
-                $this->call([
-                    Postsseeder::class
-                ]); }        
+        for ($i = 0; $i < 10; $i++){
+            $this->call([
+                PostsSeeder::class
+            ]); } 
+            $this->call([
+                RoleSeeder::class
+            ]); 
     }
 }

@@ -11,20 +11,24 @@
                     <img height="50" onerror="this.src='/storage/image_err/no-image.jpg'" src="/storage/images/" alt="">
                     
                     
-                        <span><?=$user->name?></span>
+                        <span><?php echo auth()->user()->name; ?></span>
                         <br>
-                        <span><?=$user->email?></span>
+                        <span><?php echo auth()->user()->email; ?></span>
                     
                 </a>
             
                 <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item"  href="javascript:;"> Profile</a>
                     <a class="dropdown-item"  href="javascript:;">
-                        <span class="badge bg-red pull-right">50%</span>
                         <span>Settings</span>
                     </a>
                     <a class="dropdown-item"  href="javascript:;">Help</a>
-                    <a class="dropdown-item"  href="{{route('admin.logout')}}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                        Logout <i class="fa fa-sign-out"></i> </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                    </form>
                 </div>
             </li>
 
