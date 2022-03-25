@@ -30,6 +30,23 @@ $(document).ready(function(){
             }
         });
     });
+
+    // $('#search').on('keyup', function() {
+    //     $value = $(this).val();
+    //     $.ajax({
+    //         type: 'get',
+    //         url: '/post/search',
+    //         data: {
+    //             'search': $value
+    //         },
+    //         success: function(data) {
+    //             $('#data').html(data);
+    //             $("#pagination_all").hide();
+    //             $("#pagination_search").removeClass("hidden");
+    //         }
+    //     });
+    // });
+
     $(document).on('click', '#pagination_all a', function(event) {
         event.preventDefault();
         var page = $(this).attr('href').split('page=')[1];
@@ -60,6 +77,8 @@ $(document).ready(function(){
             success: function(data) {
                 $('tbody').html('');
                 $('#data').html(data);
+                $("#pagination_all").hide();
+                $("#pagination_search").removeClass("hidden");
             }
         });
     }

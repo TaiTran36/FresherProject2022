@@ -61,6 +61,8 @@ $(document).ready(function(){
             success: function(data) {
                 $('tbody').html('');
                 $('#data').html(data);
+                $("#pagination_all").hide();
+                $("#pagination_search").removeClass("hidden");
             }
         });
     }
