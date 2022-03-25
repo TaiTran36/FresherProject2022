@@ -20,20 +20,23 @@ class UserRepositories
     {
         return \App\Models\User::class;
     }
-    public function getAllUser()
-    {
-        $getData_all = User::all();
-        return $getData_all;
-    }
 
-    public function pagination( $pagination)
+    public function getAll( $pagination)
 {
-    $getData =DB::table('users')->paginate($pagination);
+    $getData = User::paginate($pagination);
     return $getData;
 }
 public function getUser($id){
     $getData = User::where('id','=', $id)->get();
     return $getData;
+}
+public function search($name)
+{
+    $getData = User::where('name', 'LIKE', '%' . $name . '%')->paginate(5);
+    return $getData;
+}
+public function getAvatar($id){
+    return DB::table('users')->select('avatar')->where('id',$id)->get();
 }
 public function create(RegisterRequest $request, string $profile_image_url){
     $dt = Carbon::now('Asia/Ho_Chi_Minh');

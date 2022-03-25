@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('url');
-            $table->string('content');
+            $table->string('url')->unique();
+            $table->LONGTEXT('content');
             $table->foreignId('writer_id');
             $table->timestamps();
 

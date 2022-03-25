@@ -18,9 +18,16 @@ class ProfileController extends Controller
     }
     public function index()
     {
-        $getData_all =  $this->userRepository->getAllUser();
-        $getData = $this->userRepository->pagination(5);
-        return view('profile.list')->with('listprofile',$getData_all)->with('listprofile_pagination',$getData);
+        $listprofile =  $this->userRepository->getAll(5);
+        return view('profile.list', compact('listprofile'))->render();
+    }
+    function get_list(Request $request)
+    {
+     if($request->ajax())
+     {
+        $listprofile= $this->userRepository->getAll(5);
+        return view('profile.data', compact('listprofile'))->render();
+     }
     }
     public function details($id)
     {
@@ -42,9 +49,9 @@ class ProfileController extends Controller
     }
 public function update(Request $request)
 {
-    $get_old_avatar_file = DB::table('users')->select('avatar')->where('id',$request->id)->get();
-    if(File::exists(public_path($get_old_avatar_file[0]->avatar))) {
-    File::delete(public_path($get_old_avatar_file[0]->avatar));
+    $get_old_avatar_file = $this->userRepository->getUser($request->id);
+    if(File::exists(public_path('/profile/'.$get_old_avatar_file[0]->avatar))) {
+    File::delete(public_path('/profile/'.$get_old_avatar_file[0]->avatar));
     }
     // $request->avatar=Auth::user()->avatar;
 if($request->file('avatar')!=null){
@@ -67,4 +74,22 @@ public function destroy($id)
     $this->userRepository->delete($id);
 	return redirect('profile/list');
 }
+public function search(Request $request)
+    {
+        if ($request->ajax()) {
+            $listprofile =  $this->userRepository->search($request->search);
+            return view('profile.data', compact('listprofile'))->render();
+        }
+    }
+    public function search_results_all(Request $request)
+    {
+        if ($request->ajax()) {
+            $output2 = '';
+            $listprofile = $this->userRepository->search($request->search);
+            if ($listprofile) {
+                $output2.=$listprofile->total();
+            }
+            return Response($output2);
+        }
+    }
 }

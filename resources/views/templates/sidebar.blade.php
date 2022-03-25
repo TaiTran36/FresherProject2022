@@ -43,7 +43,6 @@
                     @endcan
                     <li class="{{ request()->is('post/list') ? 'li_active' : '' }}"> <a href="/post/list"><i
                                 class="fa fa-sticky-note-o"></i> <span class="nav-label">Posts</span></a> </li>
-                    <li> <a href="#"><i class="fa fa-search"></i> <span class="nav-label">Search</span></a> </li>
                     <li> <a href="#"><i class="fa fa-cog"></i> <span class="nav-label">Setting</span></a>
                     </li>
                     <li class="li_end"> <a href="{{ route('logout') }}" onclick="event.preventDefault();

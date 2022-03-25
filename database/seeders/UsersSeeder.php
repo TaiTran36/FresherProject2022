@@ -55,5 +55,19 @@ class UsersSeeder extends Seeder
             'address'=>$faker->word,
             'phone_number'=> $faker->phoneNumber,
         ]);
+        for ($i = 1; $i <= 15; $i++) {
+            DB::table('users')->insert([
+                'username_login' => $faker->name,
+                'email' => $faker->email(),  
+                'password' => Hash::make('12345678'),
+                'name' => $faker->name,
+                'date_of_birth' => $faker->date($format = 'Y-m-d', $max = '2020',$min = '1980'),
+                'nickname' =>$faker->word,
+                'description'=>$faker->sentence($nbWords=6, $variableNbWords=true),  
+                'avatar'=>'UK239dzgoTMShdNIh9P5ozrENBe8TaUebxOcSbeY.jpg',
+                'address'=>$faker->word,
+                'phone_number'=> $faker->phoneNumber,
+            ]);
+        }
     }
 }

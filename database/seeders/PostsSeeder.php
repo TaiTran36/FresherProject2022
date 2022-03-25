@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -21,8 +22,16 @@ class PostsSeeder extends Seeder
         DB::table('posts')->insert([
             'title' => $faker->sentence($nbWords=6, $variableNbWords=true),
             'url'=>  str_replace('+', '-', urlencode($faker->sentence($nbWords=3, $variableNbWords=true))),
-            'content'=>$faker->sentence($nbWords=6, $variableNbWords=true),  
+            'content'=>$faker->paragraphs($nb = 10, $asText = true),
             'writer_id'=> random_int(1,3),
+            'created_at'=>Carbon::now('Asia/Ho_Chi_Minh')->toDateTimeString() 
+        ]);
+        DB::table('posts')->insert([
+            'title' =>"abcdef",
+            'url'=>  str_replace('+', '-', urlencode($faker->sentence($nbWords=3, $variableNbWords=true))),
+            'content'=>$faker->paragraphs($nb = 8, $asText = true),
+            'writer_id'=> random_int(1,3),
+            'created_at'=>Carbon::now('Asia/Ho_Chi_Minh')->toDateTimeString() 
         ]);
 
     }

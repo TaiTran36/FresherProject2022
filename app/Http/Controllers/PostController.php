@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Repositories\PostRepositories;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -15,13 +17,20 @@ class PostController extends Controller
     }
     public function index()
     {
-        $getData_all= $this->postRepository->getPostAndWriter();
-        $getData= $this->postRepository->pagination(5);
-        return view('post.list')->with('listpost',$getData_all)->with('listpost_pagination',$getData);
+        $listpost= $this->postRepository->getAll(5);
+        return view('post.list', compact('listpost'))->render();
     }
-    public function details($id)
+    function get_list(Request $request)
     {
-        $getData = $this->postRepository->details($id);
+     if($request->ajax())
+     {
+        $listpost= $this->postRepository->getAll(5);
+        return view('post.data', compact('listpost'))->render();
+     }
+    }
+    public function details($url)
+    {
+        $getData = $this->postRepository->details($url);
         return view('post.detail')->with('post',$getData);
     }
     public function create()
@@ -33,27 +42,47 @@ class PostController extends Controller
     $this->postRepository->insert($request);
 	return redirect('post/list');
 }
-    public function edit($id)
+    public function edit($url)
     {
-        $getData = $this->postRepository->getPost($id);
-        $writer_id=$this->postRepository->getPost_writer_id($id);
+        $getData = $this->postRepository->getPost($url);
+        $writer_id=$this->postRepository->getPost_writer_id($url);
         $user= new User ;
         if ($user->mySelf()->can('edit post') or ( $writer_id==Auth::user()->id))
         return view('post.edit')->with('getpostById',$getData); else echo "You don't have permission !";
     }
 public function update(Request $request)
-{
+{  
     $this->postRepository->update($request);
 	return redirect('post/list');
+    
 }
-public function destroy($id)
+public function destroy($url)
 {
-    $writer_id=$this->postRepository->getPost_writer_id($id);
+    $writer_id=$this->postRepository->getPost_writer_id($url);
     $user= new User ;
     if ($user->mySelf()->can('edit post') or ( $writer_id==Auth::user()->id))
     {
-	$this->postRepository->delete($id);
+	$this->postRepository->delete($url);
 	return redirect('post/list');}
     else echo "You don't have permission !";
 }
+public function search(Request $request)
+    {
+        if ($request->ajax()) {
+            $listpost = $this->postRepository->search($request->search);
+            return view('post.data', compact('listpost'))->render();
+        }
+    }
+    public function search_results_all(Request $request)
+    {
+        if ($request->ajax()) {
+            $output2 = '';
+            $posts = $this->postRepository->search($request->search);
+            if ($posts) {
+                $output2.=$posts->total();
+            }
+            return Response($output2);
+        }
+    }
+
 }

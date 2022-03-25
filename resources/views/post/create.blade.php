@@ -47,11 +47,11 @@
             </div>
             <div class="form-group">
                 <label for="url">Url</label>
-                <input type="text" class="form-control" id="name" name="url" placeholder="url" required />
+                <input type="text" class="form-control" id="name" name="url" placeholder="url" />
             </div>
             <div class="form-group">
                 <label for="content">Content</label>
-                <input type="text" class="form-control" id="name" name="content" placeholder="content" required />
+                <textarea type="text" class="form-control" id="name" name="content" placeholder="content" required ></textarea>
             </div>
 
             <center><button type="submit" class="btn btn-primary">Save</button></center>

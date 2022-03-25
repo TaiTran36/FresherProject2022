@@ -23,12 +23,15 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Auth::routes();
-Route::get('/search', 'ProfileController@search');
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => ['can:all user']], function () {
     Route::get('profile/list', 'ProfileController@index'); 
+    Route::get('profile/search', 'ProfileController@search');
+    Route::get('profile/search_all', 'ProfileController@search_results_all');
+    Route::get('profile/get_list', 'ProfileController@get_list');
 });
     Route::get('profile/{id}/details', 'ProfileController@details'); 
     Route::get('profile/{id}/edit', 'ProfileController@edit'); 
@@ -39,10 +42,14 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
     Route::get('post/list', 'PostController@index');
     Route::get('post/create', 'PostController@create');  
     Route::post('post/insert', 'PostController@insert');  
-    Route::get('post/{id}/details', 'PostController@details');
+    Route::get('post/{url}/details', 'PostController@details');
 
-    Route::get('post/{id}/edit', 'PostController@edit'); 
+    Route::get('post/search', 'PostController@search');
+    Route::get('post/search_all', 'PostController@search_results_all');
+    Route::get('post/get_list', 'PostController@get_list');
+
+    Route::get('post/{url}/edit', 'PostController@edit'); 
     Route::post('post/update', 'PostController@update'); 
-    Route::get('post/{id}/delete', 'PostController@destroy');
+    Route::get('post/{url}/delete', 'PostController@destroy');
 
 });

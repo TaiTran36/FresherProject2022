@@ -5,7 +5,10 @@ html,
 body {
     overflow-x: hidden;
 }
-
+.hidden {
+    display: none!important;
+    visibility: hidden!important;
+ }
 #outer-container {
     display: table;
     width: 100%;
@@ -21,10 +24,26 @@ body {
 }
 
 #content {
-
+    position: relative;
     display: table-cell;
     background-color: #F4F6F9;
     width: 85%;
     height: 100%;
     vertical-align: top;
+    padding-bottom: 30px;
 }
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    background-color: #FFFFFF;
+    vertical-align: bottom;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    width: 100%;
+    border-top: 1px solid #e7e7e7;
+  }
+
+
+

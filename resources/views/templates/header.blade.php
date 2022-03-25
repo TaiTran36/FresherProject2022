@@ -4,7 +4,8 @@
   overflow: hidden;
   background-color: white;
   padding: 10px 10px;
-  height: 9%;
+  height: 65px;
+  border-bottom: 1px solid #e7e7e7;
 }
 
 /* Style the header links */

@@ -7,33 +7,6 @@
     <div class="page-header">
         <h2>Edit Post</h2>
     </div>
-
-    <?php //Hiển thị thông báo thành công
-    ?>
-    @if (Session::has('success'))
-        <div class="alert alert-success alert-dismissible" role="alert">
-            <strong>{{ Session::get('success') }}</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                <span class="sr-only">Close</span>
-            </button>
-        </div>
-    @endif
-
-    <?php //Hiển thị thông báo lỗi
-    ?>
-    @if (Session::has('error'))
-        <div class="alert alert-danger alert-dismissible" role="alert">
-            <strong>{{ Session::get('error') }}</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                <span class="sr-only">Close</span>
-            </button>
-        </div>
-    @endif
-
-    <?php //Hiển thị form sửa
-    ?>
     <p><a class="btn btn-primary" href="/post/list">Back</a></p>
     <div class="col-xs-4 col-xs-offset-4">
         <center>
@@ -54,8 +27,8 @@
             </div>
             <div class="form-group">
                 <label for="content">Content</label>
-                <input type="text" class="form-control" id="name" name="content" placeholder="content"
-                    value="{{ $getpostById[0]->content }}" required />
+                <textarea type="text" class="form-control" id="name" name="content" placeholder="content"
+                    value="{{ $getpostById[0]->content }}" required >{{ $getpostById[0]->content }}</textarea>
             </div>
 
             <center><button type="submit" class="btn btn-primary">Save</button></center>
