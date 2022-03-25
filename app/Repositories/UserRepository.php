@@ -23,7 +23,7 @@ class UserRepository {
 
     public function searchUser($search)
     {
-        return $this->model->where('name', 'like', "%$search%")->paginate(1);
+        return $this->model->where('name', 'like', "%$search%")->paginate(5);
     }
 
     function getRoleId($id) {

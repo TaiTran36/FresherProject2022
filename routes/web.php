@@ -21,35 +21,38 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('Auth');
 
+Route::get('logout', [\App\Http\Controllers\Auth\LoginController::class,'logout']);
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('admin/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->middleware('auth');
 
-Route::get('admin/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->middleware('auth');
+    Route::get('admin/delete/{id}', [App\Http\Controllers\AdminUserController::class, 'delete'])->name('delete_user');
 
-Route::get('admin/delete/{id}', [App\Http\Controllers\AdminUserController::class, 'delete'])->name('delete_user');
+    Route::get('admin/edit/{id}', [App\Http\Controllers\AdminUserController::class, 'edit'])->name('admin.edit');
 
-Route::get('admin/edit/{id}', [App\Http\Controllers\AdminUserController::class, 'edit'])->name('admin.edit');
+    Route::post('admin/update/{id}', [App\Http\Controllers\AdminUserController::class, 'update'])->name('admin.update');
 
-Route::post('admin/update/{id}', [App\Http\Controllers\AdminUserController::class, 'update'])->name('admin.update');
+    Route::get('admin/show/{id}', [App\Http\Controllers\AdminUserController::class, 'show'])->name('admin.show');
 
-Route::get('admin/show/{id}', [App\Http\Controllers\AdminUserController::class, 'show'])->name('admin.show');
+    Route::post('admin/search', [App\Http\Controllers\AdminUserController::class, 'search'])->name('admin.search');
 
-Route::post('admin/search', [App\Http\Controllers\AdminUserController::class, 'search'])->name('admin.search');
+    Route::get('post/add', [App\Http\Controllers\PostController::class, 'add'])->name('post.add');
 
-Route::get('post/add', [App\Http\Controllers\PostController::class, 'add'])->name('post.add');
+    Route::post('post/store', [App\Http\Controllers\PostController::class, 'store']);
 
-Route::post('post/store', [App\Http\Controllers\PostController::class, 'store']);
+    Route::get('post/list', [App\Http\Controllers\PostController::class, 'list'])->name('post.list');
 
-Route::get('post/list', [App\Http\Controllers\PostController::class, 'list'])->name('post.list');
+    Route::get('post/delete/{id}', [App\Http\Controllers\PostController::class, 'delete'])->name('delete_post');
 
-Route::get('post/delete/{id}', [App\Http\Controllers\PostController::class, 'delete'])->name('delete_post');
+    Route::get('post/edit/{post_url}', [App\Http\Controllers\PostController::class, 'edit'])->name('post.edit');
 
-Route::get('post/edit/{id}', [App\Http\Controllers\PostController::class, 'edit'])->name('post.edit');
-
-Route::post('post/update/{id}', [App\Http\Controllers\PostController::class, 'update'])->name('post.update');
+    Route::post('post/update/{id}', [App\Http\Controllers\PostController::class, 'update'])->name('post.update');
 
 
-Route::get('post/show/{id}', [App\Http\Controllers\PostController::class, 'show'])->name('post.show');
+    Route::get('post/{post_url}', [App\Http\Controllers\PostController::class, 'show'])->name('post.show');
 
-Route::post('post/search', [App\Http\Controllers\PostController::class, 'search'])->name('post.search');
-//Admin Login
+    Route::post('post/search', [App\Http\Controllers\PostController::class, 'search'])->name('post.search');
+    //Admin Login
+    
+});
 Route::post('adminLogin', [App\Http\Controllers\AdminController::class, 'adminLogin'])->name('adminLogin');

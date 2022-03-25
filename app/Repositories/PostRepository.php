@@ -14,12 +14,15 @@ class PostRepository
     }
     public function listPost()
     {
-        return $this->model->with('userInfo')->paginate(1);
+        return $this->model->with('userInfo')->orderBy('created_at', 'desc')->paginate(5);
     }
     
-    public function find($id)
-    {
-        return $this->model->find($id);
+    public function find($post_url)
+    { 
+        return $this->model->where('post_url', $post_url)->first();
+        
+        // return $this->model->find($id);
+        
     }
 
     public function deletePost($id)
@@ -35,6 +38,10 @@ class PostRepository
 
     public function searchPost($search)
     {
-        return $this->model->where('post_title', 'like', "%$search%")->paginate(1);
+        return $this->model->where('post_title', 'like', "%$search%")->paginate(5);
+    }
+
+    public function checkURL($post_url) {
+        return $this->model->where('post_url', $post_url);
     }
 }

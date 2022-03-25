@@ -15,7 +15,7 @@ class Post extends Model
         'post_body',
         'post_url',
         'post_author',
-        'created_at'
+        'created_at',
     ];
     public function userInfo(){
         return $this->belongsTo(Profile::class, 'user_id');

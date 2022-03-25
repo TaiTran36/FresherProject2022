@@ -15,14 +15,14 @@ class AdminRepository {
     }
 
     public function setUser($id) {
-        return $this->model->with('role')->where('role_id', $id)->paginate(1);
+        return $this->model->with('role')->where('role_id', $id)->paginate(5);
     }
 
     public function setAdmin() {
-        return $this->model->with('role')->paginate(1);
+        return $this->model->with('role')->paginate(5);
 
     }
     public function setModder() {
-        return $this->model->with('role')->where('role_id', '<>', 1)->paginate(1);
+        return $this->model->with('role')->where('role_id', '<>', 1)->paginate(5);
     }
 }

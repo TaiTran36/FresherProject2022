@@ -25,13 +25,13 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:191',
             'dob' => 'required|date_format:d/m/Y',
-            'nickname' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
-            'description' => 'required|string|max:255',
-            'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'address' => 'required|string|max:1000',
+            'nickname' => 'required|string|max:191',
+            'email' => 'required|string|email|max:191',
+            'description' => 'required|string|max:191',
+            'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:191',
+            'address' => 'required|string|max:191',
             'phone' => 'required|digits:10'
         ];
     }

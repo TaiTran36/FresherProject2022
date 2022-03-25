@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
+            $table->string('name');
             $table->string('dob')->nullable();
             $table->string('nickname')->nullable();
             $table->string('username_login');
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('avatar');
             $table->string('address')->nullable();
-            $table->string('phone')->nullable();
+            $table->string('phone');
             $table->integer('role_id')->default(3);
             $table->timestamps();
         });

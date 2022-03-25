@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\PostRepository;
 use App\Http\Requests\PostRequest;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rules\Exists;
 
 use function GuzzleHttp\Promise\all;
 
@@ -32,7 +33,13 @@ class PostController extends Controller
         $post->post_title = $request->input('post_title');
         $post->user_id = Auth::user()->id;
         $post->post_body = $request->input('post_body');
-        $post->post_url = $request->input('post_url');
+        $post->post_url = Str::slug($request->input('post_url'));
+        if ($this->postRepository->checkURL($post->post_url)->count() > 0) {
+            $message = "Đường dẫn đã tồn tại";
+            echo "<script type='text/javascript'>alert('$message'); window.location.href='../post/add';</script>";
+
+        }
+
         $post->post_author = Auth::user()->username_login;
         $post->save();
 
@@ -61,9 +68,9 @@ class PostController extends Controller
         //         ->paginate(1);
         //     $list = Profile::where('id', '<>', 1)->paginate(1);
         // } else {
-            // $users = Post::with('userInfo')->where('user_id', $auth_id)
-            //     ->paginate(1);
-            // $list = Profile::where('id', $auth_id)->paginate(1);
+        // $users = Post::with('userInfo')->where('user_id', $auth_id)
+        //     ->paginate(1);
+        // $list = Profile::where('id', $auth_id)->paginate(1);
         //}
 
         $data = [
@@ -81,9 +88,9 @@ class PostController extends Controller
 
         return redirect('post/list')->with('status', 'Đã xóa thành công');
     }
-    public function edit($id)
+    public function edit($url)
     {
-        $posts = $this->postRepository->find($id);
+        $posts = $this->postRepository->find($url);
         return view('post.edit', compact('posts'));
     }
 
@@ -94,16 +101,21 @@ class PostController extends Controller
 
         $data['post_title'] = $request->input('post_title');
         $data['post_body'] = $request->input('post_body');
-        $data['post_url'] = $request->input('post_url');
+        $data['post_url'] = Str::slug($request->input('post_url'));
+        if ($this->postRepository->checkURL($data['post_url'])->count() > 0) {
+            $message = "Đường dẫn đã tồn tại";
+            echo "<script type='text/javascript'>alert('$message'); window.location.href='../list';</script>";
+
+        }
         $data['post_author'] = $request->input('post_author');
 
         $this->postRepository->updatePost($data, $id);
-
         return redirect('post/list')->with('status', 'Sửa thành công');
     }
-    public function show($id)
+    public function show($url)
     {
-        $posts = $this->postRepository->find($id);
+        $posts = $this->postRepository->find($url);
+
         return view('post.show', compact('posts'));
     }
 

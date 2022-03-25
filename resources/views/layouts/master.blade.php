@@ -7,6 +7,7 @@
     <title>AdminLTE 3 | Dashboard</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
 
+    <link rel="stylesheet" href="{{asset('css/adminlte.min.css?v=3.2.0')}}">
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
 <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
@@ -19,7 +20,7 @@
 
 <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
 
-<link rel="stylesheet" href="dist/css/adminlte.min.css?v=3.2.0">
+
 
 <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
 
@@ -69,7 +70,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="index3.html" class="nav-link">Home</a>
+                    <a href="{{url('admin/dashboard')}}" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
@@ -82,9 +83,9 @@
 
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
-            <a href="index3.html" class="brand-link" style="font-size: 1.1rem;">
+            <a href="{{route('admin.show', Auth::user()->id)}}" class="brand-link" style="font-size: 1.1rem;">
 
-                <span class="brand-text font-weight-light">{{ Auth::user()->email }}</span>
+                <span class="brand-text font-weight-light"  style="text-decoration: none">{{ Auth::user()->email }}</span>
             </a>
 
             <div class="sidebar">
@@ -94,7 +95,7 @@
                         <img src="{{  asset(!empty(Auth::user()->avatar == 'photo_default.png' ) ? 'images/photo_default.png' : 'uploads/profiles/' . Auth::user()->avatar) }}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">{{ Auth::user()->username_login }}</a>
+                        <a href="{{route('admin.show', Auth::user()->id)}}" class="d-block" style="text-decoration: none">{{ Auth::user()->username_login }}</a>
                     </div>
                 </div>
 

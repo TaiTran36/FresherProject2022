@@ -39,7 +39,7 @@
                 </div>
                 <div class="form-group">
                     <label for="post_created_at">Ngày tạo</label>
-                    <input class="form-control" type="text" value="{{$posts->post_created_at}}" name="post_created_at" id="post_created_at" disabled>
+                    <input class="form-control" type="text" value="{{$posts->created_at}}" name="post_created_at" id="post_created_at" disabled>
                     @error('post_created_at')
                         <small class="text-danger">{{$message}}</small>
                     @enderror
