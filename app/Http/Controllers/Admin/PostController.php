@@ -87,7 +87,7 @@ class PostController extends Controller
         
         $this->postRepository->createPost($dataInsert); 
 
-        return redirect()->route('post.search')->with('status', 'Post created successfully!'); 
+        return redirect()->intended('home')->with('status', 'Post created successfully!'); 
     }
 
     /**
