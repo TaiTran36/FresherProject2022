@@ -15,10 +15,15 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         
-        for ($i = 0; $i < 10; $i++){
+        
             $this->call([
                 UsersSeeder::class
-            ]); }
+            ]); 
+        for ($i = 0; $i < 10; $i++){
+            $this->call([
+                UseraddSeeder::class
+            ]); } 
+            
         for ($i = 0; $i < 10; $i++){
             $this->call([
                 PostsSeeder::class

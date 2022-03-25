@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use Faker\Factory as Faker;
 use Illuminate\Support\Facades\Hash;
 
-class UsersSeeder extends Seeder {
+class UseraddSeeder extends Seeder {
 	/**
 	 * Run the database seeds.
 	 *
@@ -17,19 +17,8 @@ class UsersSeeder extends Seeder {
     public function run()
     {
         $faker = Faker::create('vi_VN');  
-        DB::table('users')->insert([
-            'id' => '1',
-            'name' => 'vinh',
-            'email' => 'vinh@gmail.com',  
-            'password' => Hash::make('12345678'),
-        ]);
-        DB::table('users')->insert([
-            'id' => '2',
-            'name' => 'vinh1',
-            'email' => 'vinh1@gmail.com',  
-            'password' => Hash::make('12345678'),
-        ]);
-        DB::table('users')->insert([
+
+DB::table('users')->insert([
             'name' => $faker->name,
             'date_of_birth' => $faker->date($format = 'Y-m-d', $max = '2020',$min = '1980'),
             'nickname' =>$faker->word,
