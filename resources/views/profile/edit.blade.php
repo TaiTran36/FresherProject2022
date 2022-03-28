@@ -79,9 +79,9 @@
             <div class="form-group">
                 <label for="avatar">Avatar</label>
                 <div>
-                <img style="width:7%;height:7%" onerror="this.src='/profile/error_img/not_found.png'"
+                <img id="img_avatar" style="width:7%;height:7%" onerror="this.src='/profile/error_img/not_found.png'"
                     src="{{ asset('/profile/' .$getprofileById[0]->avatar) }}" alt="User Image">
-                <input type="file" class="form-control" id="avatar" name="avatar" placeholder="avatar"
+                <input type="file" class="form-control" id="avatar" onchange="getFileData(this);" name="avatar" placeholder="avatar"
                     value="{{ $getprofileById[0]->avatar }}"  />
                 </div>
             </div>
@@ -100,3 +100,4 @@
     </div>
 
 @endsection
+<script src="{{ asset('js/image_upload.js') }}" defer></script>

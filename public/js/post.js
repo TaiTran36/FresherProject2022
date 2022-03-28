@@ -33,18 +33,17 @@ $(document).ready(function () {
         });
     });
 
-    // $('#title').on('click', function () {
-    //     $.ajax({
-    //         type: 'get',
-    //         url: '/post/sort',
-    //         data: {
-    //             'title': 'title'
-    //         },
-    //         success: function (data) {
-    //             $('#data').html(data);
-    //         }
-    //     });
-    // })
+    $('#title').on('click', function () {
+        $.ajax({
+            type: 'get',
+            url: '/post/sort',
+            data: {
+            },
+            success: function (data) {
+                $('#data').html(data);
+            }
+        });
+    })
 
     $(document).on('click', '#pagination_all a', function (event) {
         event.preventDefault();

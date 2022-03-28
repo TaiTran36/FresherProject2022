@@ -2,7 +2,7 @@
     <thead>
         <tr>
             <th style="width:3%; text-align: center;">No.</th>
-            <th style="width:42%; text-align: center;" value="title">Title</th>
+            <th id="title" style="width:42%; text-align: center;" value="title">Title</th>
             <th style="width:10%; text-align: center;">Writer</th>
             <th style="width:15%; text-align: center;">Created at</th>
             <th style="width:15%; text-align: center;">Updated at</th>

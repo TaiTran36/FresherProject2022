@@ -3,7 +3,7 @@
     <thead>
         <tr>
             <th style="width:5%; text-align:center">No.</th>
-            <th style="width:8%; text-align:center">Role</th>
+            {{-- <th style="width:8%; text-align:center">Role</th> --}}
             <th style="width:22%; text-align:center">Name</th>
             <th style="width:40%; text-align:center">Email</th>
             <th style="width:7%; text-align:center">Avatar</th>
@@ -17,13 +17,13 @@
         @foreach ($listprofile as $profile)
             <tr height="70px">
                 <td style="vertical-align: middle; text-align: center"><?php echo $index; ?></td>
-                @if ($profile->role=="admin")
+                {{-- @if ($profile->role=="admin")
                 <td style="color:rgb(2, 12, 145); font-weight: bolder; vertical-align: middle; text-align: center">Admin</td>
                 @elseif ($profile->role=="modder")
                 <td style="color:rgb(3, 60, 184); vertical-align: middle; text-align: center">Modder</td>
                 @else
                 <td style="color:rgb(3, 147, 230); vertical-align: middle; text-align: center">User</td>
-                @endif
+                @endif --}}
                 <td style="vertical-align: middle">{{ $profile->name }}</td>
                 <td style="vertical-align: middle">{{ $profile->email }}</td>
                 <td style="vertical-align: middle"><img height="60" width="60" onerror="this.src='/profile/error_img/not_found.png'" src="{{ asset('/profile/' . $profile->avatar) }}" alt="User Image">
