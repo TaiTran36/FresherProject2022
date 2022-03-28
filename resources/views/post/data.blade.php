@@ -2,7 +2,7 @@
     <thead>
         <tr>
             <th style="width:3%; text-align: center;">No.</th>
-            <th id="title" style="width:42%; text-align: center;">Title</th>
+            <th style="width:42%; text-align: center;" value="title">Title</th>
             <th style="width:10%; text-align: center;">Writer</th>
             <th style="width:15%; text-align: center;">Created at</th>
             <th style="width:15%; text-align: center;">Updated at</th>
@@ -14,20 +14,20 @@
         $index = ($page - 1) * 5 + 1; ?>
         @foreach ($listpost as $post)
             <tr>
-                <td><?php echo $index; ?></td>
-                <td>{{ $post->title }}</td>
-                <td>{{ $post->writer_username_login }}</td>
-                <td>{{ $post->created_at }}</td>
-                <td>{{ $post->updated_at }}</td>
-                <td><a class="btn btn-info" href="/post/{{ $post->url }}/details">Details</a></td>
-                <td>
+                <td style="vertical-align: middle; text-align: center"><?php echo $index; ?></td>
+                <td style="vertical-align: middle">{{ $post->title }}</td>
+                <td style="vertical-align: middle">{{ $post->writer_username_login }}</td>
+                <td style="vertical-align: middle">{{ $post->created_at }}</td>
+                <td style="vertical-align: middle">{{ $post->updated_at }}</td>
+                <td style="vertical-align: middle"><a class="btn btn-info" href="/post/{{ $post->url }}/details">Details</a></td>
+                <td style="vertical-align: middle">
                     @if (Auth::user()->can('edit post') || $post->writer_id == Auth::user()->id)
                         <a class="btn btn-primary" href="/post/{{ $post->url }}/edit">Edit</a>
                     @else
                         <a class="btn btn-secondary disabled" aria-disabled="true">Edit</a>
                     @endif
                 </td>
-                <td>
+                <td style="vertical-align: middle">
                     @if (Auth::user()->can('delete post') || $post->writer_id == Auth::user()->id)
                         <a class="btn btn-danger" href="/post/{{ $post->url }}/delete">Delete</a>
                     @else

@@ -84,5 +84,16 @@ public function search(Request $request)
             return Response($output2);
         }
     }
+    // public function sort(Request $request)
+    // {
+    //     if ($request->ajax()) {
+    //         $data =  Post::orderBy($request->title,'desc')->get();
+    //         // return $data;
+    //         // return view('post.data', compact('listpost'))->render();
+    //         echo $data;
+    //         // echo"aaa";
+    //     }
+    // }
+
 
 }

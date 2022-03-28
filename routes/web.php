@@ -47,6 +47,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
     Route::get('post/search', 'PostController@search');
     Route::get('post/search_all', 'PostController@search_results_all');
     Route::get('post/get_list', 'PostController@get_list');
+    Route::get('post/sort', 'PostController@sort');
 
     Route::get('post/{url}/edit', 'PostController@edit'); 
     Route::post('post/update', 'PostController@update'); 

@@ -23,7 +23,11 @@ class UserRepositories
 
     public function getAll( $pagination)
 {
-    $getData = User::paginate($pagination);
+    $getData = DB::table('users')
+    ->leftjoin('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
+    ->leftjoin('roles', 'model_has_roles.role_id', '=', 'roles.id')
+    ->select('users.*', 'roles.name as role')
+    ->paginate($pagination);
     return $getData;
 }
 public function getUser($id){

@@ -5,7 +5,7 @@
 @section('content')
 
     <div class="page-header">
-       <center ><h2>Posts List</h2></center>
+       <center ><h2 id="title">Posts List</h2></center>
     </div>
     <h4> Total: {{ $listpost->total() }} records. </h4>
     <div class="form-group">

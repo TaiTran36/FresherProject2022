@@ -1,14 +1,17 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
 html,
 body {
     overflow-x: hidden;
 }
+
 .hidden {
-    display: none!important;
-    visibility: hidden!important;
- }
+    display: none !important;
+    visibility: hidden !important;
+}
+
 #outer-container {
     display: table;
     width: 100%;
@@ -22,6 +25,7 @@ body {
     overflow: auto;
     padding-bottom: 100%;
 }
+
 
 #content {
     position: relative;
@@ -43,7 +47,4 @@ body {
     padding-left: 5px;
     width: 100%;
     border-top: 1px solid #e7e7e7;
-  }
-
-
-
+}
