@@ -36,7 +36,11 @@ public function getUser($id){
 }
 public function search($name)
 {
-    $getData = User::where('name', 'LIKE', '%' . $name . '%')->paginate(5);
+    $getData =DB::table('users')
+    ->leftjoin('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
+    ->leftjoin('roles', 'model_has_roles.role_id', '=', 'roles.id')
+    ->select('users.*', 'roles.name as role')
+-> where('users.name', 'LIKE', '%' . $name . '%')->paginate(5);
     return $getData;
 }
 public function getAvatar($id){
