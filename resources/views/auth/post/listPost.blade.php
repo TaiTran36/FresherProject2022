@@ -61,14 +61,12 @@
                                         <i class="bi bi-three-dots"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item"
-                                            href="{{ ($post->url == null) ? route('post.show', $post->id) : route('post.show', $post->url) }}">
+                                        <a class="dropdown-item" href="{{ route('post.show', $post->url) }}">
                                             {{ __('Show') }}
                                         </a>
 
                                         @if (Auth::check() && Auth::user()->role == 1)
-                                            <a class="dropdown-item"
-                                                href="{{ ($post->url == null) ? route('post.edit', $post->id) : route('post.edit', $post->url) }}">
+                                            <a class="dropdown-item" href="{{ route('post.edit', $post->url) }}">
                                                 {{ __('Edit') }}
                                             </a>
 

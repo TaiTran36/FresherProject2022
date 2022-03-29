@@ -14,8 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcomeOld');
 });
+
+// Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index'])->name('welcome');
+// Route::get('/{link}', [App\Http\Controllers\WelcomeController::class, 'read'])->name('post.read');
 
 Auth::routes();
 
@@ -28,11 +31,11 @@ Route::post('/user/profile', [App\Http\Controllers\Auth\ProfileController::class
 
 Route::get('post', [App\Http\Controllers\Admin\PostController::class, 'index'])->name('post.search');  
 Route::get('post/create', [App\Http\Controllers\Admin\PostController::class, 'create'])->name('post.create'); 
-Route::get('post/{id}', [App\Http\Controllers\Admin\PostController::class, 'show'])->name('post.show');
+Route::get('post/{url}', [App\Http\Controllers\Admin\PostController::class, 'show'])->name('post.show');
 Route::post('post', [App\Http\Controllers\Admin\PostController::class, 'store'])->name('post.store'); 
-Route::get('post/{id}/edit', [App\Http\Controllers\Admin\PostController::class, 'edit'])
+Route::get('post/{url}/edit', [App\Http\Controllers\Admin\PostController::class, 'edit'])
     ->name('post.edit');
-Route::put('post/{id}', [App\Http\Controllers\Admin\PostController::class, 'update'])
+Route::put('post/{url}', [App\Http\Controllers\Admin\PostController::class, 'update'])
     ->name('post.update');   
 Route::delete('post/{id}', [App\Http\Controllers\Admin\PostController::class, 'destroy'])->name('post.destroy');
 

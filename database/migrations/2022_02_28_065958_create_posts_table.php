@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('author');
             $table->string('title');
-            $table->string('url')->unique()->nullable();
+            $table->string('url')->unique();
             $table->text('content');
             $table->timestamp('created_at')->useCurrent();
         });

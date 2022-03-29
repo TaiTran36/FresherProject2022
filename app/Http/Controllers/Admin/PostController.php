@@ -67,16 +67,21 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         $user = Auth::user(); 
+
         $title = $request['title']; 
-        if(empty($title)) 
-        {
-            $title = Str::limit($request['content'], $limit = 70, $end = '...'); 
+        if(empty($title)) {
+            $title = Str::limit($request['content'], $limit = 50, $end = '...'); 
+        }
+
+        $url = $request['url']; 
+        if(empty($url)) {
+            $url = Str::replace(' ', '-', $title);
         }
         
         $dataInsert = [
             'title' => $title, 
             'author' => $user->username_login, 
-            'url' => $request['url'],
+            'url' => $url,
             'content' => $request['content'],
         ];
 
@@ -96,14 +101,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($postId)
+    public function show($postUrl)
     {
-        if (is_numeric($postId)) 
-        {
-            $post = $this->postRepository->findPost($postId);
-        } else {
-            $post = $this->postRepository->findPostByUrl($postId);
-        }
+        $post = $this->postRepository->findPostByUrl($postUrl);
 
         return view('auth.post.showPost', compact('post')); 
     }
@@ -114,16 +114,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($postId)
+    public function edit($postUrl)
     {
         if (!$this->userCan('edit-another-post'))  abort('403', __('Access denied'));
 
-        if (is_numeric($postId)) 
-        {
-            $post = $this->postRepository->findPost($postId);
-        } else {
-            $post = $this->postRepository->findPostByUrl($postId);
-        }
+        $post = $this->postRepository->findPostByUrl($postUrl);
 
         return view('auth.post.editPost', compact('post')); 
     }
@@ -137,11 +132,19 @@ class PostController extends Controller
      */
     public function update(PostRequest $request)
     {
-        $url = Str::replace(' ', '-', $request['url']);
+        $title = $request['title']; 
+        if(empty($title)) {
+            $title = Str::limit($request['content'], $limit = 50, $end = '...'); 
+        }
+
+        $url = $request['url']; 
+        if(empty($url)) {
+            $url = Str::replace(' ', '-', $title);
+        }
 
         $dataUpdate = [
             'id' => $request['id'],
-            'title' => $request['title'],
+            'title' => $title,
             'url' => $url,
             'content' => $request['content'],
         ];  

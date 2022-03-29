@@ -14,7 +14,7 @@
         @endif
 
         <form method="POST"
-            action="{{ ($post->url == null) ? route('post.update', $post->id) : route('post.update', $post->url) }}">
+            action="{{ route('post.update', $post->url) }}">
             @csrf
             @method('PUT')
 
@@ -24,7 +24,7 @@
                 <div class="col-md-9">
                     <input id="id" type="hidden" class="form-control" name="id" value="{{$post->id}}">
                     <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title"
-                        value="{{old('title', $post->title)}}" required autofocus>
+                        value="{{old('title', $post->title)}}" autofocus>
 
                     @error('title')
                     <span class="invalid-feedback" role="alert">
