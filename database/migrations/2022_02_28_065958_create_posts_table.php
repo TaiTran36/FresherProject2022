@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('author');
             $table->string('title');
             $table->string('url')->unique();
-            $table->string('category');
+            $table->json('category');
             $table->string('image')->nullable(); 
             $table->text('content');
             $table->timestamp('created_at')->useCurrent();

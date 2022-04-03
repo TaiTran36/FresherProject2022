@@ -22,15 +22,22 @@ class PostSeeder extends Seeder
 
         for ($i = 0; $i < 15; $i++){
             $content = $fake->realText(rand(250, 10000)); 
+            
             $title = Str::limit($content, $limit = 50, $end = '...'); 
+            
             $url = Str::replace(' ', '-', $title);
-            $categoryList = array_rand($categories, 2); 
+            
+            $categoriesNum = array_rand($categories, 2); 
+            $categoryList = [];
+            foreach($categoriesNum as $num) {
+                array_push($categoryList, $categories[$num]); 
+            }
 
             Post::create([
                 'author' => User::where('role', 3)->select('username_login')->inRandomOrder()->first()['username_login'],
                 'title' => $title,
                 'url' => $url, 
-                'category' => implode(", ", $categoryList),
+                'category' => $categoryList,
                 'image' => 'post-image.jpg',
                 'content' => $content,
             ]);

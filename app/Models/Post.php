@@ -23,6 +23,10 @@ class Post extends Model
         'author',
     ];
 
+    protected $casts = [
+        'category' => 'array',
+    ];
+
     // public function getCreatedAtAttribute()
     // {
     //     return Carbon::createFromFormat('Y-m-d H:s:i', $this->attributes['created_at'])->format('d/m/Y');
