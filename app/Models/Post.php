@@ -23,10 +23,10 @@ class Post extends Model
         'author',
     ];
 
-    public function getCreatedAtAttribute()
-    {
-        return Carbon::createFromFormat('Y-m-d H:s:i', $this->attributes['created_at'])->format('d/m/Y');
-    }
+    // public function getCreatedAtAttribute()
+    // {
+    //     return Carbon::createFromFormat('Y-m-d H:s:i', $this->attributes['created_at'])->format('d/m/Y');
+    // }
     
     public function setCreatedAtAttribute($value) 
     {
