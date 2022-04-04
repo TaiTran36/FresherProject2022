@@ -24,13 +24,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->role == 1 || Auth::user()->role == 2) 
-        {
-            return redirect()->route('user.search'); 
-        }
-        else if (Auth::user()->role == 3) 
-        {
-            return view('homeOld'); 
-        }
+        // if (Auth::user()->role == 1 || Auth::user()->role == 2) 
+        // {
+        //     return redirect()->route('user.search'); 
+        // }
+        // else if (Auth::user()->role == 3) 
+        // {
+        //     return view('homeOld'); 
+        // }
+        
+        return redirect()->route('post.view'); 
     }
 }
