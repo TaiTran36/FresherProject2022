@@ -18,4 +18,5 @@ mix.browserSync('http://localhost:8000/')
     .vue()
     .sass('resources/sass/app.scss', 'public/css')
     .sass('resources/sass/login.scss', 'public/css')
-    .sass('resources/sass/admin.scss', 'public/css'); 
+    .sass('resources/sass/admin.scss', 'public/css')
+    .sass('resources/sass/client.scss', 'public/css'); 

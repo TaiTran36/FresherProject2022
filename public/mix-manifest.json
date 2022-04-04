@@ -2,6 +2,7 @@
     "/js/app.js": "/js/app.js",
     "/js/admin.js": "/js/admin.js",
     "/css/app.css": "/css/app.css",
+    "/css/client.css": "/css/client.css",
     "/css/admin.css": "/css/admin.css",
     "/css/login.css": "/css/login.css",
     "/dist/img/AdminLTELogo.png": "/dist/img/AdminLTELogo.png",
