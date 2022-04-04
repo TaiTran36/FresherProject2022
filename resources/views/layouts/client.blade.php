@@ -26,49 +26,13 @@
 
 <body>
     <div class="client">
-        <nav class="navbar navbar-expand-md navbar-light bg-white">
-            <div class="container">
-                <div class="col-md-3 order-3 order-md-1">
-                    <form action="#" class="search-form">
-                        <i class="fa-solid fa-magnifying-glass pl-3 pr-2"></i>
-                        <input type="text" placeholder="Search...">
-                    </form>
-                </div>
+        @include('../layouts/client/header')
 
-                <div class="col-md-6 text-center order-1 order-md-2 mb-3 mb-md-0">
-                    <a href="#" class="logo m-0 text-uppercase">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
-                </div>
+        <main class="client-main">
+            @yield('content-client')
+        </main>
 
-                <div class="col-md-3 text-end order-2 order-md-3 mb-3 mb-md-0">
-            
-
-                {{-- <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block"> --}}
-                    @auth
-                        {{-- <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a> --}}
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
-                    @endauth
-                </div>
-            </div>
-    </div>
-    </nav>
-
-    <main class="client-main">
-        @yield('content-client')
-    </main>
-
-    <footer class="client-footer">
-        <p> Copyright &copy;
-            <script>
-                document.write(new Date().getFullYear());
-            </script>-<script>
-                document.write(new Date().getFullYear() + 4);
-            </script>
-            Chainos. All rights reserved.
-        </p>
-    </footer>
+        @include('../layouts/client/footer')
     </div>
 </body>
 
