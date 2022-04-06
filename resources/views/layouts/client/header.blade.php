@@ -41,6 +41,8 @@
                                 
                                 @if (Auth::check() && Auth::user()->role == 3)
                                     <a class="dropdown-item" href="{{ route('post.create') }}">{{ __('Add post') }}</a>
+                                @else
+                                    <a class="dropdown-item" href="{{ route('user.search') }}">{{ __('Manager') }}</a>
                                 @endif
 
                                 <a class="dropdown-item" href="{{ route('logout') }}"
