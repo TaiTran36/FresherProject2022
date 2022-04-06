@@ -29,7 +29,7 @@
                                             class="date">{{ Carbon\Carbon::parse($posts[$i + $j]->created_at)->format('F d, y') }}</span>
                                     </div>
                                     <h2 class="heading mb-3 fw-bold">
-                                        <a href="{{ route('post.read', $posts[$i + $j]->url) }}">
+                                        <a href="{{ route('post.read', urlencode(utf8_encode($posts[$i + $j]->url))) }}">
                                             {{ $posts[$i + $j]->title }}
                                         </a>
                                     </h2>
