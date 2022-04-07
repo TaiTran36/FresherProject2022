@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\Client\HomepageController::class, 'index'])->name('post.view');
 Route::get('detail/{url}', [App\Http\Controllers\Client\PostController::class, 'read'])->name('post.read');
+Route::post('detail/{url}', [App\Http\Controllers\Client\CommentController::class, 'store'])->name('comment.store');
 
 Auth::routes();
 

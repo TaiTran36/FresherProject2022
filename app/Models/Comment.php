@@ -16,4 +16,9 @@ class Comment extends Model
         'content',
         'user_id',
     ];
+
+    protected $guarded = [
+        'post_id',
+        'user_id',
+    ];
 }

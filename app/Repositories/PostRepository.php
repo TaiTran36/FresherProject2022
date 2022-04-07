@@ -26,9 +26,9 @@ class PostRepository {
     public function getListPost($data) 
     {
         if(!empty($data)) { 
-            return $this->model->where('title', 'LIKE', "%" . $data['search'] . "%")->latest()->paginate(5)->withQueryString();
+            return $this->model->where('title', 'LIKE', "%" . $data['search'] . "%")->oldest()->paginate(5)->withQueryString();
         } 
-        return $this->model->latest()->paginate(5); 
+        return $this->model->oldest()->paginate(5); 
     }
 
     public function findPost($id) 

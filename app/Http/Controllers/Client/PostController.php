@@ -21,6 +21,6 @@ class PostController extends Controller
         $postId = $post->id;
         $comments = $this->commonRepository->findCommentByPost($postId);
 
-        return view('auth.post.readPost', compact('post', 'comments')); 
+        return view('auth.post.detailPost', compact('post', 'comments')); 
     }
 }

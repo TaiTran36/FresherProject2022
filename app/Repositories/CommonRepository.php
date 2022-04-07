@@ -23,7 +23,7 @@ class CommonRepository {
         return $this->post
                     ->join('users', 'posts.author', '=', 'users.username_login')
                     ->select('posts.*', 'users.photo_url')
-                    ->latest()
+                    ->oldest()
                     ->paginate(9); 
     }
 
@@ -42,7 +42,7 @@ class CommonRepository {
                     ->where('category', $category)
                     ->join('users', 'posts.author', '=', 'users.username_login')
                     ->select('posts.*', 'users.photo_url')
-                    ->latest()
+                    ->oldest()
                     ->paginate(9); 
     }
 
@@ -52,6 +52,7 @@ class CommonRepository {
                     ->where('post_id', $id)
                     ->join('users', 'comments.user_id', '=', 'users.id')
                     ->select('comments.*', 'users.username_login', 'users.photo_url')
+                    ->oldest()
                     ->get();
     }
 }
