@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('post_body', 65535);
             $table->string('post_url')->unique();
             $table->string('post_author');
+            $table->string('post_thumbnail');
             $table->timestamps();
         });
     }

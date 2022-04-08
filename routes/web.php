@@ -19,8 +19,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('Auth');
-
 Route::get('logout', [\App\Http\Controllers\Auth\LoginController::class,'logout']);
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::group(['middleware' => 'auth'], function () {
@@ -56,3 +54,6 @@ Route::group(['middleware' => 'auth'], function () {
     
 });
 Route::post('adminLogin', [App\Http\Controllers\AdminController::class, 'adminLogin'])->name('adminLogin');
+
+//client
+Route::get('post/{post_url}/details', [App\Http\Controllers\PostController::class, 'index']);

@@ -8,6 +8,8 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
 
     <link rel="stylesheet" href="{{asset('css/adminlte.min.css?v=3.2.0')}}">
+    <link href="{{asset('css/select2.min.css')}}" rel="stylesheet" />
+
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
 <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
@@ -85,7 +87,7 @@
 
             <a href="{{route('admin.show', Auth::user()->id)}}" class="brand-link" style="font-size: 1.1rem;">
 
-                <span class="brand-text font-weight-light"  style="text-decoration: none">{{ Auth::user()->email }}</span>
+                <span class="brand-text font-weight-light" style="text-decoration: none">{{ Auth::user()->email }}</span>
             </a>
 
             <div class="sidebar">
@@ -168,9 +170,9 @@
     </div>
 
 
-    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-    <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- <script src="{{asset('js/jquery-ui.min.js')}}"></script>
 
     <script>
         $.widget.bridge('uibutton', $.ui.button)
@@ -194,14 +196,18 @@
 
     <script src="{{asset('js/summernote-bs4.min.js')}}"></script>
 
-    <script src="{{asset('js/jquery.overlayScrollbars.min.js')}}"></script>
-
-    <script src="dist/js/adminlte.js?v=3.2.0"></script>
-
-    <script src="dist/js/demo.js"></script>
-
-    <script src="dist/js/pages/dashboard.js"></script>
+    <script src="{{asset('js/jquery.overlayScrollbars.min.js')}}"></script> -->
+    <script src="{{asset('js/select2.full.min.js')}}"></script>
     <script src="{{asset('js/app.js')}}"></script>
+    <script>
+        $(document).ready(function() {
+            if($(".select2").length >0){
+                $(".select2").select2();
+            }
+            console.log($(".select2").val());
+           
+        })
+    </script>
 </body>
 
 </html>

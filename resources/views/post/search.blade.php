@@ -1,5 +1,6 @@
-<?php 
-$auth_id = $data['auth_id']
+<?php
+$auth_id = $data['auth_id'];
+
 ?>
 @extends('layouts.master')
 @section('content')
@@ -14,7 +15,7 @@ $auth_id = $data['auth_id']
             </form>
         </div>
         <div class="card-header font-weight-bold">
-            Danh sách tìm kiếm 
+            Danh sách tìm kiếm
         </div>
         <div class="card-body">
             <table class="table table-striped">
@@ -36,13 +37,27 @@ $auth_id = $data['auth_id']
                         <td>{{$post->post_title}}</td>
                         <td>{{$post->post_author}}</td>
                         <td>{{$post->created_at}}</td>
+
+                        @if($auth_id == 1 or $auth_id == 2)
                         <td>
-                        @if($auth_id == 1)
-                            <a href="{{route('post.edit', $post->id)}}" class="btn btn-success btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
+
+                            <a href="{{route('post.edit', $post->post_url)}}" class="btn btn-success btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
                             <a href="{{route('delete_post', $post->id)}}" class="btn btn-danger btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
-                            <a href="{{route('post.show', $post->id)}}" class="btn btn-warning btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Show"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                            <a href="{{route('post.show', $post-> post_url)}}" class="btn btn-warning btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Show"><i class="fa fa-eye" aria-hidden="true"></i></a>
 
                         </td>
+                        @endif
+                        @if($auth_id == 3)
+                        <td>
+                            @if(Auth::id() == $post->user_id)
+                            <a href="{{route('post.edit', $post->post_url)}}" class="btn btn-success btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
+                            <a href="{{route('delete_post', $post->id)}}" class="btn btn-danger btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
+                            @endif
+                            <a href="{{route('post.show', $post -> post_url)}}" class="btn btn-warning btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Show"><i class="fa fa-eye" aria-hidden="true"></i></a>
+
+                        </td>
+                        @endif
+
 
                     </tr>
                     @endforeach

@@ -30,7 +30,7 @@ class UserRequest extends FormRequest
             'nickname' => 'required|string|max:191',
             'email' => 'required|string|email|max:191',
             'description' => 'required|string|max:191',
-            'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:191',
+            'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg',
             'address' => 'required|string|max:191',
             'phone' => 'required|digits:10'
         ];
