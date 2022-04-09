@@ -48,21 +48,17 @@ public function update(Request $request)
     if(File::exists(public_path($get_old_avatar_file[0]->avatar))) {
     File::delete(public_path($get_old_avatar_file[0]->avatar));
     }
-    // $request->avatar=Auth::user()->avatar;
-if($request->file('avatar')!=null){
-    $profileImage = $request->file('avatar');
-    $profileImageSaveAsName = time() .rand(99,99999)."-".$profileImage->getClientOriginalName();
-    $upload_path = '../public/storage/images';
-    $profile_image_url = $profileImageSaveAsName;
-    $profileImage->move($upload_path, $profileImageSaveAsName);
-    $request->avatar=$profile_image_url;
-}
+    if($request->file('avatar')!=null){
+        $profileImage = $request->file('avatar');
+        $profileImageSaveAsName = time() .rand(99,99999)."-".$profileImage->getClientOriginalName();
+        $upload_path = '../public/profile/';
+        $profile_image_url = $profileImageSaveAsName;
+        $profileImage->move($upload_path, $profileImageSaveAsName);
+        $request->avatar=$profile_image_url;
+    }
     $this->userRepository->update($request);
-    $user= new User ;
-    if ($user->mySelf()->can('edit user'))
-    {
-	return redirect('profile/list'); }
-    return redirect('/profile/'.Auth::user()->id.'/details');
+	return redirect('profile/list'); 
+
 }
 public function destroy($id)
 {

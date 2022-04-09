@@ -52,10 +52,11 @@
                 <!-- /page content -->
 
                 <!-- footer content -->
-                <footer>
-                    <div class="pull-right">
+                <footer >
+                    
                         Copyright © 2022-2026 Chainos. All rights reserved.
-                    </div>
+                      
+                    
                     <div class="clearfix"></div>
                 </footer>
                 <!-- /footer content -->

@@ -45,7 +45,7 @@
 				      <td><?php echo $index ?></td>
                       <td>{{ $profile->name }}</td>
                       <td>{{ $profile->email }}</td>
-                      <td><img height="100" onerror="this.src='/storage/image_err/no-image.jpg'" src="/storage/images/{{ $profile->avatar }}" /></td>
+                      <td><img height="100" onerror="this.src='/storage/image_err/no-image.jpg'" src="/profile/{{ $profile->avatar }}" /></td>
                       <td>{{ $profile->phone_number}}</td>
 					  <td><a class="btn btn-info" href="/profile/{{ $profile->id }}/details"><i class="fa fa-eye" aria-hidden="true"> Details</a></td>
 						<td><a class="btn btn-primary" href="/profile/{{ $profile->id }}/edit"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a></td>

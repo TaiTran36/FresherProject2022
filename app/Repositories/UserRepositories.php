@@ -47,7 +47,6 @@ public function update(Request $request)
 		'name' => $request->name,
         'date_of_birth'=> $request->date_of_birth,
         'nickname'=> $request->nickname,
-        'name'=> $request->username,
         'email'=> $request->email,
         'description'=> $request->description,
         'avatar' => $request->avatar,

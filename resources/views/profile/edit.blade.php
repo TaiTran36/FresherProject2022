@@ -25,10 +25,6 @@
 			<input type="text" class="form-control" id="nickname" name="nickname" placeholder="Nickname" maxlength="255" value="{{ $getprofileById[0]->nickname }}" required />
 		</div>
 		<div class="form-group">
-			<label for="username">Username</label>
-			<input type="text" class="form-control" id="username" name="username" placeholder="Username" maxlength="255" value="{{ $getprofileById[0]->username }}" required />
-		</div>
-		<div class="form-group">
 			<label for="email">Email</label>
 			<input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{ $getprofileById[0]->email }}" required />
 		</div>
@@ -39,10 +35,8 @@
 		<div class="form-group">
 			<label for="avatar">Avatar</label>
 			<div>
-			<img height="150" onerror="this.src='/storage/image_err/no-image.jpg'"
-				src="{{ asset('/profile/' .$getprofileById[0]->avatar) }}" alt="User Image">
-			<input type="file" class="form-control" id="avatar" name="avatar" placeholder="avatar"
-				value="{{ $getprofileById[0]->avatar }}"  />
+			<img height="150" onerror="this.src='/storage/image_err/no-image.jpg'"src="{{ asset('/profile/' .$getprofileById[0]->avatar) }}" alt="User Image">
+			<input type="file" class="form-control" id="avatar" name="avatar" placeholder="avatar" value="{{ $getprofileById[0]->avatar }}"  />
 			</div>
 		
 		</div>

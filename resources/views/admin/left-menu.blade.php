@@ -2,7 +2,7 @@
 <!-- menu profile quick info -->
 <div class="profile clearfix">
     <div class="profile_pic">
-        <img  onerror="this.src='/storage/image_err/no-image.jpg'" src="/storage/images/" class="img-circle profile_img"/> 
+        <img  onerror="this.src='/storage/image_err/no-image.jpg'" src="/storage/images/<?php echo auth()->user()->avatar; ?>" class="img-circle profile_img"/> 
     </div>
     <div class="profile_info">
         <span>Welcome</span>
@@ -19,22 +19,12 @@
         
         <i style="margin-left : 20px" class="fa fa-user-secret" ></i>Admin
         <ul class="nav side-menu">
-            <li><a><i class="fa fa-home"></i> Manage </a></li>
+            <li><a href="../home"><i class="fa fa-home"></i> Manage </a></li>
                 
                     
             <li class="{{ request()->is('profile/list') ? 'li_active' : '' }}"> <a href="/profile/list"><i class="fa fa-user"></i>User Manage</a></li>                   
             <li class="{{ request()->is('post/list') ? 'li_active' : '' }}"> <a href="/post/list"><i class="fa fa-pencil"></i>Post Manage</a></li>
-                    
-                
-                
-            
-            
-                
-           
-            
-            
-            
-            
+                          
     </div>
 
 </div>

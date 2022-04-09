@@ -22,7 +22,7 @@
 			
 		@endif
 		<div class="table-responsive">
-			<p><a class="btn btn-primary" href="/{{ url('/post/create') }}">Thêm mới</a></p>
+			<p><a class="btn btn-primary" href="/post/create">Thêm mới</a></p>
 			<table id="DataList" class="table table-bordered table-hover">
 				<thead>
 					<tr>
@@ -45,9 +45,9 @@
 					  <td>{{ $post->created_at }}</td>
                       
                       
-					  <td><a class="btn btn-info" href="/post/{{ $post->id }}/details"><i class="fa fa-eye" aria-hidden="true"> Details</a></td>
-						<td><a class="btn btn-primary" href="/post/{{ $post->id }}/edit"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a></td>
-						<td><a class="btn btn-danger" href="/post/{{ $post->id }}/delete"><i class="fa fa-trash" aria-hidden="true"> Delete</a></td>
+					  <td><a class="btn btn-info" href="/post/{{ $post->url }}/details"><i class="fa fa-eye" aria-hidden="true"> Details</a></td>
+						<td><a class="btn btn-primary" href="/post/{{ $post->url }}/edit"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a></td>
+						<td><a class="btn btn-danger" href="/post/{{ $post->url }}/delete"><i class="fa fa-trash" aria-hidden="true"> Delete</a></td>
 					</tr>
 					<?php $index++ ?>
 				@endforeach

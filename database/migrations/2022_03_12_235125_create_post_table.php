@@ -18,13 +18,11 @@ return new class extends Migration
             $table->string('title');
             $table->string('url');
             $table->string('content');
-            $table->foreignId('writer');
+            $table->foreignId('writer_id');
+            $table->string('photo', 2048)->nullable();
             $table->timestamps();
 
-            $table->foreign('writer') 
-            ->references('id')->on('users') 
-            ->onDelete('CASCADE')
-            ->onUpdate('CASCADE');
+            $table->foreign('writer_id')->references('id')->on('users')->onDelete('CASCADE')->onUpdate('CASCADE');
         });
     }
 

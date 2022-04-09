@@ -1,0 +1,36 @@
+.parent{
+  .slider{
+    .splide{
+      .splide__arrows{
+        display: none;
+      }
+      .splide__track{
+        width: 85%;
+        margin: auto;
+        .splide__list{
+          .splide__slide{
+            .son{
+              .content{
+                h2{
+                  color: $black2;
+                }
+              }
+            }
+          }
+        }
+      }
+      .splide__pagination{
+        bottom: -2em;
+        li{
+          .splide__pagination__page{
+            width: 5px;
+            height: 5px;
+          }
+        }
+      }
+      .splide__pagination__page.is-active{
+        background: $orange1;
+      }
+    }
+  }
+}
