@@ -29,6 +29,14 @@
                                     <td>{{ $post->writer_username_login }}</td>
                                 </tr>
                                 <tr>
+                                    <td> Category </td>
+                                    <td>
+                                        @foreach ($categories as $category)
+                                        {{ $category->pluck('category')->implode(', ') }}
+                                        @endforeach
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td> Content </td>
                                     <td>{{ $post->content }}</td>
                                 </tr>

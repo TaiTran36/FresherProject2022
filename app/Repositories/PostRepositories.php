@@ -17,17 +17,25 @@ class PostRepositories
     {
         return \App\Models\Post::class;
     }
+    public function all()
+{
+    $getData = Post::join('users', 'posts.writer_id', '=', 'users.id')->select('posts.*', 'users.username_login as writer_username_login','users.name as writer_name','users.avatar as writer_avatar')->get();
+    return $getData;
+}
 
     public function getAll( $pagination)
 {
     $getData = Post::join('users', 'posts.writer_id', '=', 'users.id')->select('posts.*', 'users.username_login as writer_username_login')->paginate($pagination);
     return $getData;
 }
+public function getID($url){
+    return DB::table('posts')->where('url','=',$url)->value('id');
+}
 
 public function details($url){
     $getData = DB::table('posts')
     ->join('users', 'posts.writer_id', '=', 'users.id')->where('posts.url','=', $url)
-    ->select('posts.*', 'users.username_login as writer_username_login')
+    ->select('posts.*', 'users.username_login as writer_username_login','users.name as writer_name','users.avatar as writer_avatar')
     ->get();
     return $getData;
 }
@@ -48,17 +56,26 @@ public function insert(Request $request)
         $check=$this->getPost($temp)->count();
     }
     $url.='-'.$tail;}
-    DB::table('posts')->insert([
+    //
+
+    $id = DB::table('posts')->insertGetId([
         'title' => $request->title,
         'url'=> $url,
         'content'=>$request->content,  
+        'photo_path'=> $request->image,
         'writer_id'=> auth()->user()->id,
-        'created_at'=>$dt->toDateTimeString() 
+        'created_at'=>$dt->toDateTimeString()  
     ]);
+    return $id;
 }
 public function getPost($url)
 {
     $post= Post::where('url',$url)->get();
+    return $post;
+}
+public function getPostByID($id)
+{
+    $post= Post::where('id',$id)->get();
     return $post;
 }
 public function getPost_writer_id($url)
@@ -72,6 +89,8 @@ public function update(Request $request){
         $url= str_replace('+', '-',urlencode(urldecode($request->url)));
     } else $url= str_replace('+', '-', urlencode(rand(10000,99999)." ".$request->title." ".Carbon::parse($dt->toDateTimeString() )->format('Y-m-d h-i-s')));
     $tail=$this->getPost($url)->count();
+    $old_url=DB::table('posts')->where('id', $request->id)->value('url');
+    if($url!=$old_url){
     if($tail>0){
     $temp="";
     $check=1;
@@ -80,11 +99,12 @@ public function update(Request $request){
         $temp=$url.'-'.$tail;
         $check=$this->getPost($temp)->count();
     }
-    $url.='-'.$tail;}
+    $url.='-'.$tail;}}
     DB::table('posts')->where('id', $request->id)->update([
         'title' => $request->title,
         'url'=> $url,
         'content'=>$request->content,
+        'photo_path' => $request->image,
         'updated_at'=>$dt->toDateTimeString() 
     	]);	
 }
@@ -94,5 +114,50 @@ public function search($title){
 }
 public function delete($url){
     DB::table('posts')->where('url', '=', $url)->delete();
+}
+public function add_comment(Request $request){
+    $dt = Carbon::now('Asia/Ho_Chi_Minh');
+    DB::table('comments')->insert([
+        'user_id' => auth()->user()->id,
+        'post_id'=> $request->post_id,
+        'comment_text'=>$request->comment,
+        'created_at'=>$dt->toDateTimeString()  
+        ]);	
+}
+public function comments($url){
+    return Post::join('comments', 'posts.id', '=', 'comments.post_id')
+    ->join('users', 'comments.user_id', '=', 'users.id')
+    ->where('posts.url', '=', $url)
+    ->select('comments.*','users.avatar as user_avatar','users.name as user_name')
+    ->get();
+}
+public function destroy_like_dislike($id){
+    DB::table('like_dislikes')->where('post_id','=',$id)->where('user_id','=',auth()->user()->id)->delete();
+}
+public function addLike($id){
+    $dt = Carbon::now('Asia/Ho_Chi_Minh');
+    DB::table('like_dislikes')->insert([
+        'post_id' => $id,
+        'user_id'=> auth()->user()->id,
+        'like'=> "1",
+        'dislike'=>'0',
+        'created_at'=>$dt->toDateTimeString()  
+    ]);
+}
+public function addDislike($id){
+    $dt = Carbon::now('Asia/Ho_Chi_Minh');
+    DB::table('like_dislikes')->insert([
+        'post_id' => $id,
+        'user_id'=> auth()->user()->id,
+        'like'=> "0",
+        'dislike'=>'1',
+        'created_at'=>$dt->toDateTimeString()  
+    ]);
+}
+public function likes($id){
+    return DB::table('like_dislikes')->where('post_id','=',$id)->where('like','=','1') ->count();
+}
+public function dislikes($id){
+    return DB::table('like_dislikes')->where('post_id','=',$id)->where('dislike','=','1') ->count();
 }
 }

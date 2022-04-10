@@ -1,0 +1,62 @@
+ 
+ <!--sidebar-->
+ <div class="py-2 px-3 h-full shadow-md z-10 bg-white" id="sidebar">
+     <p><i class="ri-close-fill text-4xl transition duration-300 ease-in-out hover:text-yellow-500"
+             id="close_sidebar"></i></p>
+     <ul>
+         <li class="py-1.5 px-3 active "><a href="../index.html">Home</a></li>
+         <li class="py-1.5 px-3 relative "><a href="../pug_files/category.html ">Categories</a><span
+                 class="absolute top-0 right-0 text-2xl text-gray-300 cursor-pointer " id="arrow"><i
+                     class="ri-arrow-down-circle-line "></i></span>
+             <ul class="p-3 inner-list">
+                 @foreach ($categories as $category)
+                     <li class="py-1.5 px-3 "><a href="#">{{ $category->name }}</a></li>
+                 @endforeach
+             </ul>
+         </li>
+         @if (Route::has('login'))
+             @auth
+                 <li class="py-1.5 px-3"><a href="{{ url('/dashboard') }}">Dashboard</a></li>
+             @else
+                 <li class="py-1.5 px-3 relative "> <a href="{{ route('login') }}">Log in</a></li>
+
+                 @if (Route::has('register'))
+                     <li class="py-1.5 px-3 relative "> <a href="{{ route('register') }}">Register</a></li>
+                 @endif
+             @endauth
+         @endif
+     </ul>
+ </div>
+ <!--main navbar-->
+ <nav class="border-b-2 border-gray-200">
+     <div class="container">
+         <div class="parent">
+             <div class="md:flex py-5">
+                 <div class="md:w-1/2 w-full logo md:order-2 text-center "><a class="text-black text-xl font-bold"
+                         href="/">Laravel Project</a></div>
+                 <div class="md:w-1/4 w-full list md:order-3">
+                     <div class="flex justify-between">
+                         <ul class=" flex">
+                             <li class="mx-2 "><a href="#"><span><i class="ri-twitter-fill"> </i></span></a>
+                             </li>
+                             <li class="mx-2 "><a href="#"><span><i class="ri-facebook-fill"> </i></span></a>
+                             </li>
+                             <li class="mx-2 "><a href="#"><span><i class="ri-instagram-line"> </i></span></a>
+                             </li>
+                         </ul><a class="text-4xl" href="#" id="menu"><span><i
+                                     class="ri-menu-fill transition duration-300 ease-in-out hover:text-yellow-500"></i></span></a>
+                     </div>
+
+                 </div>
+                 <div class="md:w-1/4 w-full search md:order-1">
+                     <form class="relative px-3 py-1 rounded-full border-2 border-gray-200"><span
+                             class="absolute top-1.5 text-gray-300 left-2.5 text-sm"><i
+                                 class="ri-search-line"></i></span>
+                         <input class=" pl-6 w-full text-gray-600" type="search" placeholder="Search...">
+                     </form>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </nav>
+ <!--slider-->

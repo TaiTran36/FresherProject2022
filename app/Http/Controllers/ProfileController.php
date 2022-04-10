@@ -50,17 +50,21 @@ class ProfileController extends Controller
 public function update(Request $request)
 {
     $get_old_avatar_file = $this->userRepository->getUser($request->id);
-    if(File::exists(public_path('/profile/'.$get_old_avatar_file[0]->avatar))) {
-    File::delete(public_path('/profile/'.$get_old_avatar_file[0]->avatar));
-    }
+
     // $request->avatar=Auth::user()->avatar;
 if($request->file('avatar')!=null){
+    if(File::exists(public_path('/profile/'.$get_old_avatar_file[0]->avatar))) {
+        File::delete(public_path('/profile/'.$get_old_avatar_file[0]->avatar));
+        }
     $profileImage = $request->file('avatar');
     $profileImageSaveAsName = time() .rand(99,99999)."-".$profileImage->getClientOriginalName();
     $upload_path = '../public/profile/';
     $profile_image_url = $profileImageSaveAsName;
     $profileImage->move($upload_path, $profileImageSaveAsName);
     $request->avatar=$profile_image_url;
+}
+if($request->file('avatar')==null){
+    $request->avatar=$request->avatar_old;
 }
     $this->userRepository->update($request);
     $user= new User ;

@@ -9,4 +9,10 @@ class Post extends Model
 {
     protected $table = 'posts';
     use HasFactory;
+    function comments(){
+      return $this->hasMany('App\Models\Comment')->orderBy('id','desc');
+  }
+    public function categories() {
+        return $this->belongsToMany('App\Models\Category');
+      }
 }

@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WelcomeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,19 +16,24 @@ use App\Http\Controllers\ProfileController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index'])->name('welcome');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+Route::get('post/{url}/client_details', 'PostController@client_details');
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     Route::group(['middleware' => 'auth'], function () {
+    Route::post('post/save-comment','PostController@save_comment');
+    Route::get('post/like','PostController@like');
+    Route::get('post/dislike','PostController@dislike');
     Route::group(['middleware' => ['can:all user']], function () {
     Route::get('profile/list', 'ProfileController@index'); 
     Route::get('profile/search', 'ProfileController@search');
@@ -52,5 +59,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
     Route::get('post/{url}/edit', 'PostController@edit'); 
     Route::post('post/update', 'PostController@update'); 
     Route::get('post/{url}/delete', 'PostController@destroy');
-
 });

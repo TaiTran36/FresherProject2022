@@ -1,4 +1,12 @@
 $(document).ready(function () {
+    $('#submit').click(function() {
+        checked = $("input[type=checkbox]:checked").length;
+        if(!checked) {
+          $('#err').text("You must check this !!!!!!").css("color", "red");
+          return false;
+        }
+      });
+
     $('#search').on('keyup', function () {
         $value = $(this).val();
         $.ajax({
@@ -33,17 +41,19 @@ $(document).ready(function () {
         });
     });
 
-    $('#title').on('click', function () {
-        $.ajax({
-            type: 'get',
-            url: '/post/sort',
-            data: {
-            },
-            success: function (data) {
-                $('#data').html(data);
-            }
-        });
-    })
+    // $('#title').on('click', function () {
+    //     $.ajax({
+    //         type: 'get',
+    //         url: '/post/sort',
+    //         data: {
+    //         },
+    //         success: function (data) {
+    //             $('#data').html(data);
+    //         }
+    //     });
+    // })
+
+
 
     $(document).on('click', '#pagination_all a', function (event) {
         event.preventDefault();

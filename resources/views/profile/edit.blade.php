@@ -8,32 +8,6 @@
         <h4>User-profile</h4>
     </div>
 
-    <?php //Hiển thị thông báo thành công
-    ?>
-    @if (Session::has('success'))
-        <div class="alert alert-success alert-dismissible" role="alert">
-            <strong>{{ Session::get('success') }}</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                <span class="sr-only">Close</span>
-            </button>
-        </div>
-    @endif
-
-    <?php //Hiển thị thông báo lỗi
-    ?>
-    @if (Session::has('error'))
-        <div class="alert alert-danger alert-dismissible" role="alert">
-            <strong>{{ Session::get('error') }}</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                <span class="sr-only">Close</span>
-            </button>
-        </div>
-    @endif
-
-    <?php //Hiển thị form sửa
-    ?>
     @if (Auth::user()->can('all user'))
     <p><a class="btn btn-primary" href="/profile/list">Back</a></p>
 @else     
@@ -79,10 +53,12 @@
             <div class="form-group">
                 <label for="avatar">Avatar</label>
                 <div>
-                <img id="img_avatar" style="width:7%;height:7%" onerror="this.src='/profile/error_img/not_found.png'"
+                <img id="image_show" style="width:7%;height:7%" onerror="this.src='/profile/error_img/not_found.png'"
                     src="{{ asset('/profile/' .$getprofileById[0]->avatar) }}" alt="User Image">
                 <input type="file" class="form-control" id="avatar" onchange="getFileData(this);" name="avatar" placeholder="avatar"
                     value="{{ $getprofileById[0]->avatar }}"  />
+                    <input type="text" name="avatar_old" placeholder="avatar"
+                    value="{{ $getprofileById[0]->avatar }}"  hidden />
                 </div>
             </div>
             <div class="form-group">

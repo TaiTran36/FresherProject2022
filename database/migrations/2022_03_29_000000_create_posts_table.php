@@ -20,6 +20,7 @@ return new class extends Migration
             $table->LONGTEXT('content');
             $table->foreignId('writer_id');
             $table->timestamps();
+            $table->string('photo_path', 2048)->nullable();
 
             $table->foreign('writer_id') 
             ->references('id')->on('users') 
