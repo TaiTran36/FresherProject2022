@@ -28,18 +28,18 @@ class PostController extends Controller
 
         $liked = null; 
         $disliked = null;
-        
+
         if (Auth::user()) {
-        $data = [
-            'user_id' => Auth::user()->id, 
-            'likeable_id' => $postId, 
-        ];
+            $data = [
+                'user_id' => Auth::user()->id, 
+                'likeable_id' => $postId, 
+            ];
 
-        $data['likeable_type'] = "like"; 
-        $liked = $this->likeRepository->findUserLikedPost($data);
+            $data['likeable_type'] = "like"; 
+            $liked = $this->likeRepository->findUserLikedPost($data);
 
-        $data['likeable_type'] = "dislike"; 
-        $disliked = $this->likeRepository->findUserDislikedPost($data);
+            $data['likeable_type'] = "dislike"; 
+            $disliked = $this->likeRepository->findUserDislikedPost($data);
         }
         $likeNum = $this->likeRepository->countLikeOfAPost($postId);
         $dislikeNum = $this->likeRepository->countDislikeOfAPost($postId);
