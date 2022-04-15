@@ -39,12 +39,8 @@ body {
 }
 
 a {
-  -webkit-text-decoration-line: none;
-          text-decoration-line: none;
+  text-decoration: none;
   color: #000;
-}
-a :hover {
-  color: #000 !important;
 }
 
 .image-post {

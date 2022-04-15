@@ -16,6 +16,6 @@
         <img src="{{ asset('images/' . $post->image) }}" alt="Image" class="img-fluid rounded image-post col-8 mb-3">
     </div>
     <div class="d-flex justify-content-center">
-        <p class="col-8">{{ $post->content }}</p>
+        <p class="col-8 mb-1">{{ $post->content }}</p>
     </div>
 </form>
