@@ -1,22 +1,28 @@
- 
+
  <!--sidebar-->
  <div class="py-2 px-3 h-full shadow-md z-10 bg-white" id="sidebar">
      <p><i class="ri-close-fill text-4xl transition duration-300 ease-in-out hover:text-yellow-500"
              id="close_sidebar"></i></p>
      <ul>
-         <li class="py-1.5 px-3 active "><a href="../index.html">Home</a></li>
-         <li class="py-1.5 px-3 relative "><a href="../pug_files/category.html ">Categories</a><span
+         <li class="py-1.5 px-3 active "><a href="/">Home</a></li>
+         <li class="py-1.5 px-3 relative "><a id="arrow">Categories</a><span
                  class="absolute top-0 right-0 text-2xl text-gray-300 cursor-pointer " id="arrow"><i
                      class="ri-arrow-down-circle-line "></i></span>
              <ul class="p-3 inner-list">
                  @foreach ($categories as $category)
-                     <li class="py-1.5 px-3 "><a href="#">{{ $category->name }}</a></li>
+                     <li class="py-1.5 px-3 "><a href="/category/{{ $category->name }}/posts">{{ $category->name }}</a></li>
                  @endforeach
              </ul>
          </li>
          @if (Route::has('login'))
              @auth
                  <li class="py-1.5 px-3"><a href="{{ url('/dashboard') }}">Dashboard</a></li>
+                 <li class="py-1.5 px-3 li_end"> <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+                                        <i class="fa fa-sign-out"></i> <span class="nav-label">Logout</span></a> </li>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
              @else
                  <li class="py-1.5 px-3 relative "> <a href="{{ route('login') }}">Log in</a></li>
 

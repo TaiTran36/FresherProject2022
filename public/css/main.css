@@ -79,7 +79,7 @@ body {
 }
 
 .parent .slider .splide .splide__arrows {
-  display: none;
+  color: #f79918;
 }
 
 .parent .slider .splide .splide__track {
@@ -96,8 +96,8 @@ body {
 }
 
 .parent .slider .splide .splide__pagination li .splide__pagination__page {
-  width: 5px;
-  height: 5px;
+  width: 10px;
+  height: 10px;
 }
 
 .parent .slider .splide .splide__pagination__page.is-active {

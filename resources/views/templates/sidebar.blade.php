@@ -43,7 +43,7 @@
                     @endcan
                     <li class="{{ request()->is('post/list') ? 'li_active' : '' }}"> <a href="/post/list"><i
                                 class="fa fa-sticky-note-o"></i> <span class="nav-label">Posts</span></a> </li>
-                    <li> <a href="#"><i class="fa fa-cog"></i> <span class="nav-label">Setting</span></a>
+                    <li> <a href="/"><i class="fa fa-home"></i> <span class="nav-label">Client View</span></a>
                     </li>
                     <li class="li_end"> <a href="{{ route('logout') }}" onclick="event.preventDefault();
         document.getElementById('logout-form').submit();">
@@ -63,6 +63,5 @@
             $('.button-left').click(function() {
                 $('.sidebar').toggleClass('fliph');
             });
-
         });
     </script>

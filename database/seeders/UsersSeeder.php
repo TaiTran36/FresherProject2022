@@ -18,6 +18,7 @@ class UsersSeeder extends Seeder
      */
     public function run()
     { 
+        $paths=array('164938474623407-cccccc.jpg','164996109240887-blank-post-it-note-1.png','164822553533163-Untitled.png') ;
         $faker = Faker::create('vi_VN');  
         DB::table('users')->insert([
             'username_login' => 'anhkatori',
@@ -27,7 +28,7 @@ class UsersSeeder extends Seeder
             'date_of_birth' => $faker->date($format = 'Y-m-d', $max = '2020',$min = '1980'),
             'nickname' =>$faker->word,
             'description'=>$faker->sentence($nbWords=6, $variableNbWords=true),  
-            'avatar'=>'UK239dzgoTMShdNIh9P5ozrENBe8TaUebxOcSbeY.jpg',
+            'avatar'=>$paths[array_rand($paths)],
             'address'=>$faker->word,
             'phone_number'=> $faker->phoneNumber,
         ]);
@@ -39,7 +40,7 @@ class UsersSeeder extends Seeder
             'date_of_birth' => $faker->date($format = 'Y-m-d', $max = '2020',$min = '1980'),
             'nickname' =>$faker->word,
             'description'=>$faker->sentence($nbWords=6, $variableNbWords=true),  
-            'avatar'=>'UK239dzgoTMShdNIh9P5ozrENBe8TaUebxOcSbeY.jpg',
+            'avatar'=>$paths[array_rand($paths)],
             'address'=>$faker->word,
             'phone_number'=> $faker->phoneNumber,
         ]);
@@ -51,7 +52,7 @@ class UsersSeeder extends Seeder
             'date_of_birth' => $faker->date($format = 'Y-m-d', $max = '2020',$min = '1980'),
             'nickname' =>$faker->word,
             'description'=>$faker->sentence($nbWords=6, $variableNbWords=true),  
-            'avatar'=>'UK239dzgoTMShdNIh9P5ozrENBe8TaUebxOcSbeY.jpg',
+            'avatar'=>$paths[array_rand($paths)],
             'address'=>$faker->word,
             'phone_number'=> $faker->phoneNumber,
         ]);
@@ -64,7 +65,7 @@ class UsersSeeder extends Seeder
                 'date_of_birth' => $faker->date($format = 'Y-m-d', $max = '2020',$min = '1980'),
                 'nickname' =>$faker->word,
                 'description'=>$faker->sentence($nbWords=6, $variableNbWords=true),  
-                'avatar'=>'UK239dzgoTMShdNIh9P5ozrENBe8TaUebxOcSbeY.jpg',
+                'avatar'=>$paths[array_rand($paths)],
                 'address'=>$faker->word,
                 'phone_number'=> $faker->phoneNumber,
             ]);

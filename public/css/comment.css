@@ -38,8 +38,8 @@
 }
 
 .be-comment-name {
+    color:#383b43;
     font-size: 20px;
-    font-family: 'Conv_helveticaneuecyr-bold';
 }
 
 .be-comment-content a {
@@ -58,7 +58,7 @@
 
 .be-comment-time {
     font-size: 11px;
-    color: #b4b7c1;
+    color: #87898f;
 }
 
 .be-comment-text {

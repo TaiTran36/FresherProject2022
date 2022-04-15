@@ -37,6 +37,15 @@
                             top: 0;
                             transform: scale(.8);
                           }
+                          .radio_group input[type="radio"]:hover + label{
+                            color: #4aa5ac;
+                            width: 120%;
+                            height: 100%;
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            transform: scale(.8);
+                          }
                           .radio_group input[type="radio"]:checked + label{
                             color:#3498db;
                             transform: scale(1.1);

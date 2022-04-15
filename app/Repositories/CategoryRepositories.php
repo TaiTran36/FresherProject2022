@@ -24,14 +24,24 @@ class CategoryRepositories
     $getData = Category::all();
     return $getData;
 }
-public function getAllPostFromCat()
+public function getByName($name)
+{
+    $getData = DB::table('categories')
+    ->where('name','=',$name)
+    ->get();
+    return $getData;
+}
+public function getAllPostFromCat($name)
 {
     $getData = DB::table('posts')
     ->join('post_category', 'posts.id', '=', 'post_category.post_id')
     ->join('categories', 'categories.id', '=', 'post_category.category_id')
     ->join('users', 'posts.writer_id', '=', 'users.id')
-    ->select('posts.*','categories.name as category', 'users.name as writer_name','users.avatar as writer_avatar')
-    ->get();    
+    ->where('categories.name','=',$name)
+    ->select('posts.*','categories.name as category','users.username_login as writer_username', 'users.name as writer_name','users.avatar as writer_avatar')
+    // ->take(5)
+    ->orderBy('created_at', 'DESC')
+    ->get();
     return $getData;
 }
 public function getAllCatFromPost()

@@ -20,7 +20,6 @@ class PostController extends Controller
     {
         $this->postRepository = $postRepository;
         $this->categoryRepository = $categoryRepository;
-
     }
     public function index()
     {
@@ -40,17 +39,6 @@ class PostController extends Controller
         $getData = $this->postRepository->details($url);
         $categories[] =  $this->categoryRepository->get_where_post($url);
         return view('post.detail')->with('post',$getData)->with('categories',$categories);
-    }
-    public function client_details($url)
-    {   
-        $getData = $this->postRepository->details($url);
-        $categories=$this->categoryRepository->getAll();
-        // $categories[] =  $this->categoryRepository->get_where_post($url);
-        $list_comments= $this->postRepository->comments($url);
-        $id= $this->postRepository->getId($url);
-        $likes = $this->postRepository->likes($id);
-        $dislikes = $this->postRepository->dislikes($id);
-        return view('post.client_details')->with('post',$getData)->with('categories',$categories)->with('list_comments',$list_comments)->with('count_like',$likes)->with('count_dislike',$dislikes);
     }
     public function create()
     {
@@ -134,33 +122,7 @@ public function search(Request $request)
             return Response($output2);
         }
     }
-    function save_comment(Request $request){
-            $this->postRepository->add_comment($request);
-            $getData = $this->postRepository->details($request->url);
-            $categories[] =  $this->categoryRepository->get_where_post($request->url);
-            $list_comments= $this->postRepository->comments($request->url);
-            return redirect('/post/'.$request->url.'/client_details')->with('post',$getData)->with('categories',$categories)->with('list_comments',$list_comments);
-    }
-    public function like(Request $request)
-    {
-        if ($request->ajax()) {
-            $this->postRepository->destroy_like_dislike($request->post_id);
-            $this->postRepository->addLike($request->post_id);
-        }
-        $likes = $this->postRepository->likes($request->post_id);
-        $dislikes = $this->postRepository->dislikes($request->post_id);
-        return response()->json(['likes' => $likes, 'dislikes' => $dislikes]);
-    }
-    public function dislike(Request $request)
-    {
-        if ($request->ajax()) {
-            $this->postRepository->destroy_like_dislike($request->post_id);
-            $this->postRepository->addDislike($request->post_id);
-        }
-        $likes = $this->postRepository->likes($request->post_id);
-        $dislikes = $this->postRepository->dislikes($request->post_id);
-        return response()->json(['likes' => $likes, 'dislikes' => $dislikes]);
-    }
+    
     // public function sort(Request $request)
     // {
     //     if ($request->ajax()) {

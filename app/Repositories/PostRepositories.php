@@ -73,6 +73,7 @@ public function getPost($url)
     $post= Post::where('url',$url)->get();
     return $post;
 }
+
 public function getPostByID($id)
 {
     $post= Post::where('id',$id)->get();
@@ -115,6 +116,48 @@ public function search($title){
 public function delete($url){
     DB::table('posts')->where('url', '=', $url)->delete();
 }
+public function client_getAllPost()
+{
+    $getData = DB::table('posts')
+    ->join('post_category', 'posts.id', '=', 'post_category.post_id')
+    ->join('categories', 'categories.id', '=', 'post_category.category_id')
+    ->join('users', 'posts.writer_id', '=', 'users.id')
+    ->select('posts.*','categories.name as category','users.username_login as writer_username', 'users.name as writer_name','users.avatar as writer_avatar')
+    // ->take(5)
+    ->orderBy('created_at', 'DESC')
+    ->get();
+    return $getData;
+}
+public function getAllPostByAuthor($username)
+{
+    $getData = DB::table('posts')
+    ->join('users', 'posts.writer_id', '=', 'users.id')
+    ->where('users.username_login','=',$username)
+    ->select('posts.*','users.username_login as writer_username', 'users.name as writer_name','users.avatar as writer_avatar')
+    // ->take(5)
+    ->orderBy('created_at', 'DESC')
+    ->get();
+    return $getData;
+}
+public function getAuthor($username)
+{
+    $getData = DB::table('users')
+    ->where('users.username_login','=',$username)
+    ->select('*')
+    ->get();
+    return $getData;
+}
+public function client_get5NewPost()
+{
+    $getData = DB::table('posts')
+    ->join('post_category', 'posts.id', '=', 'post_category.post_id')
+    ->join('categories', 'categories.id', '=', 'post_category.category_id')
+    ->join('users', 'posts.writer_id', '=', 'users.id')
+    ->select('posts.*','categories.name as category','users.username_login as writer_username', 'users.name as writer_name','users.avatar as writer_avatar')
+    ->orderBy('created_at', 'DESC')
+    ->paginate(5);
+    return $getData;
+}
 public function add_comment(Request $request){
     $dt = Carbon::now('Asia/Ho_Chi_Minh');
     DB::table('comments')->insert([
@@ -128,9 +171,11 @@ public function comments($url){
     return Post::join('comments', 'posts.id', '=', 'comments.post_id')
     ->join('users', 'comments.user_id', '=', 'users.id')
     ->where('posts.url', '=', $url)
-    ->select('comments.*','users.avatar as user_avatar','users.name as user_name')
-    ->get();
+    ->select('comments.*','users.avatar as user_avatar','users.username_login as writer_username','users.name as user_name')
+    ->orderBy('created_at', 'DESC')
+    ->paginate(5);
 }
+
 public function destroy_like_dislike($id){
     DB::table('like_dislikes')->where('post_id','=',$id)->where('user_id','=',auth()->user()->id)->delete();
 }
@@ -157,7 +202,13 @@ public function addDislike($id){
 public function likes($id){
     return DB::table('like_dislikes')->where('post_id','=',$id)->where('like','=','1') ->count();
 }
+public function liked($id){
+    return DB::table('like_dislikes')->where('post_id','=',$id)->where('like','=','1') ->value('user_id');
+}
 public function dislikes($id){
     return DB::table('like_dislikes')->where('post_id','=',$id)->where('dislike','=','1') ->count();
+}
+public function disliked($id){
+    return DB::table('like_dislikes')->where('post_id','=',$id)->where('dislike','=','1') ->value('user_id');
 }
 }
