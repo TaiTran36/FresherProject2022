@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User; 
 use App\Models\Post; 
+use App\Models\Category; 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -18,7 +19,6 @@ class PostSeeder extends Seeder
     public function run()
     {
         $fake = \Faker\Factory::create(); 
-        $categories = ['Travel', 'Food', 'Technology', 'Business', 'Another category'];
 
         for ($i = 0; $i < 15; $i++){
             $content = $fake->realText(rand(250, 10000)); 
@@ -27,10 +27,12 @@ class PostSeeder extends Seeder
             
             $url = Str::replace(' ', '-', $title);
             
-            $categoriesNum = array_rand($categories, 2); 
+            $categoriesNum = array_rand([1, Category::count()], 2); 
             $categoryList = [];
             foreach($categoriesNum as $num) {
-                array_push($categoryList, $categories[$num]); 
+                array_push($categoryList, 
+                    Category::select('category_name')->where('category_id', $num)->first()
+                ); 
             }
 
             Post::create([
