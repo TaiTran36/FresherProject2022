@@ -20,19 +20,20 @@ class PostSeeder extends Seeder
     {
         $fake = \Faker\Factory::create(); 
 
-        for ($i = 0; $i < 15; $i++){
+        for ($i = 0; $i < 30; $i++){
             $content = $fake->realText(rand(250, 10000)); 
             
             $title = Str::limit($content, $limit = 50, $end = '...'); 
             
             $url = Str::replace(' ', '-', $title);
             
-            $categoriesNum = array_rand([1, Category::count()], 2); 
+            $categories = Category::all()->map(function($model) {
+                return $model->category_name;
+            })->toArray();
+            $categoriesNum = array_rand(range(1, Category::count()), 2); 
             $categoryList = [];
             foreach($categoriesNum as $num) {
-                array_push($categoryList, 
-                    Category::select('category_name')->where('category_id', $num)->first()
-                ); 
+                array_push($categoryList, $categories[$num]); 
             }
 
             Post::create([
