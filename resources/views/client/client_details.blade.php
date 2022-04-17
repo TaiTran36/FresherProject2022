@@ -80,7 +80,7 @@
                                     @csrf
                                     <input name="post_id" value="{{ $post->id }}" hidden>
                                     <input id="post_url" name="post_url" value="{{ $post->url }}" hidden>
-                                    <textarea name="comment" id="comment" class=" my-2 w-full w-2/3 mr-3 p-3 rounded-md border border-gray-300" @guest
+                                    <textarea style="width:93%" name="comment" id="comment" class=" my-2 w-full w-2/3 mr-3 p-3 rounded-md border border-gray-300" @guest
                                         placeholder="You must login before sending comment !" disabled @else
                                         placeholder="Enter your comment" @endguest></textarea>
 

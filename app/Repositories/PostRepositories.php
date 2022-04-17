@@ -155,6 +155,7 @@ public function client_get5NewPost()
     ->join('users', 'posts.writer_id', '=', 'users.id')
     ->select('posts.*','categories.name as category','users.username_login as writer_username', 'users.name as writer_name','users.avatar as writer_avatar')
     ->orderBy('created_at', 'DESC')
+    ->groupBy('id')    
     ->paginate(5);
     return $getData;
 }
@@ -167,14 +168,28 @@ public function add_comment(Request $request){
         'created_at'=>$dt->toDateTimeString()  
         ]);	
 }
+public function update_comment(Request $request){
+    $dt = Carbon::now('Asia/Ho_Chi_Minh');
+    DB::table('comments')->where('id', $request->comment_id)->update([
+        'comment_text'=>$request->comment,
+        'updated_at'=>$dt->toDateTimeString()  
+        ]);	
+}
+public function delete_comment($id){
+    DB::table('comments')->where('id', '=', $id)->delete();
+}
 public function comments($url){
     return Post::join('comments', 'posts.id', '=', 'comments.post_id')
     ->join('users', 'comments.user_id', '=', 'users.id')
     ->where('posts.url', '=', $url)
-    ->select('comments.*','users.avatar as user_avatar','users.username_login as writer_username','users.name as user_name')
+    ->select('comments.*','users.id as writer_id','users.avatar as user_avatar','users.username_login as writer_username','users.name as user_name')
     ->orderBy('created_at', 'DESC')
     ->paginate(5);
 }
+public function getComment($id){
+    return DB::table('comments')->where('id', $id)->value('comment_text');
+}
+
 
 public function destroy_like_dislike($id){
     DB::table('like_dislikes')->where('post_id','=',$id)->where('user_id','=',auth()->user()->id)->delete();

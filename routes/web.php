@@ -25,7 +25,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 Route::get('post/{url}/client_details', 'ClientController@client_details');
-Route::get('post/{url}/client_details_comments', 'ClientController@client_details_comments');
+Route::get('post/{url}/client_details_comments', 'ClientController@client_details_comments'); //pagination comments
 Route::get('category/{name}/posts', 'ClientController@post_by_cate');
 Route::get('author/{username_login}/posts', 'ClientController@post_by_author');
 
@@ -35,6 +35,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
     Route::group(['middleware' => 'auth'], function () {
     Route::get('post/save-comment','ClientController@save_comment');
+    Route::get('post/edit-comment','ClientController@edit_comment');
+    Route::get('post/delete-comment','ClientController@delete_comment');
     Route::get('post/like','ClientController@like');
     Route::get('post/dislike','ClientController@dislike');
     Route::group(['middleware' => ['can:all user']], function () {
@@ -47,7 +49,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
     Route::get('profile/{id}/edit', 'ProfileController@edit'); 
     Route::post('profile/update', 'ProfileController@update'); 
     Route::group(['middleware' => ['can:delete user']], function () {
-    Route::get('profile/{id}/delete', 'ProfileController@destroy');
+    Route::get('profile/delete', 'ProfileController@destroy');
 });
     Route::get('post/list', 'PostController@index');
     Route::get('post/create', 'PostController@create');  
@@ -61,5 +63,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
     Route::get('post/{url}/edit', 'PostController@edit'); 
     Route::post('post/update', 'PostController@update'); 
-    Route::get('post/{url}/delete', 'PostController@destroy');
+    Route::get('post/delete', 'PostController@destroy');
 });

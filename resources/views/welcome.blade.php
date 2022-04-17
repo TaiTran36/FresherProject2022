@@ -65,18 +65,17 @@
                 </div>
             </div>
         </div>
-
         @foreach ($categories as $category)
-            <div class=" container lg:flex block" style="float: left;width:49%;">
-                <div class="block my-20 " style="padding-left:10%; ">
+            <div class=" container lg:flex block" @if(in_array($category->id ,$active_cats->pluck('category_id')->toArray())==false) style="display:none" @endif style="float: left;width:49%;">
+                <div id="category" class="block my-20 " style="padding-left:10%; ">
                     <a href="/category/{{ $category->name }}/posts"
                         class="text-2xl font-extrabold mb-0">{{ $category->name }}</a>
                     <?php $i = 0; ?>
+                    <div class="parent">
                     @foreach ($posts as $post)
                         @if ($post->category == $category->name && $i < 4)
                             <?php $i++; ?>
                             <!--Bussiness cards-->
-                            <div class="parent">
                                 <div class="business_cards md:flex block my-12">
                                     <div class="md:w-40 w-full md:mb-0 mb-6 mr-3"><img class="w-full rounded-md "
                                             style="width:200px;height:120px"
@@ -106,9 +105,9 @@
                                         </a>
                                     </div>
                                 </div>
-                            </div>
                         @endif
                     @endforeach
+                </div>
                     <a style="font-style: italic; text-decoration: underline" class="text-lg font-bold "
                         href="category/{{ $category->name }}/posts"> Show all posts by this category... </a>
                 </div>
@@ -130,7 +129,6 @@
             autoplay: true,
             autoplaySpeed: 1000,
         });
-
         splide.mount();
     </script>
 </body>

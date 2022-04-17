@@ -29,6 +29,7 @@
 
 .be-comment-content {
     margin-left: 80px;
+    width: 86%;
 }
 
 .be-comment-content span {
@@ -62,6 +63,7 @@
 }
 
 .be-comment-text {
+    width: 100%;
     font-size: 13px;
     line-height: 18px;
     color: #7a8192;
@@ -110,10 +112,30 @@
     height: 150px;
 }
 
-
-
-
-
+/* Định kiểu cho vùng chứa Tooltip */
+.tooltip {
+    size:110%;
+  }
+  
+  /* Định dạng text trong tooltip */
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #F6F6F7;
+    color: black;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+  
+  /* Xác định vị trí tooltip */
+    position: absolute;
+    z-index: 1;
+  }
+  
+  /* Cho hiển thị tooltip khi di chuột qua vùng chứa tooltip */
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
 
 
 

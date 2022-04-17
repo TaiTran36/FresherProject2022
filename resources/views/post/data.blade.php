@@ -36,7 +36,10 @@
                 </td>
                 <td style="vertical-align: middle">
                     @if (Auth::user()->can('delete post') || $post->writer_id == Auth::user()->id)
-                        <a class="btn btn-danger" href="/post/{{ $post->url }}/delete">Delete</a>
+                        <input id="page" value={{ $listpost->currentPage() }} hidden>
+                        <a id="delete_post" data-url="{{ $post->url }}" class="btn btn-danger"
+                            onclick="return confirm('Are you sure to delete this post?');"
+                            href="/post/{{ $post->url }}/delete">Delete</a>
                     @else
                         <a class="btn btn-secondary disabled" aria-disabled="true">Delete</a>
                     @endif

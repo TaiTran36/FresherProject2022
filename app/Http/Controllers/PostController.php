@@ -94,15 +94,14 @@ public function update(Request $request)
 	return redirect('post/list');
     
 }
-public function destroy($url)
+public function destroy(Request $request)
 {
-    $writer_id=$this->postRepository->getPost_writer_id($url);
-    $user= new User ;
-    if ($user->mySelf()->can('edit post') or ( $writer_id==Auth::user()->id))
-    {
-	$this->postRepository->delete($url);
-	return redirect('post/list');}
-    else echo "You don't have permission !";
+    if ($request->ajax()) {
+	$this->postRepository->delete($request->url);
+    $listpost= $this->postRepository->getAll(5);
+    $data= view('post.data', compact('listpost'))->render();
+	return response($data);
+}
 }
 public function search(Request $request)
     {

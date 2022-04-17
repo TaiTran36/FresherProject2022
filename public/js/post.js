@@ -1,11 +1,11 @@
 $(document).ready(function () {
-    $('#submit').click(function() {
+    $('#submit').click(function () {
         checked = $("input[type=checkbox]:checked").length;
-        if(!checked) {
-          $('#err').text("You must check this !!!!!!").css("color", "red");
-          return false;
+        if (!checked) {
+            $('#err').text("You must check this !!!!!!").css("color", "red");
+            return false;
         }
-      });
+    });
 
     $('#search').on('keyup', function () {
         $value = $(this).val();
@@ -21,6 +21,11 @@ $(document).ready(function () {
                 $("#pagination_search").removeClass("hidden");
             }
         });
+        count();
+    });
+
+    function count() {
+        $value = $("#search").val();
         $.ajax({
             type: 'get',
             url: '/post/search_all',
@@ -39,21 +44,24 @@ $(document).ready(function () {
                     $('#count').text('');
             }
         });
+    }
+    $(document).on('click', '#delete_post', function (event) {
+        event.preventDefault();
+        var post_url = $(this).data("url");
+        $.ajax({
+            method: "get",
+            url: "/post/delete",
+            data: {
+                'url': post_url,
+            }
+        })
+        count();
+        var page = $("#page").val();  // lấy current phân trang
+        if ($("#search").val() == "") {  // check xem ếu đnag search th s paginate theo search, ko thì theo all
+            fetch_data_all(page);
+        } // khi xóa xong thì không tải lại toàn bộ list nữa mà chỉ tải lại phân trang hiện tại
+        else { fetch_data(page); }
     });
-
-    // $('#title').on('click', function () {
-    //     $.ajax({
-    //         type: 'get',
-    //         url: '/post/sort',
-    //         data: {
-    //         },
-    //         success: function (data) {
-    //             $('#data').html(data);
-    //         }
-    //     });
-    // })
-
-
 
     $(document).on('click', '#pagination_all a', function (event) {
         event.preventDefault();

@@ -73,10 +73,13 @@ if($request->file('avatar')==null){
 	return redirect('profile/list'); }
     return redirect('/profile/'.Auth::user()->id.'/details');
 }
-public function destroy($id)
+public function destroy(Request $request)
 {
-    $this->userRepository->delete($id);
-	return redirect('profile/list');
+    if ($request->ajax()) {
+        $this->userRepository->delete($request->id);
+        $list= $this->userRepository->getAll(5);
+        $data= view('profile.data', compact('list'))->render();
+        return response($data); }
 }
 public function search(Request $request)
     {

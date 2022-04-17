@@ -53,6 +53,12 @@ public function getAllCatFromPost()
     ->get();    
     return $getData;
 }
+public function getActiveCats()
+{
+    $getData = DB::table('post_category')
+    ->select('category_id')->get();
+    return $getData;
+}
 public function get_where_post($url)
 {
     $getData = DB::table('post_category')

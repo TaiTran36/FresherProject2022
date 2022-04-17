@@ -58,7 +58,7 @@
 
 </style>
 <div class="header">
-    <a href="/dashboard" class="logo">Laravel Project</a>
+    <a href="/" class="logo">Laravel Project</a>
     <div class="header-right">
     @guest
         @if (Route::has('login'))
