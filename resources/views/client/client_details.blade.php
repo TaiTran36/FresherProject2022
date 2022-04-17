@@ -82,7 +82,7 @@
                                     <input id="post_url" name="post_url" value="{{ $post->url }}" hidden>
                                     <textarea style="width:93%" name="comment" id="comment" class=" my-2 w-full w-2/3 mr-3 p-3 rounded-md border border-gray-300" @guest
                                         placeholder="You must login before sending comment !" disabled @else
-                                        placeholder="Enter your comment" @endguest></textarea>
+                                        placeholder="Enter your comment..." @endguest></textarea>
 
                                     <button type="button" id="save-comment" data-post="{{ $post->id }}" @guest style="background-color: rgb(154, 154, 154)" @endguest
                                         class="my-2 w-full md:w-max px-24 py-3 text-xs font-bold tracking-wider text-white bg-yellow-500 rounded-full hover:bg-white hover:text-yellow-500 hover:shadow-2xl transition duration-500 ease-in-out ">Submit</button>

@@ -30,7 +30,7 @@
                                 <div class="md:w-80 w-full md:mb-0 mb-6 mr-3"><img class="w-full rounded-md "
                                         style="width:280px;height:180px"
                                         onerror="this.src='/post/error_img/not_found2.png'"
-                                        src="{{ asset('/post/' . $post->photo_path) }}"></div>
+                                        src="{{ asset('/post/'.$post->photo_path) }}"></div>
                                 <!--content-->
                                 <div class="content" style="width:800px;height:150px">
                                     <div class="top text-sm ">
