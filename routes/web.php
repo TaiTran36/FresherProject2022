@@ -27,6 +27,8 @@ Route::get('/category/{category}', [App\Http\Controllers\Client\HomepageControll
 // Route::get('category/{url}', [App\Http\Controllers\Client\PostController::class, 'read'])->name('post.read');
 // Route::post('category/{url}', [App\Http\Controllers\Client\CommentController::class, 'store'])->name('comment.store');
 
+Route::get('detail/{url}/comment/{id}', [App\Http\Controllers\Client\PostController::class, 'read'])->name('post.read');
+Route::post('detail/{url}/comment/{id}', [App\Http\Controllers\Client\CommentController::class, 'more'])->name('listComment');
 Route::get('detail/{url}/like', [App\Http\Controllers\Client\PostController::class, 'read'])->name('post.read');
 Route::post('detail/{url}/like', [App\Http\Controllers\Client\LikeController::class, 'like'])->name('like');
 Route::get('detail/{url}/dislike', [App\Http\Controllers\Client\PostController::class, 'read'])->name('post.read');

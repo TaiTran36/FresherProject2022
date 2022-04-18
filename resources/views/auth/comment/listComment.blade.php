@@ -18,8 +18,13 @@
                     </div>
                 </div>
 
-                <div>
-                    <p>{{ $comments[$i]->content }}</p>
+                <div class="content-comment">
+                    <p id="comment-text_{{$i}}">
+                        {{ str_limit(strip_tags($comments[$i]->content), 300) }}
+                        @if (strlen(strip_tags($comments[$i]->content)) > 300)
+                            ... <a role="button" id="see-more_{{$i}}" class="see-more">{{ 'See More' }}</a>
+                        @endif
+                    </p>
                 </div>
             </div>
         </div>
