@@ -1,5 +1,3 @@
-const { comment } = require("postcss");
-
 $(document).ready(function() {
     $(".like, .dislike").click(function() {
         var id = this.id; 
