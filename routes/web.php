@@ -18,6 +18,15 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', [App\Http\Controllers\Client\HomepageController::class, 'index'])->name('post.view');
+
+Route::get('/category/{category}', [App\Http\Controllers\Client\HomepageController::class, 'showByCategory'])->name('category.show');
+// Route::get('category/{url}/like', [App\Http\Controllers\Client\PostController::class, 'read'])->name('post.read');
+// Route::post('category/{url}/like', [App\Http\Controllers\Client\LikeController::class, 'like'])->name('like');
+// Route::get('category/{url}/dislike', [App\Http\Controllers\Client\PostController::class, 'read'])->name('post.read');
+// Route::post('category/{url}/dislike', [App\Http\Controllers\Client\LikeController::class, 'like'])->name('like');
+// Route::get('category/{url}', [App\Http\Controllers\Client\PostController::class, 'read'])->name('post.read');
+// Route::post('category/{url}', [App\Http\Controllers\Client\CommentController::class, 'store'])->name('comment.store');
+
 Route::get('detail/{url}/like', [App\Http\Controllers\Client\PostController::class, 'read'])->name('post.read');
 Route::post('detail/{url}/like', [App\Http\Controllers\Client\LikeController::class, 'like'])->name('like');
 Route::get('detail/{url}/dislike', [App\Http\Controllers\Client\PostController::class, 'read'])->name('post.read');

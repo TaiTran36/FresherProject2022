@@ -39,11 +39,11 @@ class CommonRepository {
     public function findPostByCategory($category)
     {
         return $this->post
-                    ->where('category', $category)
+                    ->where('category', 'LIKE', '%'.$category.'%')
                     ->join('users', 'posts.author', '=', 'users.username_login')
                     ->select('posts.*', 'users.photo_url')
                     ->oldest()
-                    ->paginate(9); 
+                    ->paginate(5); 
     }
 
     public function findCommentByPost($id)
