@@ -1,6 +1,6 @@
 ## Thiết kế cơ sở dữ liệu 
 ### Diagram 
-![blog_page_diagram](https://user-images.githubusercontent.com/68329272/163588912-7661d66b-7403-4c5e-bc64-14605613ef7b.png)
+![blog_page_diagram](https://user-images.githubusercontent.com/68329272/164396878-ae5df4c0-6bbf-40c6-97fb-583887a718aa.png)
 ### Dữ liệu mẫu để đăng nhập 
 - Admin: 
     + Tên đăng nhập: `admin@gmail.com`
