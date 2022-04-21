@@ -6,17 +6,23 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\LikeRepository;
 use App\Repositories\CommonRepository;
+use App\Repositories\UserRepository;
+use App\Repositories\FollowRepository;
 use Auth;
 
 class PostController extends Controller
 {
     protected $likeRepository;
     protected $commonRepository; 
+    protected $userRepository; 
+    protected $followRepository;
 
-    public function __construct(LikeRepository $likeRepository, CommonRepository $commonRepository)
+    public function __construct(LikeRepository $likeRepository, CommonRepository $commonRepository, UserRepository $userRepository, FollowRepository $followRepository)
     {
         $this->likeRepository = $likeRepository;
         $this->commonRepository = $commonRepository; 
+        $this->userRepository = $userRepository;
+        $this->followRepository = $followRepository; 
     }
     
     public function read($postUrl)
@@ -45,5 +51,22 @@ class PostController extends Controller
         $dislikeNum = $this->likeRepository->countDislikeOfAPost($postId);
 
         return view('auth.post.detailPost', compact('post', 'comments', 'liked', 'disliked', 'likeNum', 'dislikeNum')); 
+    }
+
+    public function showPostOfAnUser($username)
+    {
+        $user = $this->userRepository->findUserByUsername($username); 
+        $posts = $this->commonRepository->findPostByUser($username); 
+        
+        if(Auth::user()) {
+            $data =[
+               'followed_id' => $user->id,
+               'follower_id' => Auth::user()->id,
+            ];
+
+            $followed = $this->followRepository->findUserFollowed($data);
+        }
+
+        return view('auth.post.user.listPost', compact('user', 'posts', 'followed'));
     }
 }

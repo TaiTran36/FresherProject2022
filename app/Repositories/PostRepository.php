@@ -56,4 +56,9 @@ class PostRepository {
     {
         return $this->model->where('id', $id)->delete();
     }
+
+    public function countPostsOfAuthor($author)
+    {
+        return $this->model->where('author', $author)->count();
+    }
 }

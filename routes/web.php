@@ -36,6 +36,10 @@ Route::post('detail/{url}/dislike', [App\Http\Controllers\Client\LikeController:
 Route::get('detail/{url}', [App\Http\Controllers\Client\PostController::class, 'read'])->name('post.read');
 Route::post('detail/{url}', [App\Http\Controllers\Client\CommentController::class, 'store'])->name('comment.store');
 
+Route::get('user/{username}/post/follow', [App\Http\Controllers\Client\PostController::class, 'showPostOfAnUser'])->name('user.post.show');
+Route::post('user/{username}/post/follow', [App\Http\Controllers\Client\FollowController::class, 'follow'])->name('user.post.show');
+Route::get('user/{username}/post', [App\Http\Controllers\Client\PostController::class, 'showPostOfAnUser'])->name('user.post.show');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

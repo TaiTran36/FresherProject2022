@@ -30,6 +30,11 @@ class UserRepository {
         return $this->model->where('id', $id)->first();
     }
 
+    public function findUserByUsername($username)
+    {
+        return $this->model->where('username_login', $username)->first();
+    }
+
     public function checkExist($data) 
     {
         $user = $this->model->where('id', '!=', $data['id'])->where('username_login', $data['username_login'])->first();

@@ -36,7 +36,8 @@
                                     <div class="content-post">
                                         <p>{{ $posts[$i + $j]->content }}</p>
                                     </div>
-                                    <a href="#" class="post-author d-flex align-items-center">
+                                    <a href="{{ route('user.post.show', ['username' => $posts[$i + $j]->author]) }}" 
+                                        class="post-author d-flex align-items-center">
                                         <div class="author-pic">
                                             <img src="{{ asset('images/' . $posts[$i + $j]->photo_url) }}"
                                                 class="image rounded-circle avatar mr-2" alt="Image">
@@ -72,9 +73,11 @@
                                 <div class="post-meta mb-1">
                                     @for ($k = 0; $k < count($post->category); $k++)
                                         @if ($k == count($post->category) - 1)
-                                            <a href="#" class="category fw-bold">{{ $post->category[$k] }}</a>
+                                            <a href="{{ route('category.show', ['category' => strtolower($post->category[$k])]) }}" 
+                                                class="category fw-bold">{{ $post->category[$k] }}</a>
                                         @else
-                                            <a href="#" class="category fw-bold">{{ $post->category[$k] }}</a>,
+                                            <a href="{{ route('category.show', ['category' => strtolower($post->category[$k])]) }}" 
+                                                class="category fw-bold">{{ $post->category[$k] }}</a>,
                                         @endif
                                     @endfor
                                     &mdash;
@@ -88,7 +91,8 @@
                                     </a>
                                 </h2>
 
-                                <a href="#" class="post-author d-flex align-items-center">
+                                <a href="{{ route('user.post.show', ['username' => $post->author]) }}" 
+                                    class="post-author d-flex align-items-center">
                                     <div class="author-pic">
                                         <img src="{{ asset('images/' . $post->photo_url) }}"
                                             class="image rounded-circle avatar mr-2" alt="Image">

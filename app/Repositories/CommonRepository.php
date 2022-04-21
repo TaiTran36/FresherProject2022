@@ -55,4 +55,14 @@ class CommonRepository {
                     ->oldest()
                     ->get();
     }
+
+    public function findPostByUser($username)
+    {
+        return $this->post
+                    ->where('author', $username)
+                    ->join('users', 'posts.author', '=', 'users.username_login')
+                    ->select('posts.*', 'users.photo_url')
+                    ->oldest()
+                    ->paginate(5);
+    }
 }

@@ -65,4 +65,31 @@ $(document).ready(function() {
             }
         });
     });
+
+    $(".follow").click(function() {
+        var id = this.id; 
+        var split_id = id.split("_");
+        var followed_id = split_id[1]; 
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url:window.location.pathname + '/follow', 
+            type:'POST',
+            data:{followed_id},
+            dataType:'json',
+            success:function(data) {
+                if (data['followed'] == 0) {
+                    $("#follow_"+followed_id).text("Follow+");
+                } 
+                if (data['followed'] == 1) {
+                    $("#follow_"+followed_id).text("Followed");
+                }
+            }
+        });
+    });
 });

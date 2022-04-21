@@ -77,3 +77,18 @@ a {
   text-align: center;
   color: #888;
 }
+
+.header-info {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.header-info .avatar-info {
+  width: 70px;
+  height: 70px;
+}
+.header-info .text {
+  font-size: 20px;
+}
+.header-info .follow:hover {
+  background-color: #0d6efd;
+  color: #fff !important;
+}

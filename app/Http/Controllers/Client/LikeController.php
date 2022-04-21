@@ -56,7 +56,8 @@ class LikeController extends Controller
         if ($request->ajax()) {
             return response()->json([
                 'likeNum' => $likeNum, 
-                'dislikeNum' => $dislikeNum]);
+                'dislikeNum' => $dislikeNum
+            ]);
         }
 
         return back();
