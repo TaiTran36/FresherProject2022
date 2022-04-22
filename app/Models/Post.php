@@ -17,6 +17,8 @@ class Post extends Model
         'title',  
         'content',
         'url',
+        'category',
+        'image'
     ];
 
     protected $guarded = [

@@ -23,6 +23,11 @@ class FollowRepository
         return $this->model->where('followed_id', $data['followed_id'])->where('follower_id', $data['follower_id'])->first();
     }
 
+    public function findFollowerList($id)
+    {
+        return $this->model->select('follower_id')->where('followed_id', $id)->get();
+    }
+
     public function deleteFollow($data)
     {
         return $this->model->where('followed_id', $data['followed_id'])->where('follower_id', $data['follower_id'])->delete();

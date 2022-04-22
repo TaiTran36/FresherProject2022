@@ -10,6 +10,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request; 
 use Illuminate\Support\Str; 
 use App\Repositories\PostRepository;
+use App\Http\Controllers\Client\SendMailController;
+use App\Repositories\UserRepository;
+use App\Repositories\FollowRepository;
+use Mail;
+use App\Mail\SendNewPost;
 
 class PostController extends Controller
 {
@@ -19,10 +24,16 @@ class PostController extends Controller
      * @return void
      */
     protected $postRepository;
-    public function __construct(PostRepository $postRepository)
+    protected $sendMail;
+    protected $userRepository;
+    protected $followRepository;
+    public function __construct(PostRepository $postRepository, SendMailController $sendMail, UserRepository $userRepository, FollowRepository $followRepository)
     {
         $this->middleware('auth');
         $this->postRepository = $postRepository;
+        $this->sendMail = $sendMail;
+        $this->userRepository = $userRepository;
+        $this->followRepository = $followRepository;
     }
 
     /**
@@ -55,7 +66,9 @@ class PostController extends Controller
     {
         if (!$this->userCan('create-post'))  abort('403', __('Access denied'));
 
-        return view('auth.post.addPost'); 
+        $categories = ['Travel', 'Food', 'Technology', 'Business', 'Another category'];
+
+        return view('auth.post.addPost', compact('categories')); 
     }
 
     /**
@@ -77,20 +90,47 @@ class PostController extends Controller
         if(empty($url)) {
             $url = Str::replace(' ', '-', $title);
         }
-        
+
         $dataInsert = [
             'title' => $title, 
             'author' => $user->username_login, 
             'url' => $url,
+            'category' => $request->category,
             'content' => $request['content'],
         ];
 
-        if ($this->postRepository->findPostByUrl($dataInsert['url']) == FALSE) 
+        if($request->hasFile('image')) { 
+            $image = $request->image; 
+            $image_name = $image->hashName(); 
+            $image->move(public_path('/images'), $image_name); 
+            $dataInsert['image'] = $image_name; 
+        }
+
+        if (!empty($this->postRepository->findPostByUrl($dataInsert['url']))) 
         {
             return back()->with('error', 'Url exists')->withInput($request->all());
         }  
         
-        $this->postRepository->createPost($dataInsert); 
+        $this->postRepository->createPost($dataInsert);    
+        
+        //Send mail
+        $user = $this->userRepository->findUserByUsername($dataInsert['author']);
+        $followed_id = $user['id'];
+        $receivers = $this->followRepository->findFollowerList($followed_id);
+
+        foreach ($receivers as $r) {
+            $follower_id = $r['follower_id'];
+            $follower = $this->userRepository->findUser($follower_id);
+
+            Mail::send('auth.follow.contentMail', 
+                ['data' => $dataInsert, 'follower' => $follower['username_login']], 
+                function($message) use($follower, $dataInsert) {
+                $message->to($follower['email']);
+                $message->subject($dataInsert['author']. ' posted a new post in ' .config('app.name'));
+            });
+
+            // dispatch($sendMail);
+        }
 
         return redirect()->intended('home')->with('status', 'Post created successfully!'); 
     }

@@ -12,7 +12,7 @@
                         <div class="alert alert-success"><p>{{$message}}</p></div>
                     @endif
 
-                    <form method="POST" action="{{ route('post.store') }}">
+                    <form method="POST" enctype="multipart/form-data" action="{{ route('post.store') }}" novalidate>
                         @csrf 
 
                         <div class="row mb-3">
@@ -43,12 +43,44 @@
                             </div>
                         </div>
 
+                        <div class="mb-3">
+                            <label for="category" class="col-md-2 col-form-label text-md-end mr-2 @error('category') is-invalid @enderror">{{ __('Category') }}</label>
+
+                            @for($i = 0; $i < count($categories); $i++) 
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input mt-1 @error('category') is-invalid @enderror" type="checkbox" name="category[]" id={{$categories[$i]}} value={{$categories[$i]}}>
+                                
+                                    <label class="form-check-label" for={{$categories[$i]}}>{{$categories[$i]}}</label>
+                                </div>
+                            @endfor
+
+                            @error('category')
+                                <span class="offset-md-2 invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="image" class="col-md-2 col-form-label text-md-end">{{ __('Image') }}</label>
+
+                            <div class="col-md-9">
+                                <input id="image" type="file" class="form-control @error('image') is-invalid @enderror" name="image" value={{old('image')}}>
+                                
+                                @error('image')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div> 
+
                         <div class="row mb-3">
                             <label for="content" class="col-md-2 col-form-label text-md-end">{{ __('Content') }}</label>
 
                             <div class="col-md-9">
                                 <textarea id="content" type="text" class="form-control @error('content') is-invalid @enderror" rows="10" name="content" required>{{old('content')}}</textarea>
-                                
+
                                 @error('content')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('url')->unique();
             $table->json('category');
-            $table->string('image')->nullable(); 
+            $table->string('image')->default('post-image.jpg'); 
             $table->text('content');
             $table->timestamp('created_at')->useCurrent();
         });
