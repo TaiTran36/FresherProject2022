@@ -82,7 +82,7 @@ $(document).ready(function () {
       dataType: 'json',
       success: function success(data) {
         if (data['followed'] == 0) {
-          $("#follow_" + followed_id).text("Follow+");
+          $("#follow_" + followed_id).text("Follow");
         }
 
         if (data['followed'] == 1) {

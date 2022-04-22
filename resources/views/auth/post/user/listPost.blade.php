@@ -17,19 +17,21 @@
         <div>
             @guest
                 <a href="{{ route('login') }}" role="button" id="follow_{{$user->id}}" class="follow btn border border-primary px-1 py-0 text-primary">
-                {{ __('Follow+') }}
+                {{ __('Follow') }}
                 </a>
 
             @else
             
-            @if (!empty($followed))
-            <a role="button" id="follow_{{$user->id}}" class="follow btn border border-primary px-1 py-0 text-primary">
-                {{ __('Followed') }}
-            </a>
-            @else
-            <a role="button" id="follow_{{$user->id}}" class="follow btn border border-primary px-1 py-0 text-primary">
-                {{ __('Follow+') }}
-            </a>
+            @if (Auth::user()->username_login != $user->username_login)
+                @if (!empty($followed))
+                <a role="button" id="follow_{{$user->id}}" class="follow btn border border-primary px-1 py-0 text-primary">
+                    {{ __('Followed') }}
+                </a>
+                @else
+                <a role="button" id="follow_{{$user->id}}" class="follow btn border border-primary px-1 py-0 text-primary">
+                    {{ __('Follow') }}
+                </a>
+                @endif
             @endif
             @endguest
         </div>

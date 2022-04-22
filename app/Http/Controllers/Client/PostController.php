@@ -58,6 +58,7 @@ class PostController extends Controller
         $user = $this->userRepository->findUserByUsername($username); 
         $posts = $this->commonRepository->findPostByUser($username); 
         
+        $followed = null;
         if(Auth::user()) {
             $data =[
                'followed_id' => $user->id,
