@@ -15,10 +15,10 @@ class HomepageController extends Controller
     protected $categoryRepository;
     protected $commonRepository; 
 
-    public function __construct(CategoryRepository $categoryRepository, PostRepository $ostRepository, CommonRepository $commonRepository)
+    public function __construct(CategoryRepository $categoryRepository, PostRepository $postRepository, CommonRepository $commonRepository)
     {
         $this->categoryRepository = $categoryRepository;
-        $this->postRepository = $ostRepository;
+        $this->postRepository = $postRepository;
         $this->commonRepository = $commonRepository; 
     }
 

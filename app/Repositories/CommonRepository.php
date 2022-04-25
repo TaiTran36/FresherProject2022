@@ -65,4 +65,18 @@ class CommonRepository {
                     ->oldest()
                     ->paginate(5);
     }
+
+    public function findPostByKey($key)
+    {
+        return $this->post
+                    ->where('title', 'LIKE', '%'.$key.'%')
+                    ->orWhere('content', 'LIKE', '%'.$key.'%')
+                    ->orWhere('category', 'LIKE', '%'.$key.'%')
+                    ->orWhere('author', 'LIKE', '%'.$key.'%')
+                    ->join('users', 'posts.author', '=', 'users.username_login')
+                    ->select('posts.*', 'users.photo_url')
+                    ->oldest()
+                    ->paginate(5)
+                    ->withQueryString(); 
+    }
 }

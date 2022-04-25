@@ -49,4 +49,9 @@ class UserRepository {
     {
         return $this->model->where('id', $id)->delete();  
     }
+
+    public function searchUserByUsername($username)
+    {
+        return $this->model->where('username_login', 'LIKE', '%'.$username.'%')->paginate(5)->withQueryString(); 
+    }
 }

@@ -1,9 +1,9 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white p-2">
     <div class="container">
         <div class="col-md-3 order-3 order-md-1">
-            <form action="#" class="search-form">
+            <form method="GET" action="{{ route('search.user', 'key') }}" class="search-form">
                 <i class="fa-solid fa-magnifying-glass pl-3 pr-2"></i>
-                <input type="text" placeholder="Search...">
+                <input id="search-text" type="text" placeholder="Search..." name="search-text" value="{{ old('search-text')}}">
             </form>
         </div>
 

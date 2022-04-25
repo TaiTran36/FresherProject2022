@@ -15,6 +15,8 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
+        $fake = \Faker\Factory::create(); 
+
         $categories = [];
         $categories_type = ['Travel', 'Food', 'Technology', 'Business', 'Another category'];
         
@@ -22,7 +24,8 @@ class CategorySeeder extends Seeder
             array_push($categories, 
             [
                 'category_id' => $i + 1,
-                'category_name' => $categories_type[$i], 
+                'category_name' => $categories_type[$i],
+                'description' => $fake->realText(300),
             ]);
         }
         

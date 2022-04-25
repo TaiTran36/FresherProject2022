@@ -19,6 +19,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\Client\HomepageController::class, 'index'])->name('post.view');
 
+Route::get('/search/user/{key}', [App\Http\Controllers\Client\SearchController::class, 'searchUser'])->name('search.user');
+Route::get('/search/category/{key}', [App\Http\Controllers\Client\SearchController::class, 'searchCategory'])->name('search.category');
+Route::get('/search/post/{key}', [App\Http\Controllers\Client\SearchController::class, 'searchPost'])->name('search.post');
+
 Route::get('/category/{category}', [App\Http\Controllers\Client\HomepageController::class, 'showByCategory'])->name('category.show');
 // Route::get('category/{url}/like', [App\Http\Controllers\Client\PostController::class, 'read'])->name('post.read');
 // Route::post('category/{url}/like', [App\Http\Controllers\Client\LikeController::class, 'like'])->name('like');

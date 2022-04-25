@@ -18,4 +18,13 @@ class CategoryRepository {
             return $model->category_name;
         })->toArray();
     }
+
+    public function searchCategory($key)
+    {
+        return $this->model
+                    ->where('category_name', 'LIKE', '%'.$key.'%')
+                    ->orWhere('description', 'LIKE', '%'.$key.'%')
+                    ->paginate(5)
+                    ->withQueryString();
+    }
 }
