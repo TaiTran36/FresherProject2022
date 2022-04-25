@@ -27,8 +27,8 @@ body {
   width: 150px;
   height: 38px;
 }
-.navbar .search-form input:focus {
-  border: none;
+.navbar .search-form #search-text:focus {
+  outline: none !important;
 }
 .navbar .logo {
   font-size: 20px;
@@ -91,4 +91,9 @@ a {
 .header-info .follow:hover {
   background-color: #0d6efd;
   color: #fff !important;
+}
+
+.active-headSide {
+  color: #0d6efd !important;
+  border-bottom: 1px solid #0d6efd;
 }
