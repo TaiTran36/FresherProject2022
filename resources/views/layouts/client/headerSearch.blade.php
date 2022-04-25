@@ -1,6 +1,6 @@
 @include('../layouts/client/header')
 
-<nav class="navbar navbar-expand-sm navbar-light bg-white justify-content-center p-0">
+<nav class="navbar navbar-expand-sm navbar-light bg-white justify-content-center p-0" style="z-index: auto;">
     <ul class="nav">
         <li class="nav-item mx-3">
             <a class="nav-link mx-5 {{ (request()->is('search/user*')) ? 'active-headSide' : '' }}" 
