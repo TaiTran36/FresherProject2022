@@ -6,7 +6,8 @@
             @for ($i = 0; $i < count($posts); $i = $i + 3)
                 <div class="row">
                     @for ($j = 0; $j < 3; $j++)
-                        <div class="col">
+                        @if(empty($posts[$i + $j]->image))  @break  @endif
+                        <div class="col-4">
                             <div class="post-entry d-block small-post-entry-v">
                                 <div class="thumbnail">
                                     <img src="{{ asset('images/' . $posts[$i + $j]->image) }}" alt="Image"
