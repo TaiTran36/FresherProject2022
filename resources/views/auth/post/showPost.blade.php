@@ -30,6 +30,14 @@
                 </div>
             </div>
 
+            <div class="row mb-3">
+                <label for="category" class="col-md-2 col-form-label text-md-end">{{ __('Category') }}</label>
+
+                <div class="col-md-9">
+                    <input id="category" type="text" class="form-control" value="{{implode(", ", $post->category)}}" name="category" disabled>
+                </div>
+            </div>
+
             <div class="row mb-4">
                 <label for="content" class="col-md-2 col-form-label text-md-end">{{ __('Content') }}</label>
 

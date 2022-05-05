@@ -48,7 +48,8 @@
 
                             @for($i = 0; $i < count($categories); $i++) 
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input mt-1 @error('category') is-invalid @enderror" type="checkbox" name="category[]" id={{$categories[$i]}} value={{$categories[$i]}}>
+                                    <input class="form-check-input mt-1 @error('category') is-invalid @enderror" type="checkbox" name="category[]" id={{$categories[$i]}} value={{$categories[$i]}} 
+                                    {{ (is_array(old('category')) && in_array($categories[$i], old('category'))) ? ' checked' : '' }}>
                                 
                                     <label class="form-check-label" for={{$categories[$i]}}>{{$categories[$i]}}</label>
                                 </div>

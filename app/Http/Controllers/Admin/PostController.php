@@ -13,6 +13,7 @@ use App\Repositories\PostRepository;
 use App\Http\Controllers\Client\SendMailController;
 use App\Repositories\UserRepository;
 use App\Repositories\FollowRepository;
+use App\Repositories\CategoryRepository;
 use Mail;
 use App\Mail\SendNewPost;
 
@@ -27,13 +28,15 @@ class PostController extends Controller
     protected $sendMail;
     protected $userRepository;
     protected $followRepository;
-    public function __construct(PostRepository $postRepository, SendMailController $sendMail, UserRepository $userRepository, FollowRepository $followRepository)
+    protected $categoryRepository;
+    public function __construct(PostRepository $postRepository, SendMailController $sendMail, UserRepository $userRepository, FollowRepository $followRepository, CategoryRepository $categoryRepository)
     {
         $this->middleware('auth');
         $this->postRepository = $postRepository;
         $this->sendMail = $sendMail;
         $this->userRepository = $userRepository;
         $this->followRepository = $followRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -66,7 +69,7 @@ class PostController extends Controller
     {
         if (!$this->userCan('create-post'))  abort('403', __('Access denied'));
 
-        $categories = ['Travel', 'Food', 'Technology', 'Business', 'Another category'];
+        $categories = $this->categoryRepository->getAllCategory();
 
         return view('auth.post.addPost', compact('categories')); 
     }
@@ -159,8 +162,10 @@ class PostController extends Controller
         if (!$this->userCan('edit-another-post'))  abort('403', __('Access denied'));
 
         $post = $this->postRepository->findPostByUrl($postUrl);
+        $ctgs = $post->category;
+        $categories = $this->categoryRepository->getAllCategory();
 
-        return view('auth.post.editPost', compact('post')); 
+        return view('auth.post.editPost', compact('post', 'categories', 'ctgs')); 
     }
 
     /**
@@ -186,6 +191,7 @@ class PostController extends Controller
             'id' => $request['id'],
             'title' => $title,
             'url' => $url,
+            'category' => $request->category,
             'content' => $request['content'],
         ];  
 

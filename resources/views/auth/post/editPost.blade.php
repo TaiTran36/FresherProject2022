@@ -43,10 +43,28 @@
 
                     @error('url')
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                        <strong>{{ $message }}</strong>required
                     </span>
                     @enderror
                 </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="category" class="col-md-2 col-form-label text-md-end mr-2 @error('category') is-invalid @enderror">{{ __('Category') }}</label>
+
+                @for($i = 0; $i < count($categories); $i++) 
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input mt-1 @error('category') is-invalid @enderror" type="checkbox" name="category[]" id={{$categories[$i]}} value="{{$categories[$i]}}" {{(in_array($categories[$i], $ctgs) ? 'checked' : '')}}>
+                    
+                        <label class="form-check-label" for={{$categories[$i]}}>{{$categories[$i]}}</label>
+                    </div>
+                @endfor
+
+                @error('category')
+                    <span class="offset-md-2 invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
 
             <div class="row mb-3">
@@ -54,7 +72,7 @@
 
                 <div class="col-md-9">
                     <textarea id="content" type="text" class="form-control @error('content') is-invalid @enderror"
-                        rows="10" name="content" required>{{old('content', $post->content)}}</textarea>
+                        rows="10" name="content" >{{old('content', $post->content)}}</textarea>
 
                     @error('content')
                     <span class="invalid-feedback" role="alert">
