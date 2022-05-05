@@ -17,6 +17,21 @@
             @csrf
             @method('PUT')
 
+            <div class="row mb-3 mt-4">
+                <label for="role" class="col-md-3 col-form-label text-md-end">{{ __('Role') }}</label>
+               
+                <div class="col-md-8 mt-2">
+                    @for ($i = 0; $i < count($roles); $i++)
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input mt-1 @error('role') is-invalid @enderror" type="radio" name="role" id={{$roles[$i]}} value="{{$roles[$i]}}" {{(($i + 1 == $user->role) ? 'checked' : '')}}>
+                        
+                            <label class="form-check-label" for={{$roles[$i]}}>{{$roles[$i]}}</label>
+                        </div>
+                    @endfor
+                </div>
+            </div>
+
+
             @foreach ($fields as $f => $f_value)
             <div class="row mb-3 mt-4">
                 <label for={{$f}} class="col-md-3 col-form-label text-md-end">{{ __($f_value) }}</label>

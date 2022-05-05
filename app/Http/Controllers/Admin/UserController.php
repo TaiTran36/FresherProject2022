@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File; 
 use Carbon\Carbon;
 use App\Repositories\UserRepository; 
-
+use App\Repositories\RoleUserRepository; 
+use App\Helpers\Utils; 
 
 class UserController extends Controller
 {
@@ -19,10 +20,12 @@ class UserController extends Controller
      * @return void
      */
     protected $userRepository; 
-    public function __construct(UserRepository $userRepository)
+    protected $roleUserRepository;
+    public function __construct(UserRepository $userRepository, RoleUserRepository $roleUserRepository)
     {
         $this->middleware('auth'); 
-        $this->userRepository = $userRepository; 
+        $this->userRepository = $userRepository;
+        $this->roleUserRepository = $roleUserRepository; 
     }
 
     /**
@@ -95,8 +98,10 @@ class UserController extends Controller
 
         $fields = array("name" => "Name", "username_login" => "Username", "nickname" => "Nickname", 'birth_of_date' => "Birthday", 
                 "email" => "Email", "address" => "Address", "phone_number" => "Phone number", "photo_url" => "Profile picture", ); 
-        
-        return view('auth.user.editUser', compact('user', 'fields'));
+
+        $roles = $this->roleUserRepository->getAllRole();
+
+        return view('auth.user.editUser', compact('user', 'fields', 'roles'));
     }
 
     /**
@@ -119,11 +124,17 @@ class UserController extends Controller
             'phone_number' => $request['phone_number'], 
         ]; 
 
+        if($request['role'] != null) {
+            $role = $this->roleUserRepository->findIndexRole($request['role']);
+            $dataUpdate['role'] = $role['role_number'];
+        }
+
         $user = $this->userRepository->findUser($dataUpdate['id']);
         if($request->hasFile('photo_url')) {
             $oldPhoto = $user->photo_url; 
             if($oldPhoto != "default-profile.png")
                 File::delete(public_path().'/images/'. $oldPhoto); 
+            // Utils\deleteFile(public_path().'/images/', $oldPhoto, "default-profile.png"); 
 
             $image = $request->photo_url; 
             $image_name = $image->hashName(); 
