@@ -71,11 +71,11 @@
                                                     {{ __('Show') }}
                                                 </a>
 
-                                                @if (Auth::check() && Auth::user()->role == 1)
-                                                    <a class="dropdown-item" href="{{ route('post.edit', urlencode(utf8_encode($post->url))) }}">
-                                                        {{ __('Edit') }}
-                                                    </a>
+                                                <a class="dropdown-item" href="{{ route('post.edit', urlencode(utf8_encode($post->url))) }}">
+                                                    {{ __('Edit') }}
+                                                </a>
 
+                                                @if (Auth::check() && Auth::user()->role == 1)
                                                     <a class="dropdown-item" href="{{ route('post.destroy', $post->id) }}"
                                                         onclick="event.preventDefault(); document.getElementById('delete-post').submit();">
                                                         {{ __('Delete') }}
