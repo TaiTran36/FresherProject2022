@@ -21,6 +21,7 @@
 			</div>
 			
 		@endif
+
 		<div class="table-responsive">
 			<p><a class="btn btn-primary" href="/post/create">Thêm mới</a></p>
 			<table id="DataList" class="table table-bordered table-hover">
@@ -38,6 +39,7 @@
 				<?php $page= $listpost_pagination->currentPage() ;
 					  $index=($page-1)*5+1; ?>
 				@foreach($listpost_pagination as $post)
+				{{-- {{ dd($listpost_pagination) }} --}}
 					<tr>
 				      <td><?php echo $index ?></td>
                       <td>{{ $post->title }}</td>
@@ -46,8 +48,20 @@
                       
                       
 					  <td><a class="btn btn-info" href="/post/{{ $post->url }}/details"><i class="fa fa-eye" aria-hidden="true"> Details</a></td>
-						<td><a class="btn btn-primary" href="/post/{{ $post->url }}/edit"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a></td>
-						<td><a class="btn btn-danger" href="/post/{{ $post->url }}/delete"><i class="fa fa-trash" aria-hidden="true"> Delete</a></td>
+						@if (Auth::user()->can('edit post') || $post->writer_id == Auth::user()->id)
+						<td>
+							
+                        <a class="btn btn-primary" href="/post/{{ $post->url }}/edit"><i class="fa fa-pencil" aria-hidden="true"></i>Edit</a>
+	
+						</td>
+						@endif
+						@if (Auth::user()->can('edit post') || $post->writer_id == Auth::user()->id)
+						<td>
+							
+							<a class="btn btn-danger" onclick="return confirm('Are you sure to delete this post?');" href="/post/{{ $post->url }}/delete"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
+							
+						</td>
+						@endif
 					</tr>
 					<?php $index++ ?>
 				@endforeach

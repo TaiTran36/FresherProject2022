@@ -28,6 +28,10 @@
 							<td>{{ $post->writer_name }}</td>
 						</tr>
 						<tr>
+							<td> category </td>
+							<td>{{ $post->writer_name }}</td>
+						</tr>
+						<tr>
 							<td> photo </td>
 							<td><img height="100" onerror="this.src='/storage/image_err/no-image.jpg'" src="/post/{{$post->photo }}" /></td>
 							

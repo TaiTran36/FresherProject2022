@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('avatar', 2048)->nullable();
             $table->string('address')->nullable();
             $table->string('phone_number')->nullable();
+            
         });
     }
 

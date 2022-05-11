@@ -24,6 +24,7 @@ class ProfileController extends Controller
         return view('profile.list')->with('listprofile',$getData_all)->with('listprofile_pagination',$getData);
         
     }
+    
     public function details($id)
     {
         $user= new User ;
@@ -31,7 +32,7 @@ class ProfileController extends Controller
         {
         $getData =$this->userRepository->getUser($id);
         return view('profile.detail')->with('profile',$getData); } 
-        else return redirect('post/list')->with('thongbao','Bạn không có quyền xem');
+        else return redirect('profile/list')->with('thongbao','Bạn không có quyền xem');
     }
     public function edit($id)
     {
@@ -42,24 +43,24 @@ class ProfileController extends Controller
         return view('profile.edit')->with('getprofileById',$getData);}
         else return redirect('profile/list')->with('thongbao','Bạn không có quyền sửa');
     }
-public function update(Request $request)
-{
-    $get_old_avatar_file = DB::table('users')->select('avatar')->where('id',$request->id)->get();
-    if(File::exists(public_path($get_old_avatar_file[0]->avatar))) {
-    File::delete(public_path($get_old_avatar_file[0]->avatar));
-    }
-    if($request->file('avatar')!=null){
-        $profileImage = $request->file('avatar');
-        $profileImageSaveAsName = time() .rand(99,99999)."-".$profileImage->getClientOriginalName();
-        $upload_path = '../public/profile/';
-        $profile_image_url = $profileImageSaveAsName;
-        $profileImage->move($upload_path, $profileImageSaveAsName);
-        $request->avatar=$profile_image_url;
-    }
-    $this->userRepository->update($request);
-	return redirect('profile/list'); 
+    public function update(Request $request)
+    {
+        $get_old_avatar_file = DB::table('users')->select('avatar')->where('id',$request->id)->get();
+        if(File::exists(public_path($get_old_avatar_file[0]->avatar))) {
+        File::delete(public_path($get_old_avatar_file[0]->avatar));
+        }
+        if($request->file('avatar')!=null){
+            $profileImage = $request->file('avatar');
+            $profileImageSaveAsName = time() .rand(99,99999)."-".$profileImage->getClientOriginalName();
+            $upload_path = '../public/profile/';
+            $profile_image_url = $profileImageSaveAsName;
+            $profileImage->move($upload_path, $profileImageSaveAsName);
+            $request->avatar=$profile_image_url;
+        }
+        $this->userRepository->update($request);
+        return redirect('profile/list'); 
 
-}
+    }
 public function destroy($id)
 {
     $this->userRepository->delete($id);

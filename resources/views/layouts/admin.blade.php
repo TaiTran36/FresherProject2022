@@ -103,6 +103,7 @@
 
         <!-- Custom Theme Scripts -->
         <script src="/js/admin.js"></script>
+        <script src="/js/post.js"></script>
 
     </body>
 </html>

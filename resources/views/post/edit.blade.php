@@ -22,14 +22,16 @@
                 <input type="text" class="form-control" id="name" name="url" placeholder="url" value="{{ $getpostById[0]->url }}"  />
             </div>
 			
+            
             <div class="form-group">
                 <label for="title" >Category</label>
+                <p id="err"></p>
                   <div style="columns:3; padding-left:10%">
                   @foreach ($categories as $category)
                   <div class="form-check">
                     @foreach ($post_categories as $post_category)
-                    <input name="categories[]" class="form-check-input" type="checkbox" value="{{$category->id}}" {{in_array($category->name, $post_category->pluck('category')->toArray()) ? 'checked' : '' }} id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault" >
+                    <input name="categories[]" class="form-check-input" type="checkbox" value="{{$category->id}}" {{in_array($category->categories, $post_category->pluck('category')->toArray()) ? 'checked' : '' }} id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
                         {{$category->categories}}
                     </label>
                   </div>
@@ -38,14 +40,13 @@
                   </div>
             </div>
             <div class="form-group">
-                <label for="photo">Photo</label>
+                <label for="avatar">Photo</label>
                 <div>
-                <img height="150" onerror="this.src='/storage/image_err/no-image.jpg'" src="{{ asset('/post/'.$getpostById[0]->photo)}}" alt="Post Photo">
-                <input type="file" class="form-control" id="photo" name="photo" placeholder="photo" value="{{ $getpostById[0]->photo}}"  required/>
+                <img id="image_show" height="150" onerror="this.src='/storage/image_err/no-image.jpg'" src="{{ asset('/post/'.$getpostById[0]->photo)}}" alt="Post Photo">
+                <input type="file" class="form-control" id="image" onchange="getFileData(this);" name="image" placeholder="image" value="{{ $getpostById[0]->photo }}"  />
+                    <input type="text" name="image_old" placeholder="image" value="{{ $getpostById[0]->photo}}"  hidden />
                 </div>
-            
             </div>
-            
             </div>
             <div class="form-group">
                 <label for="content">Content</label>

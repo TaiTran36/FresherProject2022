@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('url');
-            $table->string('content');
+            $table->longText('content');
             $table->foreignId('writer_id');
             $table->string('photo', 2048)->nullable();
             $table->timestamps();

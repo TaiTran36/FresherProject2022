@@ -22,39 +22,44 @@ class UserRepositories
     }
     public function getAllUser()
     {
-        $getData_all = User::all();
+        $getData = DB::table('roles')
+        ->join('model_has_roles', 'model_has_roles.role_id', '=', 'roles.id')
+        ->join('users', 'model_has_roles.model_id', '=', 'users.id')
+        
+        ->select('*')
+        ->get();
+        return $getData;
+    }
+    
 
-        return $getData_all;
+    public function pagination($pagination)
+    {
+        $getData =DB::table('users')->paginate($pagination);
+        if($key = request()->key){
+            $getData = User::orderBy('created_at' ,'DESC')->where('name','like','%' .$key. '%')->paginate(5);
+        }
+        return $getData;
+    }
+    public function getUser($id){
+        $getData = User::where('id','=', $id)->get();
+        return $getData;
     }
 
-    public function pagination( $pagination)
-{
-    $getData =DB::table('users')->paginate($pagination);
-    if($key = request()->key){
-        $getData = User::orderBy('created_at' ,'DESC')->where('name','like','%' .$key. '%')->paginate(5);
+    public function update(Request $request)
+    {
+        $dt = Carbon::now('Asia/Ho_Chi_Minh');
+        DB::table('users')->where('id', $request->id)->update([
+            'name' => $request->name,
+            'date_of_birth'=> $request->date_of_birth,
+            'nickname'=> $request->nickname,
+            'email'=> $request->email,
+            'description'=> $request->description,
+            'avatar' => $request->avatar,
+            'address'=> $request->address,
+            'phone_number'=> $request->phone_number,
+            'updated_at'=>$dt->toDateTimeString() 
+        ]);
     }
-    return $getData;
-}
-public function getUser($id){
-    $getData = User::where('id','=', $id)->get();
-    return $getData;
-}
-
-public function update(Request $request)
-{
-	$dt = Carbon::now('Asia/Ho_Chi_Minh');
-	DB::table('users')->where('id', $request->id)->update([
-		'name' => $request->name,
-        'date_of_birth'=> $request->date_of_birth,
-        'nickname'=> $request->nickname,
-        'email'=> $request->email,
-        'description'=> $request->description,
-        'avatar' => $request->avatar,
-        'address'=> $request->address,
-        'phone_number'=> $request->phone_number,
-        'updated_at'=>$dt->toDateTimeString() 
-	]);
-}
     public function delete($id){
         DB::table('users')->where('id', '=', $id)->delete();
     }

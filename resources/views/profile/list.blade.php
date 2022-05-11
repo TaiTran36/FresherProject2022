@@ -49,7 +49,7 @@
                       <td>{{ $profile->phone_number}}</td>
 					  <td><a class="btn btn-info" href="/profile/{{ $profile->id }}/details"><i class="fa fa-eye" aria-hidden="true"> Details</a></td>
 						<td><a class="btn btn-primary" href="/profile/{{ $profile->id }}/edit"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a></td>
-						<td><a class="btn btn-danger" href="/profile/{{ $profile->id }}/delete"><i class="fa fa-trash" aria-hidden="true"> Delete</a></td>
+						{{-- <td><a class="btn btn-danger" onclick="return confirm('Are you sure to delete this user?');" href="/profile/{{ $profile->id }}/delete"><i class="fa fa-trash" aria-hidden="true"> Delete</a></td> --}}
 					</tr>
 					<?php $index++ ?>
 				@endforeach
