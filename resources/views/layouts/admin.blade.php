@@ -10,9 +10,12 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/admin.js') }}" defer></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+   
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -85,7 +88,7 @@
                     
                     @if (Route::has('user.search'))
                     <li class="nav-item">
-                        <a class="nav-link {{ (request()->is('user*')) ? 'active' : '' }}" href="{{ route('user.search') }}">
+                        <a class="nav-link {{ (request()->is('manage/user*')) ? 'active' : '' }}" href="{{ route('user.search') }}">
                             <i class="fa-solid fa-user"></i>
                             <p>{{ __('User') }}</p>
                         <a>
@@ -94,12 +97,21 @@
 
                     @if (Route::has('post.search'))
                     <li class="nav-item">
-                        <a class="nav-link {{ (request()->is('post*')) ? 'active' : '' }}" href="{{ route('post.search') }}">
+                        <a class="nav-link {{ (request()->is('manage/post*')) ? 'active' : '' }}" href="{{ route('post.search') }}">
                             <i class="fa-solid fa-blog"></i>
                             <p>{{ __('Post') }}</p>
                         <a>
                     </li>
                     @endif
+					
+					@if (Auth::user()->role == 1)
+					<li class="nav-item">
+                        <a class="nav-link {{ (request()->is('manage/category*')) ? 'active' : '' }}" href="{{ route('category.index') }}">
+                            <i class="fa-solid fa-list-alt"></i>
+                            <p>{{ __('Category') }}</p>
+                        <a>
+                    </li>
+					@endif
 
                     <div class="sidebar-footer">
                     <li class="nav-item">

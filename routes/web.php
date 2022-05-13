@@ -33,6 +33,13 @@ Route::get('/category/{category}', [App\Http\Controllers\Client\HomepageControll
 
 Route::get('detail/{url}/comment/{id}', [App\Http\Controllers\Client\PostController::class, 'read'])->name('post.read');
 Route::post('detail/{url}/comment/{id}', [App\Http\Controllers\Client\CommentController::class, 'more'])->name('listComment');
+Route::get('detail/{url}/comment/{id}/edit', [App\Http\Controllers\Admin\PostController::class, 'read'])
+    ->name('post.read');
+Route::put('detail/{url}/comment/{id}/edit', [App\Http\Controllers\Admin\CommentController::class, 'update'])
+    ->name('listComment'); 
+Route::get('detail/{url}/comment/{id}/delete', [App\Http\Controllers\Client\PostController::class, 'read'])->name('post.read');
+Route::delete('detail/{url}/comment/{id}/delete', [App\Http\Controllers\Client\CommentController::class, 'destroy'])->name('listComment');
+
 Route::get('detail/{url}/like', [App\Http\Controllers\Client\PostController::class, 'read'])->name('post.read');
 Route::post('detail/{url}/like', [App\Http\Controllers\Client\LikeController::class, 'like'])->name('like');
 Route::get('detail/{url}/dislike', [App\Http\Controllers\Client\PostController::class, 'read'])->name('post.read');
@@ -53,23 +60,33 @@ Route::post('/passwords/reset', [App\Http\Controllers\Auth\ResetPasswordControll
 Route::get('/user/profile', [App\Http\Controllers\Auth\ProfileController::class, 'show'])->name('profile');
 Route::post('/user/profile', [App\Http\Controllers\Auth\ProfileController::class, 'update'])->name('profile'); 
 
-Route::get('post', [App\Http\Controllers\Admin\PostController::class, 'index'])->name('post.search');  
-Route::get('post/create', [App\Http\Controllers\Admin\PostController::class, 'create'])->name('post.create'); 
-Route::get('post/{url}', [App\Http\Controllers\Admin\PostController::class, 'show'])->name('post.show');
-Route::post('post', [App\Http\Controllers\Admin\PostController::class, 'store'])->name('post.store'); 
-Route::get('post/{url}/edit', [App\Http\Controllers\Admin\PostController::class, 'edit'])
+Route::get('manage/post', [App\Http\Controllers\Admin\PostController::class, 'index'])->name('post.search');  
+Route::get('manage/post/create', [App\Http\Controllers\Admin\PostController::class, 'create'])->name('post.create'); 
+Route::get('manage/post/{url}', [App\Http\Controllers\Admin\PostController::class, 'show'])->name('post.show');
+Route::post('manage/post', [App\Http\Controllers\Admin\PostController::class, 'store'])->name('post.store'); 
+Route::get('manage/post/{url}/edit', [App\Http\Controllers\Admin\PostController::class, 'edit'])
     ->name('post.edit');
-Route::put('post/{url}', [App\Http\Controllers\Admin\PostController::class, 'update'])
+Route::put('manage/post/{url}', [App\Http\Controllers\Admin\PostController::class, 'update'])
     ->name('post.update');   
-Route::delete('post/{id}', [App\Http\Controllers\Admin\PostController::class, 'destroy'])->name('post.destroy');
+Route::delete('manage/post/{id}', [App\Http\Controllers\Admin\PostController::class, 'destroy'])->name('post.destroy');
 
-Route::get('user', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('user.search');
-Route::get('user/{id}', [App\Http\Controllers\Admin\UserController::class, 'show'])->name('user.show');
-Route::get('user/{id}/edit', [App\Http\Controllers\Admin\UserController::class, 'edit'])
+Route::get('manage/user', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('user.search');
+Route::get('manage/user/{id}', [App\Http\Controllers\Admin\UserController::class, 'show'])->name('user.show');
+Route::get('manage/user/{id}/edit', [App\Http\Controllers\Admin\UserController::class, 'edit'])
     ->name('user.edit');
-Route::put('user/{id}', [App\Http\Controllers\Admin\UserController::class, 'update'])
+Route::put('manage/user/{id}', [App\Http\Controllers\Admin\UserController::class, 'update'])
     ->name('user.update'); 
-Route::delete('user/{id}', [App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('user.destroy');
+Route::delete('manage/user/{id}', [App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('user.destroy');
+
+Route::get('manage/category', [App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('category.index');
+Route::get('manage/category/create', [App\Http\Controllers\Admin\CategoryController::class, 'create'])->name('category.create');
+Route::post('manage/category', [App\Http\Controllers\Admin\CategoryController::class, 'store'])->name('category.store');
+// Route::get('manage/category/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'show'])->name('category.show');
+Route::get('manage/category/{id}/edit', [App\Http\Controllers\Admin\CategoryController::class, 'edit'])
+    ->name('category.edit');
+Route::put('manage/category/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'update'])
+    ->name('category.update'); 
+Route::delete('manage/category/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'destroy'])->name('category.destroy');
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
 
