@@ -23,7 +23,6 @@ class CategorySeeder extends Seeder
         for ($i = 0; $i < 5; $i++) {
             array_push($categories, 
             [
-                'category_id' => $i + 1,
                 'category_name' => $categories_type[$i],
                 'description' => $fake->realText(300),
             ]);
