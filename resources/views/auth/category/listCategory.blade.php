@@ -20,7 +20,7 @@
                         <td>{{ $ctg->id }}</td>
                         <td>{{ $ctg->category_name }}</td>
                         <td>{{ $ctg->description }}</td>
-                        <td class="px-3 align-middle">
+                        {{-- <td class="px-3 align-middle">
                             <a href="javascript:void(0)" id="edit-category" data-id="{{ $ctg->id }}"
                                 class="btn btn-info">
                                 {{ __('Edit') }}
@@ -31,6 +31,24 @@
                                 class="btn btn-danger delete-category">
                                 {{ __('Delete') }}
                             </a>
+                        </td> --}}
+
+                        <td>
+                            <a id="navbarDropdown" class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false" v-pre>
+                                <i class="bi bi-three-dots"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a href="javascript:void(0)" id="edit-category" data-id="{{ $ctg->id }}"
+                                    class="dropdown-item">
+                                    {{ __('Edit') }}
+                                </a>
+
+                                <a href="javascript:void(0)" id="delete-category" data-id="{{ $ctg->id }}"
+                                    class="dropdown-item delete-category">
+                                    {{ __('Delete') }}
+                                </a>
+                            </div>
                         </td>
                     </tr>
                     @endforeach

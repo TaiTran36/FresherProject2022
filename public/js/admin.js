@@ -51,8 +51,7 @@ if ($("#categoryForm").length > 0) {
         success: function success(data) {
           var category = data['category'];
           var row = '<tr id="category_id_' + category['id'] + '"><td>' + category['id'] + '</td><td>' + category['category_name'] + '</td><td>' + category['description'] + '</td>';
-          row += '<td class="px-3 align-middle"><a href="javascript:void(0)" id="edit-category" data-id="' + category['id'] + '" class="btn btn-info">Edit</a></td>';
-          row += '<td class="align-middle"><a href="javascript:void(0)" id="delete-category" data-id="' + category['id'] + '" class="btn btn-danger delete-category">Delete</a></td></tr>';
+          row += '<td>' + '<a id="navbarDropdown" class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>' + '<i class="bi bi-three-dots"></i>' + '</a>' + '<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">' + '<a href="javascript:void(0)" id="edit-category" data-id="' + category['id'] + '" class="dropdown-item">' + 'Edit' + '</a>' + '<a href="javascript:void(0)" id="delete-category" data-id="' + category['id'] + '" class="dropdown-item delete-category">' + 'Delete' + '</a>' + '</div>' + '</td></tr>';
           $('#category-list').append(row);
           $('#categoryForm').trigger("reset");
           $('#ajax-crud-modal').modal('hide');
@@ -70,8 +69,7 @@ if ($("#categoryForm").length > 0) {
         success: function success(data) {
           var category = data['category'];
           var row = '<tr id="category_id_' + category['id'] + '"><td>' + category['id'] + '</td><td>' + category['category_name'] + '</td><td>' + category['description'] + '</td>';
-          row += '<td class="px-3 align-middle"><a href="javascript:void(0)" id="edit-category" data-id="' + category['id'] + '" class="btn btn-info">Edit</a></td>';
-          row += '<td class="align-middle"><a href="javascript:void(0)" id="delete-category" data-id="' + category['id'] + '" class="btn btn-danger delete-category">Delete</a></td></tr>';
+          row += '<td>' + '<a id="navbarDropdown" class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>' + '<i class="bi bi-three-dots"></i>' + '</a>' + '<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">' + '<a href="javascript:void(0)" id="edit-category" data-id="' + category['id'] + '" class="dropdown-item">' + 'Edit' + '</a>' + '<a href="javascript:void(0)" id="delete-category" data-id="' + category['id'] + '" class="dropdown-item delete-category">' + 'Delete' + '</a>' + '</div>' + '</td></tr>';
           $("#category_id_" + category['id']).replaceWith(row);
           $('#categoryForm').trigger("reset");
           $('#ajax-crud-modal').modal('hide');
