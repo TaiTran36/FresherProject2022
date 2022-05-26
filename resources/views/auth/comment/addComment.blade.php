@@ -2,7 +2,13 @@
     <input id="post_id" type="hidden" class="form-control" name="post_id" value="{{$post->id}}">
 
     <label for="comment" class="offset-md-2 col-form-label pl-1">
-        <h5>{{ __('Comment') }}</h5>
+        <p class="mt-2 mb-0 num-comments">{{ count($comments) }}&#09;
+            @if (count($comments) == 1)
+                {{ __('Comment') }}
+            @elseif( count($comments) > 1)
+                {{ __('Comments') }}      
+            @endif
+        </p>
     </label>
 
     <div class="col-md-8 offset-md-2">

@@ -69,6 +69,13 @@ $(document).ready(function () {
         var new_comment = '<div class="card col-md-8 offset-md-2 mb-3 comment" id="comment_' + comment['id'] + '">' + '<div class="card-body">' + '<div class="d-flex ml-1">' + '<div class="author-pic">' + '<a href="#">' + '<img src="' + window.location.origin + '/images/' + comment['photo_url'] + '"' + 'class="image rounded-circle avatar mr-2" alt="Image">' + '</a>' + '</div>' + '<div class="col-md-10 text pt-2">' + '<a href="#">' + '<strong>' + comment['username_login'] + '</strong>' + '</a>' + '<p>' + comment['posted_at'] + '</p>' + '</div>' + '<div class="float-right">' + '<a id="navbarDropdown" class="nav-link" href="#" role="button" data-bs-toggle="dropdown"' + 'aria-haspopup="true" aria-expanded="false" v-pre>' + '<i class="bi bi-three-dots-vertical"></i>' + '</a>' + '<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">' + '<a class="dropdown-item edit-comment" id="edit-comment_' + comment['id'] + '">' + 'Edit' + '</a>' + '<a class="dropdown-item delete-comment" id="delete-comment_' + comment['id'] + '">' + 'Delete' + '</a>' + '</div>' + '</div>' + '</div>' + '<div class="content-comment_' + comment['id'] + '">' + '<p id="comment-text_' + comment['id'] + '">' + comment['content'] + '</p>' + '</div>' + '</div>' + '</div>';
         $(".list-comment").prepend(new_comment);
         $("#content").val("");
+        var num_comments = data['num_comments'];
+
+        if (num_comments == 1) {
+          $(".num-comments").text(num_comments + " Comment");
+        } else if (num_comments > 1) {
+          $(".num-comments").text(num_comments + " Comments");
+        }
       }
     });
   });
@@ -139,6 +146,13 @@ $(document).ready(function () {
       dataType: 'json',
       success: function success(data) {
         $("#comment_" + comment_id).remove();
+        var num_comments = data['num_comments'];
+
+        if (num_comments == 1) {
+          $(".num-comments").text(num_comments + " Comment");
+        } else if (num_comments > 1) {
+          $(".num-comments").text(num_comments + " Comments");
+        }
       }
     });
   });

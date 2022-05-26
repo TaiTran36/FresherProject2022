@@ -66,9 +66,12 @@ class CommentController extends Controller
         $comment['username_login'] = Auth::user()->username_login;
         $comment['photo_url'] = Auth::user()->photo_url;
 
+        $numComments = $this->commentRepository->countComment($dataInsert['post_id']);
+
         if ($request->ajax()) {
             return response()->json([
                 'comment' => $comment,
+                'num_comments' => $numComments,
             ]);
         }
 
@@ -132,16 +135,20 @@ class CommentController extends Controller
      */
     public function destroy(Request $request)
     {
-        $this->commentRepository->deleteComment($request['comment_id']);
+        $commentId = $request['comment_id']; 
+        
+        $comment = $this->commentRepository->findComment($commentId); 
 
-        // if($request->ajax()) {
-        //     return response()->json([
+        $this->commentRepository->deleteComment($commentId);
 
-        //     ]);
-        // }
-        // return back();
+        $numComments = $this->commentRepository->countComment($comment['post_id']);
 
-        return response()->json();
+        if($request->ajax()) {
+            return response()->json([
+                'num_comments' => $numComments,
+            ]);
+        }
+        return back();
     }
 
     public function more(Request $request) 

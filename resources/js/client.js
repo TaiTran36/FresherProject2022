@@ -112,6 +112,13 @@ $(document).ready(function () {
 
                 $(".list-comment").prepend(new_comment);
                 $("#content").val("");
+
+                var num_comments = data['num_comments'];
+                if (num_comments == 1) {
+                    $(".num-comments").text(num_comments + " Comment");
+                } else if (num_comments > 1) {
+                    $(".num-comments").text(num_comments + " Comments");
+                }
             }
         });
     });
@@ -200,6 +207,13 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 $("#comment_" + comment_id).remove();
+                
+                var num_comments = data['num_comments'];
+                if (num_comments == 1) {
+                    $(".num-comments").text(num_comments + " Comment");
+                } else if (num_comments > 1) {
+                    $(".num-comments").text(num_comments + " Comments");
+                }
             }
         });
     });
