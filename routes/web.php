@@ -33,17 +33,18 @@ Route::get('/category/{category}', [App\Http\Controllers\Client\HomepageControll
 
 Route::get('detail/{url}/comment/{id}', [App\Http\Controllers\Client\PostController::class, 'read'])->name('post.read');
 Route::post('detail/{url}/comment/{id}', [App\Http\Controllers\Client\CommentController::class, 'more'])->name('listComment');
-Route::get('detail/{url}/comment/{id}/edit', [App\Http\Controllers\Admin\PostController::class, 'read'])
+Route::get('detail/{url}/comment/{id}/edit', [App\Http\Controllers\Client\CommentController::class, 'edit'])
     ->name('post.read');
-Route::put('detail/{url}/comment/{id}/edit', [App\Http\Controllers\Admin\CommentController::class, 'update'])
+Route::put('detail/{url}/comment/{id}', [App\Http\Controllers\Client\CommentController::class, 'update'])
     ->name('listComment'); 
-Route::get('detail/{url}/comment/{id}/delete', [App\Http\Controllers\Client\PostController::class, 'read'])->name('post.read');
-Route::delete('detail/{url}/comment/{id}/delete', [App\Http\Controllers\Client\CommentController::class, 'destroy'])->name('listComment');
+Route::delete('detail/{url}/comment/{id}', [App\Http\Controllers\Client\CommentController::class, 'destroy'])->name('listComment');
 
 Route::get('detail/{url}/like', [App\Http\Controllers\Client\PostController::class, 'read'])->name('post.read');
 Route::post('detail/{url}/like', [App\Http\Controllers\Client\LikeController::class, 'like'])->name('like');
 Route::get('detail/{url}/dislike', [App\Http\Controllers\Client\PostController::class, 'read'])->name('post.read');
 Route::post('detail/{url}/dislike', [App\Http\Controllers\Client\LikeController::class, 'like'])->name('like');
+Route::post('detail/{url}/comment', [App\Http\Controllers\Client\CommentController::class, 'store'])->name('addComment');
+
 Route::get('detail/{url}', [App\Http\Controllers\Client\PostController::class, 'read'])->name('post.read');
 Route::post('detail/{url}', [App\Http\Controllers\Client\CommentController::class, 'store'])->name('comment.store');
 

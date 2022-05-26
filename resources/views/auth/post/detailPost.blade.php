@@ -17,8 +17,5 @@
             </div>
         </div>
     @endauth
-
-    @include('../../auth/comment/listComment', $comments)
-
 </div>
 @endsection

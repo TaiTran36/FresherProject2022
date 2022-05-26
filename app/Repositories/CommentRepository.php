@@ -16,4 +16,19 @@ class CommentRepository {
     {
         return $this->model->create($data); 
     }
+
+    public function updateComment($data)
+    {
+        return $this->model->where('id', $data['id'])->update($data);
+    }
+
+    public function deleteComment($id) 
+    {
+        return $this->model->where('id', $id)->delete();
+    }
+
+    public function findComment($id)
+    {
+        return $this->model->where('id', $id)->first();
+    }
 }

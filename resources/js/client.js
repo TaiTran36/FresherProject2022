@@ -1,10 +1,10 @@
-$(document).ready(function() {
-    $(".like, .dislike").click(function() {
-        var id = this.id; 
-        var split_id = id.split("_"); 
+$(document).ready(function () {
+    $(".like, .dislike").click(function () {
+        var id = this.id;
+        var split_id = id.split("_");
 
-        var type = split_id[0]; 
-        var post_id = split_id[1]; 
+        var type = split_id[0];
+        var post_id = split_id[1];
 
         $.ajaxSetup({
             headers: {
@@ -13,15 +13,15 @@ $(document).ready(function() {
         });
 
         $.ajax({
-            url:window.location.pathname + '/' + type, 
-            type:'POST', 
-            data:{post_id, type}, 
-            dataType:'json',
-            success:function(data) {
-                var likes = data['likeNum']; 
-                var dislikes = data['dislikeNum']; 
-                $("#likes_"+post_id).text(likes); 
-                $("#dislikes_"+post_id).text(dislikes); 
+            url: window.location.pathname + '/' + type,
+            type: 'POST',
+            data: { post_id, type },
+            dataType: 'json',
+            success: function (data) {
+                var likes = data['likeNum'];
+                var dislikes = data['dislikeNum'];
+                $("#likes_" + post_id).text(likes);
+                $("#dislikes_" + post_id).text(dislikes);
 
                 if (type == "like") {
                     $(".fa-thumbs-up").css("color", "#000");
@@ -35,17 +35,12 @@ $(document).ready(function() {
         });
     });
 
-    $(".see-more").click(function() {
+    $('.create-comment').click(function () {
         var id = this.id;
-        var split_id = id.split("_"); 
-        var comment_id = split_id[1]; 
+        var split_id = id.split("_");
+        var post_id = split_id[1];
 
-        var pathname = window.location.pathname;
-        var split_pathname = pathname.split("/");
-        var post_url = 
-            decodeURIComponent(
-                split_pathname[split_pathname.length - 1]
-            );
+        var content = $('#content').val();
 
         $.ajaxSetup({
             headers: {
@@ -54,22 +49,66 @@ $(document).ready(function() {
         });
 
         $.ajax({
-            url:window.location.pathname + '/comment/' + comment_id, 
-            type:'POST', 
-            data:{comment_id, post_url}, 
-            dataType:'json',
-            success:function(data) {
-                var content = data['content']; 
+            url: window.location.pathname + '/comment',
+            type: 'POST',
+            data: { post_id, content },
+            dataType: 'json',
+            success: function (data) {
+                var comment = data['comment'];
 
-                $("#comment-text_"+comment_id).text(content);
+                var new_comment = 
+                '<div class="card col-md-8 offset-md-2 mb-3 comment" id="comment_' + comment['id'] + '">' + 
+                    '<div class="card-body">' + 
+                        '<div class="d-flex ml-1">' + 
+                            '<div class="author-pic">' + 
+                                '<a href="#">' + 
+                                    '<img src="' + window.location.origin + '/images/' + comment['photo_url'] + '"' + 
+                                        'class="image rounded-circle avatar mr-2" alt="Image">' + 
+                                '</a>' + 
+                            '</div>' + 
+                            '<div class="col-md-10 text pt-2">' + 
+                                '<a href="#">' + 
+                                    '<strong>' + comment['username_login'] + '</strong>' + 
+                                '</a>' + 
+        
+                                '<p>' + comment['posted_at'] + '</p>' + 
+                            '</div>' + 
+        
+                            '<div class="float-right">' + 
+                                '<a id="navbarDropdown" class="nav-link" href="#" role="button" data-bs-toggle="dropdown"' + 
+                                    'aria-haspopup="true" aria-expanded="false" v-pre>' + 
+                                    '<i class="bi bi-three-dots-vertical"></i>' + 
+                                '</a>' + 
+                                '<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">' + 
+                                    '<a class="dropdown-item edit-comment" id="edit-comment_' + comment['id'] + '">' + 
+                                        'Edit' +  
+                                    '</a>' + 
+        
+                                    '<a class="dropdown-item delete-comment" id="delete-comment_' + comment['id'] + '">' + 
+                                        'Delete' + 
+                                    '</a>' +
+                                '</div>' + 
+                            '</div>' + 
+                        '</div>' + 
+        
+                        '<div class="content-comment_' + comment['id'] + '">' + 
+                            '<p id="comment-text_' + comment['id'] + '">' + 
+                                comment['content'] + 
+                            '</p>' + 
+                        '</div>' + 
+                    '</div>' +
+                '</div>';
+
+                $(".list-comment").prepend(new_comment);
+                $("#content").val("");
             }
         });
     });
 
-    $(".follow").click(function() {
-        var id = this.id; 
+    $("body").on('click', '.edit-comment', function () {
+        var id = this.id;
         var split_id = id.split("_");
-        var followed_id = split_id[1]; 
+        var comment_id = split_id[1];
 
         $.ajaxSetup({
             headers: {
@@ -78,16 +117,128 @@ $(document).ready(function() {
         });
 
         $.ajax({
-            url:window.location.pathname + '/follow', 
-            type:'POST',
-            data:{followed_id},
-            dataType:'json',
-            success:function(data) {
+            url: window.location.pathname + '/comment/' + comment_id + '/edit',
+            type: 'GET',
+            data: { comment_id },
+            dataType: 'json',
+            success: function (data) {
+                var old_content = data['content'];
+
+                $(".content-comment_" + comment_id).empty();
+
+                var edit_form = 
+                '<textarea id="edit-content_' + comment_id + '" type="text" class="form-control" rows="3" name="edit-content" required>' + 
+                    old_content + 
+                '</textarea>' + 
+                
+                '<a class="col-md-2 btn bg-primary mt-2 py-2 edit-content" id="edit-content_' + comment_id + '">' + 
+                    'EDIT' +
+                '</a>' ; 
+
+                $(".content-comment_" + comment_id).append(edit_form);
+            }
+        });
+    });
+
+    $("body").on('click', '.edit-content', function () {
+        var id = this.id;
+        var split_id = id.split("_");
+        var comment_id = split_id[1];
+
+        var content = $('#edit-content_' + comment_id).val();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: window.location.pathname + '/comment/' + comment_id,
+            type: 'PUT',
+            data: { comment_id, content },
+            dataType: 'json',
+            success: function (data) {
+                $(".content-comment_" + comment_id).empty();
+
+                var update_content = 
+                '<p id="comment-text_' + comment_id + '">' + 
+                    content + 
+                '</p>';
+
+                $(".content-comment_" + comment_id).append(update_content);
+            }
+        });
+    });
+
+    $("body").on('click', '.delete-comment', function () {
+        var id = this.id;
+        var split_id = id.split("_");
+        var comment_id = split_id[1];
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: window.location.pathname + '/comment/' + comment_id,
+            type: 'DELETE',
+            data: { comment_id },
+            dataType: 'json',
+            success: function (data) {
+                $("#comment_" + comment_id).remove();
+            }
+        });
+    });
+
+    $(".see-more").click(function () {
+        var id = this.id;
+        var split_id = id.split("_");
+        var comment_id = split_id[1];
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: window.location.pathname + '/comment/' + comment_id,
+            type: 'POST',
+            data: { comment_id },
+            dataType: 'json',
+            success: function (data) {
+                var content = data['content'];
+
+                $("#comment-text_" + comment_id).text(content);
+            }
+        });
+    });
+
+    $(".follow").click(function () {
+        var id = this.id;
+        var split_id = id.split("_");
+        var followed_id = split_id[1];
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: window.location.pathname + '/follow',
+            type: 'POST',
+            data: { followed_id },
+            dataType: 'json',
+            success: function (data) {
                 if (data['followed'] == 0) {
-                    $("#follow_"+followed_id).text("Follow");
-                } 
+                    $("#follow_" + followed_id).text("Follow");
+                }
                 if (data['followed'] == 1) {
-                    $("#follow_"+followed_id).text("Followed");
+                    $("#follow_" + followed_id).text("Followed");
                 }
             }
         });

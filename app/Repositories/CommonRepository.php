@@ -52,7 +52,7 @@ class CommonRepository {
                     ->where('post_id', $id)
                     ->join('users', 'comments.user_id', '=', 'users.id')
                     ->select('comments.*', 'users.username_login', 'users.photo_url')
-                    ->oldest()
+                    ->orderBy('posted_at', 'DESC')
                     ->get();
     }
 
