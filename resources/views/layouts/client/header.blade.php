@@ -39,10 +39,9 @@
                             <div class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('profile') }}">{{ __('Profile') }}</a>
                                 
-                                @if (Auth::check() && Auth::user()->role == 3)
-                                    <a class="dropdown-item" href="{{ route('post.create') }}">{{ __('Add post') }}</a>
-                                @else
-                                    <a class="dropdown-item" href="{{ route('user.search') }}">{{ __('Manager') }}</a>
+                                <a class="dropdown-item" href="{{ route('post.create') }}">{{ __('Add post') }}</a>
+                                @if (Auth::check() && (Auth::user()->role == 1 || Auth::user()->role == 2))
+                                    <a class="dropdown-item" href="{{ route('user.search') }}">{{ __('Manage') }}</a>
                                 @endif
 
                                 <a class="dropdown-item" href="{{ route('logout') }}"
