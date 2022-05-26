@@ -31,4 +31,9 @@ class CommentRepository {
     {
         return $this->model->where('id', $id)->first();
     }
+
+    public function countComment($postId)
+    {
+        return $this->model->where('post_id', $postId)->count();
+    }
 }
