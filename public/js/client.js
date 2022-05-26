@@ -23,17 +23,25 @@ $(document).ready(function () {
       },
       dataType: 'json',
       success: function success(data) {
+        var liked = data['liked'];
+        var disliked = data['disliked'];
         var likes = data['likeNum'];
         var dislikes = data['dislikeNum'];
         $("#likes_" + post_id).text(likes);
         $("#dislikes_" + post_id).text(dislikes);
 
-        if (type == "like") {
-          $(".fa-thumbs-up").css("color", "#000");
-          $(".fa-thumbs-down").css("color", "#778899");
-        } else if (type == "dislike") {
-          $(".fa-thumbs-down").css("color", "#000");
-          $(".fa-thumbs-up").css("color", "#778899");
+        if (type == "like" && liked == 1 && disliked == 0) {
+          $(".fa-thumbs-up").css("color", "#007bff");
+          $(".fa-thumbs-down").css("color", "#789");
+        } else if (type == "dislike" && liked == 0 && disliked == 1) {
+          $(".fa-thumbs-up").css("color", "#789");
+          $(".fa-thumbs-down").css("color", "#f11b1b");
+        } else if (type == "like" && liked == 0 && disliked == 0) {
+          $(".fa-thumbs-up").css("color", "#789");
+          $(".fa-thumbs-down").css("color", "#789");
+        } else if (type == "dislike" && liked == 0 && disliked == 0) {
+          $(".fa-thumbs-up").css("color", "#789");
+          $(".fa-thumbs-down").css("color", "#789");
         }
       }
     });

@@ -30,24 +30,40 @@ class LikeController extends Controller
 		
         if ($liked == null && $disliked == null) {
             $this->likeRepository->insertLike($postData);
+			
+			if ($request['type'] == "like") {
+				$liked = 1;
+				$disliked = 0;
+			} elseif ($request['type'] == "dislike") {
+				$liked = 0;
+				$disliked = 1;
+			}
         } 
 
         elseif (!empty($liked) && $postData['likeable_type'] == "like") {
             $this->likeRepository->deleteUserLikedPost($postData);
+			$liked = 0;
+			$disliked = 0;
         }
 
         elseif (!empty($disliked) && $postData['likeable_type'] == "dislike") {
             $this->likeRepository->deleteUserDislikedPost($postData);
+			$liked = 0;
+			$disliked = 0;
         }
 
         elseif (!empty($liked) && $postData['likeable_type'] == "dislike") {
             $this->likeRepository->deleteUserLikedPost($postData);
             $this->likeRepository->insertLike($postData);
+			$liked = 0;
+			$disliked = 1;
         }
          
         elseif (!empty($disliked) && $postData['likeable_type'] == "like") {
             $this->likeRepository->deleteUserDislikedPost($postData);
             $this->likeRepository->insertLike($postData);
+			$liked = 1;
+			$disliked = 0;
         } 
 
         $likeNum = $this->likeRepository->countLikeOfAPost($request['post_id']);
@@ -55,8 +71,10 @@ class LikeController extends Controller
 
         if ($request->ajax()) {
             return response()->json([
+				'liked' => $liked,
+				'disliked' => $disliked,
                 'likeNum' => $likeNum, 
-                'dislikeNum' => $dislikeNum
+                'dislikeNum' => $dislikeNum,
             ]);
         }
 

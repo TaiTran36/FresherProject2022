@@ -28,15 +28,15 @@ class FollowController extends Controller
 
         if ($followed == null) {
             $this->followRepository->insertFollow($followData);
-            $f = 1;
+            $followed = 1;
         } else {
             $this->followRepository->deleteFollow($followData);
-            $f = 0;
+            $followed = 0;
         }
 
         if ($request->ajax()) {
             return response()->json([
-                'followed' => $f,
+                'followed' => $followed,
             ]);
         }
 
