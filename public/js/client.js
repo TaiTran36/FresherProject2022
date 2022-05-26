@@ -71,7 +71,7 @@ $(document).ready(function () {
         $("#content").val("");
         var num_comments = data['num_comments'];
 
-        if (num_comments == 1) {
+        if (num_comments <= 1) {
           $(".num-comments").text(num_comments + " Comment");
         } else if (num_comments > 1) {
           $(".num-comments").text(num_comments + " Comments");
@@ -148,7 +148,7 @@ $(document).ready(function () {
         $("#comment_" + comment_id).remove();
         var num_comments = data['num_comments'];
 
-        if (num_comments == 1) {
+        if (num_comments <= 1) {
           $(".num-comments").text(num_comments + " Comment");
         } else if (num_comments > 1) {
           $(".num-comments").text(num_comments + " Comments");

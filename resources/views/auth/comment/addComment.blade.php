@@ -3,7 +3,7 @@
 
     <label for="comment" class="offset-md-2 col-form-label pl-1">
         <p class="mt-2 mb-0 num-comments">{{ count($comments) }}&#09;
-            @if (count($comments) == 1)
+            @if (count($comments) <= 1)
                 {{ __('Comment') }}
             @elseif( count($comments) > 1)
                 {{ __('Comments') }}      
