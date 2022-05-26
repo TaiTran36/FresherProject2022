@@ -79,11 +79,11 @@
                                                     </a>
         
                                                     <a class="dropdown-item" href="{{ route('user.destroy', $user->id) }}"
-                                                        onclick="event.preventDefault(); document.getElementById('delete-user').submit();">
+                                                        onclick="event.preventDefault(); document.getElementById('delete-user_{{$user->id}}').submit();">
                                                         {{ __('Delete') }}
                                                     </a>
         
-                                                    <form id="delete-user" action="{{ route('user.destroy', $user->id) }}"
+                                                    <form id="delete-user_{{$user->id}}" action="{{ route('user.destroy', $user->id) }}"
                                                         method="POST" class="d-none">
                                                         @csrf
                                                         @method('DELETE')

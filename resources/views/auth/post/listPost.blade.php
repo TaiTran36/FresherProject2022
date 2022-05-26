@@ -77,11 +77,11 @@
 
                                                 @if (Auth::check() && Auth::user()->role == 1)
                                                     <a class="dropdown-item" href="{{ route('post.destroy', $post->id) }}"
-                                                        onclick="event.preventDefault(); document.getElementById('delete-post').submit();">
+                                                        onclick="event.preventDefault(); document.getElementById('delete-post_{{$post->id}}').submit();">
                                                         {{ __('Delete') }}
                                                     </a>
 
-                                                    <form id="delete-post" action="{{ route('post.destroy', $post->id) }}"
+                                                    <form id="delete-post_{{$post->id}}" action="{{ route('post.destroy', $post->id) }}"
                                                         method="POST" class="d-none">
                                                         @csrf
                                                         @method('DELETE')
