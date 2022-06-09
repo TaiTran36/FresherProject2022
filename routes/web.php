@@ -19,6 +19,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\Client\HomepageController::class, 'index'])->name('post.view');
 
+Route::get('/auth/google', [App\Http\Controllers\Auth\GoogleController::class, 'redirectToGoogle'])->name('login');
+Route::get('/auth/google/callback', [App\Http\Controllers\Auth\GoogleController::class, 'handleGoogleCallback'])->name('login');
+
+Route::get('/auth/facebook', [App\Http\Controllers\Auth\FacebookController::class, 'redirectToFacebook'])->name('login');
+Route::get('/auth/facebook/callback', [App\Http\Controllers\Auth\FacebookController::class, 'handleFacebookCallback'])->name('login');
+
 Route::get('/search/user/{key}', [App\Http\Controllers\Client\SearchController::class, 'searchUser'])->name('search.user');
 Route::get('/search/category/{key}', [App\Http\Controllers\Client\SearchController::class, 'searchCategory'])->name('search.category');
 Route::get('/search/post/{key}', [App\Http\Controllers\Client\SearchController::class, 'searchPost'])->name('search.post');

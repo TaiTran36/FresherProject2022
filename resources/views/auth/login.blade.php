@@ -20,6 +20,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/login.css') }}" rel="stylesheet">
+    @toastr_css
 </head>
 
 <body>
@@ -90,11 +91,26 @@
                                         </div>
                                     </div>
 
-                                    <div class="row mb-0">
+                                    <div class="row mb-1">
                                         <div class="offset-md-1">
                                             <button type="submit" class="col-md-10 btn bg-primary">
                                                 {{ __('SIGN IN') }}
                                             </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-0">
+                                        <div class="col-md-6">
+                                            <a href="{{ url('auth/google') }}">
+                                                <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png">
+                                            </a>
+                                        </div>
+                                    
+                                        <div class="col-md-6" style="padding-top:0.2rem;">
+                                            <a href="{{ url('auth/facebook') }}">
+                                                <img style="width:185px; height:38px;" 
+						    src="https://scontent.fhan2-4.fna.fbcdn.net/v/t39.2365-6/17639236_1785253958471956_282550797298827264_n.png?_nc_cat=105&ccb=1-7&_nc_sid=ad8a9d&_nc_ohc=f2JwhCIezA8AX91NGip&_nc_ht=scontent.fhan2-4.fna&oh=00_AT-G7QHmhEPuBKwDk_L3bGeDRtmL5UH86bNlMQEPkZSE-w&oe=62A5E8D6">
+                                            </a>
                                         </div>
                                     </div>
 
@@ -119,5 +135,7 @@
         </main>
     </div>
 </body>
-
+@jquery
+@toastr_js
+@toastr_render
 </html>
