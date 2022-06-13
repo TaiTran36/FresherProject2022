@@ -38,4 +38,17 @@ class Post extends Model
     {
         $this->attributes['created_at'] = Carbon::createFromFormat('Y-m-d H:s:i', $value)->toDateString();
     }
+
+    // public static function boot() {
+    //     parent::boot();
+
+    //     static::deleting(function($post) {
+    //         $post->comments()->get()->each->delete();
+    //     });
+    // }
+
+    // public function comments()
+    // {
+    //     return $this->hasMany(Comment::class);
+    // }
 }

@@ -27,6 +27,11 @@ class CommentRepository {
         return $this->model->where('id', $id)->delete();
     }
 
+    public function deleteCommentByPost($postId)
+    {
+        return $this->model->where('post_id', $postId)->delete();
+    }
+
     public function findComment($id)
     {
         return $this->model->where('id', $id)->first();

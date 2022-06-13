@@ -6,6 +6,8 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+use App\Models\Post;
+use App\Observers\PostObserver;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -21,13 +23,22 @@ class EventServiceProvider extends ServiceProvider
     ];
 
     /**
+     * The model observers for your application.
+     *
+     * @var array
+     */
+    // protected $observers = [
+    //     Post::class => [PostObserver::class],
+    // ];
+
+    /**
      * Register any events for your application.
      *
      * @return void
      */
     public function boot()
     {
-        //
+        Post::observe(PostObserver::class);
     }
 
     /**
