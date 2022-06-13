@@ -60,6 +60,11 @@ class UserRepository {
         return $this->model->where('username_login', 'LIKE', '%'.$username.'%')->paginate(5)->withQueryString(); 
     }
 
+    public function findUserByEmail($email) 
+    {
+        return $this->model->where('email', $email)->first();
+    }
+
     public function findUserByGoogleId($id) 
     {
         return $this->model->where('google_id', $id)->first();
