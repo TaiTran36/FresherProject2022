@@ -109,7 +109,7 @@
                                         <div class="col-md-6" style="padding-top:0.2rem;">
                                             <a href="{{ url('auth/facebook') }}">
                                                 <img style="width:185px; height:38px;" 
-						    src="https://scontent.fhan2-4.fna.fbcdn.net/v/t39.2365-6/17639236_1785253958471956_282550797298827264_n.png?_nc_cat=105&ccb=1-7&_nc_sid=ad8a9d&_nc_ohc=f2JwhCIezA8AX91NGip&_nc_ht=scontent.fhan2-4.fna&oh=00_AT-G7QHmhEPuBKwDk_L3bGeDRtmL5UH86bNlMQEPkZSE-w&oe=62A5E8D6">
+						                            src="https://scontent.fhan2-4.fna.fbcdn.net/v/t39.2365-6/17639236_1785253958471956_282550797298827264_n.png?_nc_cat=105&ccb=1-7&_nc_sid=ad8a9d&_nc_ohc=VMXCSnZoDQoAX_LYzmG&_nc_ht=scontent.fhan2-4.fna&oh=00_AT8oP86SGLuVYKsLseMwHE-NUrZX2l8jCkZNq330K0akcg&oe=62ABD796">
                                             </a>
                                         </div>
                                     </div>

@@ -31,18 +31,17 @@ class FacebookController extends Controller
             $facebookUser = Socialite::driver('facebook')->user();
 
             $user = $this->userRepository->findUserByFacebookId($facebookUser->id);
-
+            $tmpUser = $this->userRepository->findUserByEmail($facebookUser->email);
+            
             if (!empty($user)) {
                 auth()->login($user);
-
-                return redirect()->intended('home');
             } 
-            else {
-		if (empty($facebookUser->email)) {
-		    toastr()->error('You need an email to login!');
-		    
-		    return redirect()->intended('login');
-		}
+            else if (empty($user) && empty($tmpUser)){
+                if (empty($facebookUser->email)) {
+                    toastr()->error('You need an email to login!');
+                    
+                    return redirect()->intended('login');
+                }
 
                 $dataInsert = [
                     'username_login' => $facebookUser->name,
@@ -54,9 +53,21 @@ class FacebookController extends Controller
                 $newUser = $this->userRepository->createUser($dataInsert);
 
                 auth()->login($newUser);
+            } 
+            else if (empty($user) && !empty($tmpUser)) {
+                $dataUpdate = [
+                    'id' => $tmpUser->id,
+                    'facebook_id' => $facebookUser->id,
+                ];
 
-                return redirect()->intended('home');
+                $this->userRepository->updateUser($dataUpdate);
+
+                $tmpUser['facebook_id'] = $facebookUser->id;
+
+                auth()->login($tmpUser);
             }
+
+            return redirect('/#');
         } catch (Exception $e) {
             //throw $th;
         }

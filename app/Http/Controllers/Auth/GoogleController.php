@@ -31,13 +31,12 @@ class GoogleController extends Controller
             $googleUser = Socialite::driver('google')->user();
 
             $user = $this->userRepository->findUserByGoogleId($googleUser->id);
+            $tmpUser = $this->userRepository->findUserByEmail($googleUser->email);
 
             if (!empty($user)) {
                 auth()->login($user);
-
-                return redirect()->intended('home');
             } 
-            else {
+            else if (empty($user) && empty($tmpUser)) {
                 $dataInsert = [
                     'username_login' => $googleUser->name,
                     'email' => $googleUser->email,
@@ -48,9 +47,21 @@ class GoogleController extends Controller
                 $newUser = $this->userRepository->createUser($dataInsert);
 
                 auth()->login($newUser);
+            } 
+            else if (empty($user) && !empty($tmpUser)) {
+                $dataUpdate = [
+                    'id' => $tmpUser->id,
+                    'google_id' => $googleUser->id,
+                ];
 
-                return redirect()->intended('home');
+                $this->userRepository->updateUser($dataUpdate);
+                
+                $tmpUser['google_id'] = $googleUser->id;
+
+                auth()->login($tmpUser);
             }
+
+            return redirect()->intended('home');
         } catch (Exception $e) {
             //throw $th;
         }
