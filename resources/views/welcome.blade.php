@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css">
@@ -12,12 +11,10 @@
     <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css">
     <title>Home</title>
 </head>
-
 <body>
     @include('templates/client/client_header')
     <!--main cards-->
     <div style="padding-left: 7%;padding-right: 7%; display:flow-root;">
-
         <div class="parent">
             <h1 class="mt-16 text-center text-4xl font-extrabold tracking-wide ">Newest posts</h1>
             <div class="slider my-20">
@@ -43,12 +40,14 @@
                                                 @endforeach
                                                 <span class="text-gray-400">- {{ $post->created_at }}</span>
                                             </div>
-                                            <h2 class="mt-6 mb-3 text-4xl font-extrabold leading-sung tracking-wide"><a
-                                                    href="post/{{ $post->url }}/client_details">
-                                                    {{ $post->title }}</a></h2>
+                                            <h2 class="mt-6 mb-3 text-4xl leading-sung tracking-wide"><a
+                                                    style="text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;overflow: hidden;"
+                                                    href="post/{{ $post->url }}/client_details"><b>
+                                                        {{ $post->title }}</b></a></h2>
                                             <p class="text-gray-500 mt-2 text-md leading-sung tracking-wide"
                                                 style="text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;overflow: hidden;">
-                                                {{ $post->content }}</p><a class="flex mt-8 " href="/author/{{ $post->writer_username }}/posts">
+                                                {{ $post->content }}</p><a class="flex mt-8 "
+                                                href="/author/{{ $post->writer_username }}/posts">
                                                 <div class="author-pic w-16 mr-5"><img class="rounded-full"
                                                         onerror="this.src='/profile/error_img/not_found.png'"
                                                         src="{{ asset('/profile/' . $post->writer_avatar) }}"></div>
@@ -66,16 +65,17 @@
             </div>
         </div>
         @foreach ($categories as $category)
-            <div class=" container lg:flex block" @if(in_array($category->id ,$active_cats->pluck('category_id')->toArray())==false) style="display:none" @endif style="float: left;width:49%;">
+            <div class=" container lg:flex block" @if (in_array($category->id, $active_cats->pluck('category_id')->toArray()) == false) style="display:none" @endif
+                style="float: left;width:49%;">
                 <div id="category" class="block my-20 " style="padding-left:10%; ">
                     <a href="/category/{{ $category->name }}/posts"
                         class="text-2xl font-extrabold mb-0">{{ $category->name }}</a>
                     <?php $i = 0; ?>
                     <div class="parent">
-                    @foreach ($posts as $post)
-                        @if ($post->category == $category->name && $i < 4)
-                            <?php $i++; ?>
-                            <!--Bussiness cards-->
+                        @foreach ($posts as $post)
+                            @if ($post->category == $category->name && $i < 4)
+                                <?php $i++; ?>
+                                <!--Bussiness cards-->
                                 <div class="business_cards md:flex block my-12">
                                     <div class="md:w-40 w-full md:mb-0 mb-6 mr-3"><img class="w-full rounded-md "
                                             style="width:200px;height:120px"
@@ -92,9 +92,11 @@
                                                 @endif
                                             @endforeach
                                         </div>
-                                        <h2 class="pr-10"><a class="text-lg font-extrabold "
-                                                href="post/{{ $post->url }}/client_details">{{ $post->title }}</a>
-                                        </h2><a class="flex mt-2" href="/author/{{ $post->writer_username }}/posts">
+                                        <h2 class="pr-10"><a class="text-lg text-2xl"
+                                                style="text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;overflow: hidden;"
+                                                href="post/{{ $post->url }}/client_details"><b>{{ $post->title }}</b></a>
+                                        </h2><a class="flex mt-2"
+                                            href="/author/{{ $post->writer_username }}/posts">
                                             <div class="author-pic w-12 mr-5"><img class="rounded-full"
                                                     onerror="this.src='/profile/error_img/not_found.png'"
                                                     src="{{ asset('/profile/' . $post->writer_avatar) }}"></div>
@@ -105,9 +107,9 @@
                                         </a>
                                     </div>
                                 </div>
-                        @endif
-                    @endforeach
-                </div>
+                            @endif
+                        @endforeach
+                    </div>
                     <a style="font-style: italic; text-decoration: underline" class="text-lg font-bold "
                         href="category/{{ $category->name }}/posts"> Show all posts by this category... </a>
                 </div>
@@ -119,8 +121,8 @@
         @include('templates/client/client_footer')
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"> </script>
-    <script src="{{ asset('js/plugin.js') }}"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
+    <script src="{{ asset('js/plugin.js') }}"></script>
     <script>
         var splide = new Splide('.splide', {
             type: 'loop',

@@ -17,50 +17,60 @@ class CategoriesSeeder extends Seeder
      * @return void
      */
     public function run()
-    { 
+    {
         DB::table('categories')->insert([
-            'name' =>"Travel"
+            'name' => "Travel",
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh')->toDateTimeString()
         ]);
         DB::table('categories')->insert([
-            'name' =>"Food"
+            'name' => "Food",
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh')->toDateTimeString()
         ]);
         DB::table('categories')->insert([
-            'name' =>"Business"
+            'name' => "Business",
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh')->toDateTimeString()
         ]);
         DB::table('categories')->insert([
-            'name' =>"Technology"
+            'name' => "Technology",
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh')->toDateTimeString()
         ]);
         DB::table('categories')->insert([
-            'name' =>"Education"
+            'name' => "Education",
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh')->toDateTimeString()
         ]);
         DB::table('categories')->insert([
-            'name' =>"Lifestyle"
+            'name' => "Lifestyle",
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh')->toDateTimeString()
         ]);
         DB::table('categories')->insert([
-            'name' =>"Sport"
+            'name' => "Sport",
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh')->toDateTimeString()
         ]);
         DB::table('categories')->insert([
-            'name' =>"Political"
+            'name' => "Political",
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh')->toDateTimeString()
         ]);
         DB::table('categories')->insert([
-            'name' =>"Others"
+            'name' => "Others",
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh')->toDateTimeString()
         ]);
+        for ($i = 1; $i <= 60; $i++) {
+            DB::table('post_category')->insert([
+                'post_id' => $i,
+                'category_id' => random_int(1, 3)
+            ]);
+        }
+        for ($i = 1; $i <= 30; $i++) {
+            DB::table('post_category')->insert([
+                'post_id' => $i,
+                'category_id' => random_int(4, 7)
+            ]);
+        }
         for ($i = 1; $i <= 20; $i++) {
             DB::table('post_category')->insert([
-                'post_id' =>$i,
-                'category_id'=>random_int(1,3)
+                'post_id' => $i,
+                'category_id' => random_int(8, 9)
             ]);
-         }
-         for ($i = 1; $i <= 20; $i++) {
-            DB::table('post_category')->insert([
-                'post_id' =>$i,
-                'category_id'=>random_int(4,7)
-            ]);
-         }
-         for ($i = 1; $i <= 4; $i++) {
-         DB::table('post_category')->insert([
-            'post_id' =>random_int(1,20),
-            'category_id'=>random_int(8,9)
-        ]);
-     }}
+        }
     }
+}

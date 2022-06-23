@@ -270,12 +270,22 @@ class Route
     public function getController()
     {
         if (! $this->controller) {
-            $class = $this->parseControllerCallback()[0];
+            $class = $this->getControllerClass();
 
             $this->controller = $this->container->make(ltrim($class, '\\'));
         }
 
         return $this->controller;
+    }
+
+    /**
+     * Get the controller class used for the route.
+     *
+     * @return string
+     */
+    public function getControllerClass()
+    {
+        return $this->parseControllerCallback()[0];
     }
 
     /**
@@ -525,9 +535,17 @@ class Route
      */
     public function bindingFieldFor($parameter)
     {
-        $fields = is_int($parameter) ? array_values($this->bindingFields) : $this->bindingFields;
+        if (is_int($parameter)) {
+            $parameters = $this->parameterNames();
 
-        return $fields[$parameter] ?? null;
+            if (! isset($parameters[$parameter])) {
+                return null;
+            }
+
+            $parameter = $parameters[$parameter];
+        }
+
+        return $this->bindingFields[$parameter] ?? null;
     }
 
     /**
@@ -1100,7 +1118,7 @@ class Route
     /**
      * Indicate that the route should enforce scoping of multiple implicit Eloquent bindings.
      *
-     * @return bool
+     * @return $this
      */
     public function scopeBindings()
     {

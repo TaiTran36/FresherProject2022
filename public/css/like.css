@@ -46,7 +46,24 @@
                             top: 0;
                             transform: scale(.8);
                           }
+                          #dislikebtn:hover + label{
+                            color: #ac7b4a;
+                            width: 120%;
+                            height: 100%;
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            transform: scale(.8);
+                          }
                           .radio_group input[type="radio"]:checked + label{
+                            /* color:#3498db; */
+                            transform: scale(1.1);
+                          }
+                          #likebtn:checked + label{
                             color:#3498db;
+                            transform: scale(1.1);
+                          }
+                          #dislikebtn:checked + label{
+                            color:#db5b34f1;
                             transform: scale(1.1);
                           }

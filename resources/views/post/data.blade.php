@@ -4,7 +4,6 @@
             <th style="width:2%; text-align: center">No.</th>
             <th id="title" style="width:35%; text-align: center" value="title">Title</th>
             <th style="width:8%; text-align: center">Writer</th>
-            {{-- <th style="width:23%; text-align:center">Category</th> --}}
             <th style="width:9%; text-align: center">Created at</th>
             <th style="width:9%; text-align: center">Updated at</th>
             <th style="width:15%; text-align: center" colspan="3">Action</th>
@@ -12,31 +11,27 @@
     </thead>
     <tbody>
         <?php $page = $listpost->currentPage();
-        $index = ($page - 1) * 5 + 1; ?>
+        $index = ($page - 1) * $listpost->perPage() + 1; ?>
         @foreach ($listpost as $post)
             <tr>
                 <td style="vertical-align: middle; text-align: center"><?php echo $index; ?></td>
                 <td style="vertical-align: middle">{{ $post->title }}</td>
                 <td style="vertical-align: middle">{{ $post->writer_username_login }}</td>
-                {{-- <td style="vertical-align: middle">
-                    @foreach ($categories as $category)
-                        {{ dd($category}}
-                    @endforeach
-                </td> --}}
                 <td style="vertical-align: middle">{{ $post->created_at }}</td>
                 <td style="vertical-align: middle">{{ $post->updated_at }}</td>
-                <td style="vertical-align: middle"><a class="btn btn-info"
-                        href="/post/{{ $post->url }}/details">Details</a></td>
+                <td style="vertical-align: middle"><a class="btn btn-info" id="details_post"
+                        data-url="{{ $post->url }}" href="/post/{{ $post->url }}/details">Details</a></td>
                 <td style="vertical-align: middle">
                     @if (Auth::user()->can('edit post') || $post->writer_id == Auth::user()->id)
-                        <a class="btn btn-primary" href="/post/{{ $post->url }}/edit">Edit</a>
+                        <a id="edit_post" data-url="{{ $post->url }}" class="btn btn-primary"
+                            href="/post/{{ $post->url }}/edit">Edit</a>
                     @else
                         <a class="btn btn-secondary disabled" aria-disabled="true">Edit</a>
                     @endif
                 </td>
                 <td style="vertical-align: middle">
                     @if (Auth::user()->can('delete post') || $post->writer_id == Auth::user()->id)
-                        <input id="page" value={{ $listpost->currentPage() }} hidden>
+                        <input id="page2" value={{ $listpost->currentPage() }} hidden>
                         <a id="delete_post" data-url="{{ $post->url }}" class="btn btn-danger"
                             onclick="return confirm('Are you sure to delete this post?');"
                             href="/post/{{ $post->url }}/delete">Delete</a>
@@ -63,9 +58,10 @@
         @endif
     </tbody>
 </table>
-<div style="margin: auto ;width: 30%;padding: 10px;" id="pagination_search" class="hidden">
+<input id="current_page" value={{$listpost->currentPage()}} hidden >
+<div style="margin: auto ;width: 30%;padding: 10px;" id="pagination_search_posts" class="hidden">
     {{ $listpost->links('pagination::bootstrap-4') }}
 </div>
-<div style="margin: auto ;width: 40%;padding: 10px;" id="pagination_all">
+<div style="margin: auto ;width: 40%;padding: 10px;" id="pagination_all_posts">
     {{ $listpost->links('pagination::bootstrap-4') }}
 </div>

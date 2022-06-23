@@ -73,7 +73,7 @@
         @endif
     @else
             {{-- <img style="width:10%;height:10%" src="{{asset('/profile/'.Auth::user()->avatar)}}" class="rounded-circle" alt="User Image"> --}}
-            <a>
+            <a href="/profile/{{ Auth::user()->id }}/details">
                 {{ Auth::user()->username_login }}
             </a> <br>
             <a>

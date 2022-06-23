@@ -13,7 +13,7 @@ trait Conditionable
      * @template TWhenParameter
      * @template TWhenReturnType
      *
-     * @param  (callable($this): TWhenParameter)|TWhenParameter  $value
+     * @param  (\Closure($this): TWhenParameter)|TWhenParameter  $value
      * @param  (callable($this, TWhenParameter): TWhenReturnType)|null  $callback
      * @param  (callable($this, TWhenParameter): TWhenReturnType)|null  $default
      * @return $this|TWhenReturnType
@@ -22,7 +22,7 @@ trait Conditionable
     {
         $value = $value instanceof Closure ? $value($this) : $value;
 
-        if (! $callback) {
+        if (func_num_args() === 1) {
             return new HigherOrderWhenProxy($this, $value);
         }
 
@@ -41,7 +41,7 @@ trait Conditionable
      * @template TUnlessParameter
      * @template TUnlessReturnType
      *
-     * @param  (callable($this): TUnlessParameter)|TUnlessParameter  $value
+     * @param  (\Closure($this): TUnlessParameter)|TUnlessParameter  $value
      * @param  (callable($this, TUnlessParameter): TUnlessReturnType)|null  $callback
      * @param  (callable($this, TUnlessParameter): TUnlessReturnType)|null  $default
      * @return $this|TUnlessReturnType
@@ -50,7 +50,7 @@ trait Conditionable
     {
         $value = $value instanceof Closure ? $value($this) : $value;
 
-        if (! $callback) {
+        if (func_num_args() === 1) {
             return new HigherOrderWhenProxy($this, ! $value);
         }
 

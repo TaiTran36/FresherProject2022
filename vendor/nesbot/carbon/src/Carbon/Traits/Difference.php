@@ -472,7 +472,7 @@ trait Difference
      */
     public function floatDiffInSeconds($date = null, $absolute = true)
     {
-        return $this->diffInMicroseconds($date, $absolute) / static::MICROSECONDS_PER_SECOND;
+        return (float) ($this->diffInMicroseconds($date, $absolute) / static::MICROSECONDS_PER_SECOND);
     }
 
     /**
@@ -812,7 +812,7 @@ trait Difference
      *
      * @return string
      */
-    public function diffForHumans($other = null, $syntax = null, $short = false, $parts = 1, $options = null)
+    public function diffForHumans($other = null, $syntax = null, $short = true, $parts = 1, $options = null)
     {
         /* @var CarbonInterface $this */
         if (\is_array($other)) {

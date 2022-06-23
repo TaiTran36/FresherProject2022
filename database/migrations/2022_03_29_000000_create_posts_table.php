@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 return new class extends Migration
 {
@@ -21,6 +22,7 @@ return new class extends Migration
             $table->foreignId('writer_id');
             $table->timestamps();
             $table->string('photo_path', 2048)->nullable();
+            $table->softDeletes(); // add
 
             $table->foreign('writer_id') 
             ->references('id')->on('users') 

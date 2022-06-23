@@ -54,10 +54,13 @@
             <form action="{{ route('register') }}">
                 @if (Route::has('register'))
                     <button style="background-color:#c18c46 ">
-                       Not have any accounts ? REGISTER
+                        Not have any accounts ? REGISTER
                     </button>
                 @endif
             </form>
+            <a href="{{ route('social.oauth', 'google') }}" class="btn btn-danger btn-block">
+                Login with Google
+            </a>
         </div>
     </div>
 </body>

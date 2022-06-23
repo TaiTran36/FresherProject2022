@@ -17,17 +17,26 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UsersSeeder::class,
-            RoleSeeder::class        ]);
-        for ($i = 1; $i <= 10; $i++) {
+            RoleSeeder::class
+        ]);
+        for ($i = 1; $i <= 30; $i++) {
             $this->call([
                 PostsSeeder::class
-            ]); }
-            for ($i = 1; $i <= 35; $i++) {
-                $this->call([
-                    CommentsSeeder::class
-                ]); }
-            $this->call([
-                CategoriesSeeder::class
             ]);
-     }
+        }
+        for ($i = 1; $i <= 35; $i++) {
+            $this->call([
+                CommentsSeeder::class,
+                FollowSeeder::class
+            ]);
+        }
+        for ($i = 1; $i <= 65; $i++) {
+            $this->call([
+                LikeSeeder::class
+            ]);
+        }
+        $this->call([
+            CategoriesSeeder::class
+        ]);
+    }
 }

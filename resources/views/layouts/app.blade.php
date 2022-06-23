@@ -16,9 +16,15 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <script src="{{ asset('js/post.js') }}" defer></script>
+    <script src="{{ asset('js/profile.js') }}" defer></script>
+    <script src="{{ asset('js/category.js') }}" defer></script>
+
 
     <!-- Styles -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">    <link href="{{ asset('css/app2.css') }}" rel="stylesheet" type="text/css" >
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="{{ asset('css/app2.css') }}" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -29,13 +35,18 @@
                 @show
             </div>
             <div id="content">
-                @section('header')
-                @show
-                <main class="py-4">
+                <div id="header">
+                    @section('header')
+                    @show
+                </div>
+                <main class="py-4" id="content_page">
                     @yield('content')
                 </main>
-                @section('footer')
-                @show
+                <br><br>
+                <div id="footer">
+                    @section('footer')
+                    @show
+                </div>
             </div>
         </div>
     </div>

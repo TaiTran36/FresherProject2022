@@ -17,7 +17,7 @@
                     </div>
                 @endif
             @endAuth
-            <div class="be-comment">
+            <div id="data_comment" class="be-comment">
                 <div class="be-img-comment">
                     <a href="/author/{{ $comment->writer_username }}/posts">
                         <img onerror="this.src='/profile/error_img/not_found.png'"
@@ -36,20 +36,20 @@
                     <p id="comment_text_{{ $comment->id }}" class="be-comment-text">
                         {{ $comment->comment_text }}
                     </p>
-                    <input onfocus="this.setSelectionRange(this.value.length,this.value.length);"
-                        style="display: none; background-color: aliceblue;"
-                        id="comment_text_input_{{ $comment->id }}" class="be-comment-text"
-                        value="{{ $comment->comment_text }}">
+                    <textarea maxlength="500" onfocus="this.setSelectionRange(this.value.length,this.value.length);"
+                        style="display:none; background-color: aliceblue; line-height: 18px;" id="comment_text_input_{{ $comment->id }}"
+                        class="be-comment-text" value="{{ $comment->comment_text }}">{{ $comment->comment_text }}</textarea>
                     <button type="button" id="update_comment_{{ $comment->id }}"
                         style="display: none; width:11%; padding:5px 5px 5px 10px"
-                        class="my-2 w-full md:w-max px-24 py-3 text-xs font-bold tracking-wider text-white bg-yellow-500 rounded-full hover:bg-white hover:text-yellow-500 hover:shadow-2xl transition duration-500 ease-in-out ">Done</button>
+                        class="checkButt my-2 w-full md:w-max px-24 py-3 text-xs font-bold tracking-wider text-white bg-yellow-500 rounded-full hover:bg-white hover:text-yellow-500 hover:shadow-2xl transition duration-500 ease-in-out ">Done</button>
                 </div>
             </div>
         @endforeach
+        <input id="current_page" value={{$list_comments->currentPage()}} hidden >
         <div style="margin: auto ;width: 30%;padding: 10px;" id="pagination_all">
             {{ $list_comments->links('pagination::simple-tailwind') }}
         </div>
     @else
-        <p class="no-comments">No Comments Yet</p>
+        <p id="no_comment" class="no-comments">No Comments Yet</p>
     @endif
 </div>

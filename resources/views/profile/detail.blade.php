@@ -7,7 +7,9 @@
     <?php //Hiển thị thông báo thành công
     ?>
     <div class="page-header">
-        <h2>User-profile</h2>
+        <center>
+            <h2>User-profile</h2>
+            <center>
     </div>
 
     @if (Session::has('success'))
@@ -32,7 +34,7 @@
         </div>
     @endif
     @if (Auth::user()->can('all user'))
-        <p><a class="btn btn-primary" href="/profile/list">Back</a></p>
+        <p><a id="user_back" class="btn btn-primary" href="/profile/list">Back</a></p>
     @endif
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -44,6 +46,18 @@
                                 <tr>
                                     <td> Name</td>
                                     <td>{{ $profile->name }}</td>
+                                </tr>
+                                <tr>
+                                    <td> Role</td>
+                                    <td>
+                                        @if ($profile->role == 1)
+                                            Admin
+                                        @elseif($profile->role == 2)
+                                            Modder
+                                        @else
+                                            Normal User
+                                        @endif
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td> Birthday</td>
@@ -67,7 +81,8 @@
                                 </tr>
                                 <tr>
                                     <td> Avatar</td>
-                                    <td> <img style="width:10%;height:10%" onerror="this.src='/profile/error_img/not_found.png'"
+                                    <td> <img style="width:10%;height:10%"
+                                            onerror="this.src='/profile/error_img/not_found.png'"
                                             src="{{ asset('/profile/' . $profile->avatar) }}" alt="User Image"></td>
                                 </tr>
                                 <tr>
@@ -81,7 +96,8 @@
                             </tbody>
                         </table>
                         @if ($profile->id == Auth::user()->id)
-                        <center><a class="btn btn-primary" href="/profile/{{ $profile->id }}/edit">Edit</a></center>
+                            <center><a id="edit_user" data-id="{{ $profile->id }}" class="btn btn-primary"
+                                    href="/profile/{{ $profile->id }}/edit">Edit</a></center>
                         @endif
                     </form>
                 @endforeach

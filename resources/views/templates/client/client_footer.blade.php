@@ -1,4 +1,4 @@
-<div class="sm:px-0 lg:px-4 py-10 bg-gray-50 mx-2 my-3 rounded-md">
+{{-- <div class="sm:px-0 lg:px-4 py-10 bg-gray-50 mx-2 my-3 rounded-md">
     <div class="container">
         <h1 class="text-2xl font-bold text-black mb-4">Subscribe to newsletter</h1>
         <form class="sm:block md:flex" action="">
@@ -9,8 +9,19 @@
                 type="submit">SUBSCRIBE </button>
         </form>
     </div>
-</div>
+</div> --}}
+<?php use Rainwater\Active\Active;
+Active::users();
+?>
+
 <div class="container pb-10">
+    <?php
+    $guests = Active::guests(1)->count(); //1 phut
+    $users = Active::users(1)->count();
+    ?>
+        <p style="margin-left:10%; width:100%"> Online users: <b><i>{{ $users }}</b></i> <br> Guests:
+            <b><i>{{ $guests }}</b></i>
+        </p>
     <div class="social w-max mx-auto"><a
             class="p-3 bg-gray-300 m-2 rounded-lg text-xl hover:text-white hover:bg-yellow-500 transition duration-500 ease-in-out"
             href="#"><i class="ri-facebook-fill"></i></a><a

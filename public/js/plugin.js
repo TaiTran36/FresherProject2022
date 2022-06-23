@@ -1,12 +1,12 @@
-$(document).ready(function(){
-  $('#arrow').click(function(){
+$(document).ready(function () {
+  $(document).on("click", '#arrow', function () {
     $('ul.inner-list').slideToggle();
   });
-  $('#close_sidebar').click(function(){
-    $('#sidebar').css('right','-300px');
+  $(document).on("click", '#close_sidebar', function () {
+    $('#sidebar').css('right', '-300px');
   });
-  $('#menu').click(function(){
-    $('#sidebar').css('right','0px');
+  $(document).on("click", '#menu', function () {
+    $('#sidebar').css('right', '0px');
 
   });
 

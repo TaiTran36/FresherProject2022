@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\DashboardProfileEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use App\Providers\RouteServiceProvider;
@@ -9,6 +10,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use App\Repositories\UserRepositories;
+use Pusher\Pusher;
 
 class RegisterController extends Controller
 {
@@ -63,6 +65,7 @@ class RegisterController extends Controller
         if ($response = $this->registered($request, $user)) {
             return $response;
         }
+        event(new DashboardProfileEvent());
         return redirect('/dashboard');
 }
 
