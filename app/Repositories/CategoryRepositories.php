@@ -23,9 +23,9 @@ class CategoryRepositories
         $getData = Category::all();
         return $getData;
     }
-    public function getAll_paginate($i)
+    public function getAll_paginate($number)
     {
-        $getData = DB::table('categories')->paginate($i);
+        $getData = DB::table('categories')->paginate($number);
         return $getData;
     }
     public function getByName($name)
@@ -43,7 +43,6 @@ class CategoryRepositories
             ->join('users', 'posts.writer_id', '=', 'users.id')
             ->where('categories.name', '=', $name)
             ->select('posts.*', 'categories.name as category', 'users.username_login as writer_username', 'users.name as writer_name', 'users.avatar as writer_avatar')
-            // ->take(5)
             ->orderBy('created_at', 'DESC')
             ->paginate(5);
         return $getData;
@@ -71,7 +70,6 @@ class CategoryRepositories
             ->where('posts.url', '=', $url)
             ->select('categories.name as category')
             ->get();
-        // $getData = DB::table('categories')->get();
         return $getData;
     }
     public function insert($name)
@@ -107,9 +105,9 @@ class CategoryRepositories
             ]);
         }
     }
-    public function search($name)
+    public function search($name, $number)
     {
-        $listcat = DB::table('categories')->where('name', 'LIKE', '%' . $name . '%')->paginate(5);
+        $listcat = DB::table('categories')->where('name', 'LIKE', '%' . $name . '%')->paginate($number);
         return $listcat;
     }
     public function delete($id)

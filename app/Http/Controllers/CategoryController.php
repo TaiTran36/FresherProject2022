@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\DashboardCategoryEvent;
 use Illuminate\Http\Request;
 use App\Repositories\PostRepositories;
 use App\Repositories\CategoryRepositories;
@@ -23,8 +24,12 @@ class CategoryController extends Controller
     }
     function get_list(Request $request)
     {
+        $number = 5;
+        if ($request->number) {
+            $number = $request->number;
+        }
         if ($request->ajax()) {
-            $listcat = $this->categoryRepository->getAll_paginate(5);
+            $listcat = $this->categoryRepository->getAll_paginate($number);
             return view('category.data', compact('listcat'))->render();
         }
     }
@@ -37,16 +42,24 @@ class CategoryController extends Controller
     }
     public function search(Request $request)
     {
+        $number = 5;
+        if ($request->number) {
+            $number = $request->number;
+        }
         if ($request->ajax()) {
-            $listcat = $this->categoryRepository->search($request->search);
+            $listcat = $this->categoryRepository->search($request->search, $number);
             return view('category.data', compact('listcat'))->render();
         }
     }
     public function search_results_all(Request $request)
     {
+        $number = 5;
+        if ($request->number) {
+            $number = $request->number;
+        }
         if ($request->ajax()) {
             $output2 = '';
-            $listcat = $this->categoryRepository->search($request->search);
+            $listcat = $this->categoryRepository->search($request->search, $number);
             if ($listcat) {
                 $output2 .= $listcat->total();
             }
@@ -55,9 +68,13 @@ class CategoryController extends Controller
     }
     public function destroy(Request $request)
     {
+        $number = 5;
+        if ($request->number) {
+            $number = $request->number;
+        }
         if ($request->ajax()) {
             $this->categoryRepository->delete($request->id);
-            $listcat = $this->categoryRepository->getAll(5);
+            $listcat = $this->categoryRepository->getAll($number);
             $data = view('category.data', compact('listcat'))->render();
             return response($data);
         }
@@ -72,6 +89,7 @@ class CategoryController extends Controller
             } else {
                 $data = 0;
             }
+            event(new DashboardCategoryEvent());
             return response($data);
         }
     }
@@ -85,6 +103,7 @@ class CategoryController extends Controller
             } else {
                 $data = 0;
             }
+            event(new DashboardCategoryEvent());
             return response($data);
         }
     }

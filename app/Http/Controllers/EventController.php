@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\CommentEvent;
+use App\Events\DashboardCategoryEvent;
 use App\Events\DashboardPostEvent;
 use App\Events\DashboardProfileEvent;
 use App\Events\LikeEvent;
@@ -25,6 +26,10 @@ class EventController extends Controller
   public function postEvent()
   {
       event(new DashboardPostEvent());
+  }
+  public function categoryEvent()
+  {
+      event(new DashboardCategoryEvent());
   }
   public function profileEvent()
   {

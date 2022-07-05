@@ -1,29 +1,52 @@
 $(document).ready(function () {
-
+    $(document).on('change', '#number3', function (event) {
+        $search = $("#search3").val();
+        $number = $("#number3").val();
+        if ($search == '') {
+            $.ajax({
+                type: 'get',
+                url: '/category/get_list',
+                data: {
+                    'number': $number
+                },
+                success: function (data) {
+                    $('#data_category').html(data);
+                }
+            });
+        } else {
+            ajaxsearch();
+        }
+    });
     $(document).on('keyup', '#search3', function (event) {
-        $value = $(this).val();
+        ajaxsearch();
+    });
+    function ajaxsearch() {
+        $value = $("#search3").val();
+        $number = $("#number3").val();
         $.ajax({
             type: 'get',
             url: '/category/search',
             data: {
-                'search': $value
+                'search': $value,
+                'number':$number
             },
             success: function (data) {
-                $('#data').html(data);
+                $('#data_category').html(data);
                 $("#pagination_all_cats").hide();
                 $("#pagination_search_cats").removeClass("hidden");
             }
         });
         count();
-    });
-
+    }
     function count() {
         $value = $("#search3").val();
+        $number = $("#number3").val();
         $.ajax({
             type: 'get',
             url: '/category/search_all',
             data: {
-                'search': $value
+                'search': $value,
+                'number':$number
             },
             success: function (data) {
                 if (document.getElementById('search3').value.length != 0) {
@@ -42,13 +65,16 @@ $(document).ready(function () {
         event.preventDefault();
         var id = $(this).data("id");
         delete_cat(id);
+        realtime_pusher();
     });
     function delete_cat(id) {
+        $number = $("#number3").val();
         $.ajax({
             method: "get",
             url: "/category/delete",
             data: {
                 'id': id,
+                'number': $number
             }
         })
         $.ajax({
@@ -67,6 +93,7 @@ $(document).ready(function () {
     }
     $(document).on('click', '#add_cat', function (event) {
         event.preventDefault();
+        var check=0;
         var new_cat = $("#new_cat").val();
         if (new_cat != null) {
             if (confirm('Are you sure to add new category "' + new_cat + '" ?') == true) {
@@ -79,17 +106,18 @@ $(document).ready(function () {
                     success: function (data) {
                         if (data == 0) {
                             alert("Category existed !!!");
-                            $("#new_cat").val(new_cat);
+                            check=1;
                         }
                     }
-
                 })
                 $.ajax({
                     method: "get",
                     url: "/category/count",
                     success: function (data) {
                         $('#count_cats').html(data);
-                        $("#new_cat").val("");
+                        if(check==0){
+                        $("#new_cat").val("");} else
+                        $("#new_cat").val(new_cat);
                     }
                 })
                 count();
@@ -98,6 +126,7 @@ $(document).ready(function () {
                     fetch_data_all2(page);
                 } // khi xóa xong thì không tải lại toàn bộ list nữa mà chỉ tải lại phân trang hiện tại
                 else { fetch_data2(page); }
+                realtime_pusher() ;
             }
         }
     });
@@ -108,6 +137,7 @@ $(document).ready(function () {
         $('#name_' + id).hide();
         $('#edit_name_' + id).show();
         $('#edit_name_' + id + '_text').focus();
+        $('#edit_name_' + id + '_text').css("background-color", "#F0F8FF");
         $('#edit_name_' + id + '_button').show();
         $('#edit_name_' + id + '_cancel').show();
 
@@ -167,10 +197,14 @@ $(document).ready(function () {
     });
 
     function fetch_data_all2(page) {
+        $number = $("#number3").val();
         $.ajax({
             url: "/category/get_list?page=" + page,
+            data: {
+                'number': $number
+            },
             success: function (data) {
-                $('#data').html(data);
+                $('#data_category').html(data);
             }
         });
     }
@@ -181,18 +215,57 @@ $(document).ready(function () {
     });
 
     function fetch_data2(page) {
+        $number = $("#number3").val();
         $.ajax({
             type: 'get',
             url: "/category/search?page=" + page,
             data: {
-                'search': $value
+                'search': $value,
+                'number': $number
             },
             success: function (data) {
                 $('tbody').html('');
-                $('#data').html(data);
+                $('#data_category').html(data);
                 $("#pagination_all_cats").hide();
                 $("#pagination_search_cats").removeClass("hidden");
             }
         });
     }
+       // Khởi tạo một đối tượng Pusher với app_key
+       var pusher = new Pusher('b54757f85063e8401c1b', {
+        cluster: 'ap1',
+        encrypted: true
+    });
+
+    //Đăng ký với kênh chanel đã tạo trong file CommentEvent.php
+    var channel = pusher.subscribe('dashboard_category');
+
+    //Bind js function reload với sự kiện pusher
+    channel.bind('App\\Events\\DashboardCategoryEvent', reloadCats);
+
+    function reloadCats() {
+        var page = $("#current_page").val();
+        if ($("#search3").val() == '') {
+            fetch_data_all2(page);
+            // alert(page);
+        } else {
+            fetch_data2(page);
+        }
+        $.ajax({
+            method: "get",
+            url: "/category/count",
+            success: function (data) {
+                // alert(data);
+                $('#count_cats').html(data);  // count tổng
+            }
+        })
+        count();  //count search
+    }
+    function realtime_pusher() {
+        $.ajax({
+            method: "get",
+            url: "/category_event"
+        })
+    }
+// call đến event ở ngay controller để tránh trục trặc 
 });

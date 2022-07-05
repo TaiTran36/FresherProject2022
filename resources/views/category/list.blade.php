@@ -8,7 +8,7 @@
     </div>
     <h4> Total: <a id="count_cats">{{ $listcat->total() }}</a> records. </h4>
     <div class="form-group">
-        <input type="text" placeholder="Search for name..." style="width:30%" class="form-controller" id="search3"
+        <input type="text" placeholder="Search for name..." style="width:35%" class="form-controller" id="search3"
             name="search"></input>
         <a id="count"></a>
         <div style="float:right; padding-right:1%">
@@ -20,11 +20,22 @@
             @endrole
         </div>
     </div>
+    <div style="overflow:hidden">
+        <a style="display:inline-block;width:4%">Show </a><select class="form-select"
+            style="display:inline-block;width:6%" name="number" id="number3">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+            <option value="999999999">All</option>
+        </select>
+    </div>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="table-responsive">
                 <div style="height: 10px"></div>
-                <div id="data">
+                <div id="data_category">
                     @include('category/data')
                 </div>
                 <input type="hidden" name="hidden_page" id="hidden_page" value="1" />

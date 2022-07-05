@@ -9,7 +9,7 @@
     </thead>
     <tbody>
         <?php $page = $listcat->currentPage();
-        $index = ($page - 1) * 5 + 1; ?>
+        $index = ($page - 1) * $listcat->perPage() + 1; ?>
         @foreach ($listcat as $cat)
             <tr>
                 <td style="vertical-align: middle; text-align: center"><?php echo $index; ?></td>
@@ -47,14 +47,15 @@
         @if (count($listcat) % 5 != 0)
             @for ($i = 0; $i < 5 - count($listcat); $i++)
                 <tr height="63px">
+                    @for($j=0;$j<4;$j++)
                     <td></td>
-                    <td></td>
-                    <td></td>
+                    @endfor
                 </tr>
             @endfor
         @endif
     </tbody>
 </table>
+<input id="current_page" value={{$listcat->currentPage()}} hidden >
 <div style="margin: auto ;width: 30%;padding: 10px;" id="pagination_search_cats" class="hidden">
     {{ $listcat->links('pagination::bootstrap-4') }}
 </div>

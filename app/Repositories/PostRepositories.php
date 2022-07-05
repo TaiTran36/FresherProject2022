@@ -213,8 +213,6 @@ class PostRepositories
     {
         return DB::table('comments')->where('id', $id)->value('comment_text');
     }
-
-
     public function destroy_like_dislike($id)
     {
         DB::table('like_dislikes')->where('post_id', '=', $id)->where('user_id', '=', auth()->user()->id)->delete();
@@ -230,7 +228,6 @@ class PostRepositories
             'created_at' => $dt->toDateTimeString()
         ]);
     }
-
     public function addDislike($id)
     {
         $dt = Carbon::now('Asia/Ho_Chi_Minh');

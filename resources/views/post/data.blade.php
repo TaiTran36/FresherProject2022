@@ -45,14 +45,9 @@
         @if (count($listpost) % 5 != 0)
             @for ($i = 0; $i < 5 - count($listpost); $i++)
                 <tr height="63px">
+                    @for($j=0;$j<8;$j++)
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    @endfor
                 </tr>
             @endfor
         @endif

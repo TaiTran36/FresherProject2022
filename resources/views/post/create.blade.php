@@ -12,11 +12,13 @@
         <center>
             <h1>Add Post</h1>
         </center>
-        <form id="form_create" name="form_create" style="width:98%" action="{{ url('/post/insert') }}" method="post" enctype="multipart/form-data">
+        <form id="form_create" name="form_create" style="width:98%" action="{{ url('/post/insert') }}" method="post"
+            enctype="multipart/form-data">
             <input type="hidden" id="_token" name="_token" value="{!! csrf_token() !!}" />
             <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="name" name="title" placeholder="Enter title" required />
+                <input type="text" class="form-control" id="name" name="title" placeholder="Enter title"
+                    required />
             </div>
             <div class="form-group">
                 <label for="title">Category</label>
@@ -24,8 +26,8 @@
                 <div class="required" style="columns:3; padding-left:10%">
                     @foreach ($categories as $category)
                         <div class="form-check">
-                            <input name="categories[]" class="form-check-input" type="checkbox" value="{{ $category->id }}"
-                                id="flexCheckDefault">
+                            <input name="categories[]" class="form-check-input" type="checkbox"
+                                value="{{ $category->id }}" id="flexCheckDefault">
                             <label class="form-check-label" for="flexCheckDefault">
                                 {{ $category->name }}
                             </label>
@@ -52,7 +54,8 @@
             </div>
             <div class="form-group">
                 <label for="content">Content</label>
-                <textarea rows="10" type="text" class="form-control" id="name" name="content" placeholder="Enter content" required></textarea>
+                <textarea rows="10" type="text" class="form-control" id="input_area" name="content" placeholder="Enter content"
+                    required></textarea>
             </div>
             <center><button id="submit_add" type="submit" class="btn btn-primary">Save</button></center>
         </form>
@@ -61,3 +64,8 @@
 @endsection
 <script src="{{ asset('js/image_upload.js') }}" defer></script>
 <script src="{{ asset('js/post.js') }}" defer></script>
+
+{{-- <script src="{{ asset('ckeditor\ckeditor.js') }}" defer></script>
+<script type="text/javascript">
+    CKEDITOR.replace('input_area');
+</script> --}}

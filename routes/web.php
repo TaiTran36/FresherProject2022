@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', [App\Http\Controllers\ClientController::class, 'index'])->name('welcome');
 
 Route::get('post_event', 'EventController@postEvent');
+Route::get('category_event', 'EventController@categoryEvent');
 Route::get('profile_event', 'EventController@profileEvent');
 Route::get('comment_event', 'EventController@commentEvent');
 Route::get('like_event', 'EventController@likeEvent');
