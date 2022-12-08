@@ -1,8 +1,5 @@
 $(document).ready(function () {
-    // $(document).on('click', '#checkAll', function (event) {
-    //     // alert("aa");
-    //     $('input:checkbox').not(this).prop('checked', this.checked);
-    // });
+
     $(document).on('change', '#number', function (event) {
         $search = $("#search").val();
         $number = $("#number").val();
@@ -21,11 +18,14 @@ $(document).ready(function () {
             ajaxsearch();
         }
     });
-    $(document).on('keyup', '#search', function (event) {
+    var search = debounce(function (e) {
         $value = $(this).val();
         $number = $("#number").val();
         ajaxsearch();
-    });
+    }, 500);        // sau khi keyup 500ms thì mới thực hiện function -> đỡ bị lag do search ngay khi nhập từng ký tự
+
+    $(document).on('keydown', '#search', search);
+
     function ajaxsearch() {
         $.ajax({
             type: 'get',
@@ -34,8 +34,14 @@ $(document).ready(function () {
                 'search': $value,
                 'number': $number
             },
+            beforeSend: function () { 
+                $('#searching-gif').show(); 
+            },
             success: function (data) {
-                $('#data').html(data);
+                if($('#data').html(data)){
+                    $('#searching-gif').hide();
+                }
+                $('#data').html(data)
                 $("#pagination_all").hide();
                 $("#pagination_search").removeClass("hidden");
             }
@@ -95,6 +101,7 @@ $(document).ready(function () {
     $(document).on('click', '#pagination_all a', function (event) {
         event.preventDefault();
         var page = $(this).attr('href').split('page=')[1];
+        localStorage.setItem('current_users_page', page);
         fetch_data_all(page);
     });
 
@@ -149,7 +156,6 @@ $(document).ready(function () {
 
     //Bind js function reload với sự kiện pusher
     channel.bind('App\\Events\\DashboardProfileEvent', reloadProfiles);
-
 
     function reloadProfiles() {
         var page = $("#current_page").val();

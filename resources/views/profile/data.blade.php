@@ -4,7 +4,6 @@
             {{-- <th class="text-center" style="width:1%; text-align:center"> <input type="checkbox" id="checkAll"></th> --}}
             <th style="width:3%; text-align:center">No.</th>
             <th style="width:6%; text-align:center">Role</th>
-            {{-- <th style="width:22%; text-align:center">@sortablelink('users.name')</th> --}}
             <th style="width:22%; text-align:center">Name</th>
             <th style="width:25%; text-align:center">Email</th>
             <th style="width:7%; text-align:center">Avatar</th>
@@ -15,6 +14,7 @@
         </tr>
     </thead>
     <tbody>
+        <img id="searching-gif" style='display:none' src="{{ asset('/loading/searching.gif') }}"/>
         <?php $page = $listprofile->currentPage();
         $index = ($page - 1) * $listprofile->perPage() + 1; ?>
         @foreach ($listprofile as $profile)
@@ -89,9 +89,9 @@
     </tbody>
 </table>
 <input id="current_page" value={{$listprofile->currentPage()}} hidden >
-<div style="margin: auto ;width: 30%;padding: 10px;" id="pagination_search" class="hidden">
+<div id="pagination_search" class="hidden">
     {{ $listprofile->links('pagination::bootstrap-4') }}
 </div>
-<div style="margin: auto ;width: 40%;padding: 10px;" id="pagination_all">
+<div id="pagination_all">
     {{ $listprofile->links('pagination::bootstrap-4') }}
 </div>

@@ -6,24 +6,27 @@
     <p><i class="ri-close-fill text-4xl transition duration-300 ease-in-out hover:text-yellow-500" id="close_sidebar"></i>
     </p>
     <ul>
-        <li class="py-1.5 px-3 active "><a href="/">Home</a></li>
-        <li class="py-1.5 px-3 relative "><a id="arrow">Categories</a><span
-                class="absolute top-0 right-0 text-2xl text-gray-300 cursor-pointer " id="arrow"><i
-                    class="ri-arrow-down-circle-line "></i></span>
-            <ul class="p-3 inner-list">
+        <li class="py-1.5 px-3 active "><a href="/"><i class="fa fa-home" style="font-size:130%"></i>
+                &nbsp;Home</a></li>
+        <li class="py-1.5 px-3 relative "><a id="arrow"><i class="fa fa-list-alt" style="font-size:90%"></i> &nbsp;
+                Categories</a><span class="absolute top-0 right-0 text-2xl text-gray-300 cursor-pointer "
+                id="arrow"><i class="ri-arrow-down-circle-line "></i></span>
+            <ul class="p-3 inner-list" style="padding-left: 8%">
                 @foreach ($categories as $category)
-                    <li class="py-1.5 px-3 "><a
-                            href="/category/{{ $category->name }}/posts">{{ $category->name }}</a></li>
+                    <li class="py-1.5 px-3 "><a href="/category/{{ $category->name }}/posts"><i class="fa fa-circle"
+                                style="font-size:60%"></i> &nbsp; {{ $category->name }}</a>
+                    </li>
                 @endforeach
             </ul>
         </li>
         @if (Route::has('login'))
             @auth
-                <li class="py-1.5 px-3"><a href="{{ url('/dashboard') }}">Dashboard</a></li>
-                <li class="py-1.5 px-3 li_end"> <a href="{{ route('logout') }}"
+                <li class="py-1.5 px-3"><a href="{{ url('/dashboard') }}"><i class="fa fa-dashboard"
+                            style="font-size:90%"></i><span> &nbsp; Dashboard</span></a></li>
+                <li class="py-1.5 px-3"> <a href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
-                        <i class="fa fa-sign-out"></i> <span class="nav-label">Logout</span></a> </li>
+                        <i class="fa fa-sign-out"></i> <span class="nav-label"> &nbsp; Logout</span></a> </li>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
                 </form>
@@ -40,7 +43,7 @@
 @auth
     <input id="user_id" name="user_id" value={{ Auth::user()->id }} hidden>
 @endauth
-<nav class="border-b-2 border-gray-200">
+<nav class="border-b-2 border-gray-200"  style="background-color:#ffd190">
     <div class="container">
         <div class="parent">
             <div class="md:flex py-5">
@@ -83,7 +86,7 @@
 
                 </div>
                 <div class="md:w-1/4 w-full search md:order-1">
-                    <form class="relative px-3 py-1 rounded-full border-2 border-gray-200"
+                    <form class="relative px-3 py-1 rounded-full border-2 border-gray-200" style="background-color: white;"
                         action="{{ url('/post/client_search') }}" method="post" enctype="multipart/form-data">
                         <input type="hidden" id="_token" name="_token" value="{!! csrf_token() !!}" />
                         <span class="absolute top-1.5 text-gray-300 left-2.5 text-sm"><i
@@ -100,7 +103,8 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="https://js.pusher.com/4.3/pusher.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
+</script>
 @auth
     {{-- <script type="text/javascript">
         var notificationsWrapper = $('.dropdown-notifications');

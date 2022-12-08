@@ -35,8 +35,8 @@ Active::users();
             </div>
             <ul class="list-sidebar bg-defoult">
                 @can('all user')
-                    <li class="{{ request()->is('profile/*') ? 'li_active' : '' }}"> <a id="users" href="/profile/list"><i
-                                class="fa fa-user"></i> <span class="nav-label">Users</span></a> </li>
+                    <li class="{{ request()->is('profile/*') ? 'li_active' : '' }}"> <a id="users"
+                            href="/profile/list"><i class="fa fa-user"></i> <span class="nav-label">Users</span></a> </li>
                 @else
                     <input hidden value="{{ Auth::user()->id }}" id="user_id">
                     <li id="my_profile"
@@ -63,7 +63,8 @@ Active::users();
                     <p style="margin-left:10%; width:100%"> Online users: <b><i>{{ $users }}</b></i> <br> Guests:
                         <b><i>{{ $guests }}</b></i>
                     </p>
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                    <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
         document.getElementById('logout-form').submit();">
                         <i class="fa fa-sign-out"></i> <span class="nav-label">Logout</span></a>
                 </li>

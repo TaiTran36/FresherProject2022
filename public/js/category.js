@@ -17,18 +17,22 @@ $(document).ready(function () {
             ajaxsearch();
         }
     });
-    $(document).on('keyup', '#search3', function (event) {
+    var search = debounce(function (e) {
+        $value = $(this).val();
+        $number = $("#number").val();
         ajaxsearch();
-    });
+    }, 500);        // sau khi keyup 500ms thì mới thực hiện function -> đỡ bị search khi nhập từng ký tự
+
+    $(document).on('keydown', '#search3', search);
     function ajaxsearch() {
-        $value = $("#search3").val();
-        $number = $("#number3").val();
+        // $value = $("#search3").val();
+        // $number = $("#number3").val();
         $.ajax({
             type: 'get',
             url: '/category/search',
             data: {
                 'search': $value,
-                'number':$number
+                'number': $number
             },
             success: function (data) {
                 $('#data_category').html(data);
@@ -46,7 +50,7 @@ $(document).ready(function () {
             url: '/category/search_all',
             data: {
                 'search': $value,
-                'number':$number
+                'number': $number
             },
             success: function (data) {
                 if (document.getElementById('search3').value.length != 0) {
@@ -93,7 +97,7 @@ $(document).ready(function () {
     }
     $(document).on('click', '#add_cat', function (event) {
         event.preventDefault();
-        var check=0;
+        var check = 0;
         var new_cat = $("#new_cat").val();
         if (new_cat != null) {
             if (confirm('Are you sure to add new category "' + new_cat + '" ?') == true) {
@@ -106,7 +110,7 @@ $(document).ready(function () {
                     success: function (data) {
                         if (data == 0) {
                             alert("Category existed !!!");
-                            check=1;
+                            check = 1;
                         }
                     }
                 })
@@ -115,9 +119,10 @@ $(document).ready(function () {
                     url: "/category/count",
                     success: function (data) {
                         $('#count_cats').html(data);
-                        if(check==0){
-                        $("#new_cat").val("");} else
-                        $("#new_cat").val(new_cat);
+                        if (check == 0) {
+                            $("#new_cat").val("");
+                        } else
+                            $("#new_cat").val(new_cat);
                     }
                 })
                 count();
@@ -126,7 +131,7 @@ $(document).ready(function () {
                     fetch_data_all2(page);
                 } // khi xóa xong thì không tải lại toàn bộ list nữa mà chỉ tải lại phân trang hiện tại
                 else { fetch_data2(page); }
-                realtime_pusher() ;
+                realtime_pusher();
             }
         }
     });
@@ -231,8 +236,8 @@ $(document).ready(function () {
             }
         });
     }
-       // Khởi tạo một đối tượng Pusher với app_key
-       var pusher = new Pusher('b54757f85063e8401c1b', {
+    // Khởi tạo một đối tượng Pusher với app_key
+    var pusher = new Pusher('b54757f85063e8401c1b', {
         cluster: 'ap1',
         encrypted: true
     });
@@ -267,5 +272,5 @@ $(document).ready(function () {
             url: "/category_event"
         })
     }
-// call đến event ở ngay controller để tránh trục trặc 
+    // call đến event ở ngay controller để tránh trục trặc 
 });

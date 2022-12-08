@@ -13,7 +13,7 @@
         <?php $page = $listpost->currentPage();
         $index = ($page - 1) * $listpost->perPage() + 1; ?>
         @foreach ($listpost as $post)
-            <tr>
+            <tr id='tr1' class='post_tr' data-url={{ $post->url }}>
                 <td style="vertical-align: middle; text-align: center"><?php echo $index; ?></td>
                 <td style="vertical-align: middle">{{ $post->title }}</td>
                 <td style="vertical-align: middle">{{ $post->writer_username_login }}</td>
@@ -40,23 +40,31 @@
                     @endif
                 </td>
             </tr>
+
+            {{-- test --}}
+
+            <tbody class='post_tr_expand hidden' data-url={{ $post->url }}>
+            </tbody>
+
+            {{-- /////// test --}}
+
             <?php $index++; ?>
         @endforeach
         @if (count($listpost) % 5 != 0)
             @for ($i = 0; $i < 5 - count($listpost); $i++)
                 <tr height="63px">
-                    @for($j=0;$j<8;$j++)
-                    <td></td>
+                    @for ($j = 0; $j < 8; $j++)
+                        <td></td>
                     @endfor
                 </tr>
             @endfor
         @endif
     </tbody>
 </table>
-<input id="current_page" value={{$listpost->currentPage()}} hidden >
-<div style="margin: auto ;width: 30%;padding: 10px;" id="pagination_search_posts" class="hidden">
+<input id="current_page" value={{ $listpost->currentPage() }} hidden>
+<div id="pagination_search_posts" class="hidden">
     {{ $listpost->links('pagination::bootstrap-4') }}
 </div>
-<div style="margin: auto ;width: 40%;padding: 10px;" id="pagination_all_posts">
+<div id="pagination_all_posts">
     {{ $listpost->links('pagination::bootstrap-4') }}
 </div>

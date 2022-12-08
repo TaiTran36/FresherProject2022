@@ -56,9 +56,9 @@
     </tbody>
 </table>
 <input id="current_page" value={{$listcat->currentPage()}} hidden >
-<div style="margin: auto ;width: 30%;padding: 10px;" id="pagination_search_cats" class="hidden">
+<div id="pagination_search_cats" class="hidden">
     {{ $listcat->links('pagination::bootstrap-4') }}
 </div>
-<div style="margin: auto ;width: 40%;padding: 10px;" id="pagination_all_cats">
+<div id="pagination_all_cats">
     {{ $listcat->links('pagination::bootstrap-4') }}
 </div>

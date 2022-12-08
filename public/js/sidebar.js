@@ -1,5 +1,6 @@
 $(document).on('click', '#posts', function (event) {
     event.preventDefault();
+    localStorage.setItem('current_posts_page', 1);
     $.ajax({
         method: "get",
         url: "/post/list",
@@ -11,6 +12,7 @@ $(document).on('click', '#posts', function (event) {
 })
 $(document).on('click', '#users', function (event) {
     event.preventDefault();
+    localStorage.setItem('current_users_page', 1);
     $.ajax({
         method: "get",
         url: "/profile/list",
@@ -93,9 +95,10 @@ $(document).on('click', '#details_user', function (event) {
 })
 $(document).on('click', '#user_back', function (event) {
     event.preventDefault();
+    var page = localStorage.getItem('current_users_page');
     $.ajax({
         method: "get",
-        url: "/profile/list",
+        url: "/profile/list?page=" + page,
         success: function (data) {
             $("#sidebar").hide();
             $("#content").html(data);
@@ -143,9 +146,10 @@ $(document).on('click', '#add_post', function (event) {
 })
 $(document).on('click', '#post_back', function (event) {
     event.preventDefault();
+    var page = localStorage.getItem('current_posts_page');
     $.ajax({
         method: "get",
-        url: "/post/list",
+        url: "/post/list?page=" + page,
         success: function (data) {
             $("#sidebar").hide();
             $("#content").html(data);

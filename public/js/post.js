@@ -1,4 +1,30 @@
 $(document).ready(function () {
+
+    /////////////////////// test /////
+
+    $(document).on('click', '.post_tr', function () {
+        $url = $(this).attr('data-url');
+        if ($(".post_tr_expand[data-url='" + $url + "']").hasClass('hidden')) {
+            $.ajax({
+                type: 'get',
+                url: '/post/expands',
+                data: {
+                    'url': $url
+                },
+                success: function (data) {
+                    $(".post_tr_expand[data-url='" + $url + "']").html(data);
+                    $(".post_tr_expand[data-url='" + $url + "']").removeClass('hidden');
+                    // $(".post_tr_expand[data-url='" + $url + "']").html(data);
+                }
+            });
+        } else {
+            $(".post_tr_expand[data-url='" + $url + "']").html('');
+            $(".post_tr_expand[data-url='" + $url + "']").addClass('hidden');
+        }
+    });
+
+
+    ////////////////////////////
     $(document).on('change', '#number2', function (event) {
         $search = $("#search2").val();
         $number = $("#number2").val();
@@ -18,6 +44,7 @@ $(document).ready(function () {
         }
     });
     $('#submit_edit').click(function () {
+        var page = localStorage.getItem('current_posts_page');
         checked = $("input[type=checkbox]:checked").length;
         if (!checked) {
             $('#err').text("You must check this !").css("color", "red");
@@ -40,11 +67,13 @@ $(document).ready(function () {
             // Nên call event ở bên controller luôn để đỡ trục trặc
         }
     });
-    $(document).on('keyup', '#search2', function () {
+    var search = debounce(function (e) {
         $value = $(this).val();
-        $number = $("#number2").val();
+        $number = $("#number").val();
         ajaxsearch();
-    });
+    }, 500);        // sau khi keyup 500ms thì mới thực hiện function -> đỡ bị search khi nhập từng ký tự
+
+    $(document).on('keydown', '#search2', search);
     function ajaxsearch() {
         $.ajax({
             type: 'get',
@@ -114,6 +143,7 @@ $(document).ready(function () {
     $(document).on('click', '#pagination_all_posts a', function (event) {
         event.preventDefault();
         var page = $(this).attr('href').split('page=')[1];
+        localStorage.setItem('current_posts_page', page);
         fetch_data_all2(page);
     });
 
@@ -165,12 +195,10 @@ $(document).ready(function () {
     //Bind js function reload với sự kiện pusher
     channel.bind('App\\Events\\DashboardPostEvent', reloadPosts);
 
-
     function reloadPosts() {
         var page = $("#current_page").val();
         if ($("#search2").val() == '') {
             fetch_data_all2(page);
-            // alert(page);
         } else {
             fetch_data2(page);
         }
@@ -178,7 +206,6 @@ $(document).ready(function () {
             method: "get",
             url: "/post/count",
             success: function (data) {
-                // alert(data);
                 $('#count_posts').html(data);  // count tổng
             }
         })

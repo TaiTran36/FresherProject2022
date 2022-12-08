@@ -19,7 +19,7 @@
     <script src="{{ asset('js/post.js') }}" defer></script>
     <script src="{{ asset('js/profile.js') }}" defer></script>
     <script src="{{ asset('js/category.js') }}" defer></script>
-
+    <script src='{{ asset('js/functions/debounce.js') }}' ></script>
 
     <!-- Styles -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"

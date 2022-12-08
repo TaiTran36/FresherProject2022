@@ -10,7 +10,7 @@
         </center>
     </div>
 
-    <p><a id="post_back" class="btn btn-primary" href="/post/list">Back</a></p>
+    <p><a id="post_back" class="btn btn-primary" style="color:white">Back</a></p>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="table-responsive">

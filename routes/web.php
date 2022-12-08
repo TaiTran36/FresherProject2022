@@ -45,11 +45,11 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::controller(ProfileController::class)->group(function(){
+    Route::controller(ProfileController::class)->group(function () {
         Route::get('users-export', 'export')->name('users.export');
         Route::post('users-import', 'import')->name('users.import');
     });
-    Route::controller(PostController::class)->group(function(){
+    Route::controller(PostController::class)->group(function () {
         Route::get('posts-export', 'export')->name('posts.export');
         Route::post('posts-import', 'import')->name('posts.import');
     });
@@ -87,6 +87,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('post/{url}/edit', 'PostController@edit');
     Route::post('post/update', 'PostController@update');
     Route::get('post/delete', 'PostController@destroy');
+    /////test ////
+    Route::get('post/expands', 'PostController@get_expands');
+    ///////////
+
     Route::get('post/count', 'PostController@count');
 
     Route::group(['middleware' => ['role:admin']], function () {

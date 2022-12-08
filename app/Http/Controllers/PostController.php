@@ -24,6 +24,18 @@ class PostController extends Controller
         $this->userRepository = $userRepository;
         $this->categoryRepository = $categoryRepository;
     }
+    // test
+    public function get_expands(Request $request)
+    {
+        if ($request->url) {
+            $url = $request->url;
+        }
+        $expands = $this->postRepository->get_expands();
+        $data = view('post.expand', compact('expands'))->render();
+        return $data;
+    }
+
+    ///
     public function export()
     {
         return Excel::download(new PostsExport, 'posts.xlsx');

@@ -18,6 +18,14 @@ class PostRepositories
     {
         return \App\Models\Post::class;
     }
+
+
+    //test
+    public function get_expands(){
+        $getData = Post::join('users', 'posts.writer_id', '=', 'users.id')->select('posts.*', 'users.username_login as writer_username_login')->take(3)->get();
+        return $getData;
+    }
+////////
     public function all()
     {
         $getData = Post::join('users', 'posts.writer_id', '=', 'users.id')->select('posts.*', 'users.username_login as writer_username_login', 'users.name as writer_name', 'users.avatar as writer_avatar')->get();

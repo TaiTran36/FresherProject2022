@@ -3,7 +3,6 @@
 @section('title', 'Posts')
 
 @section('content')
-
     <div class="page-header">
         <center>
             <h2>Posts List</h2>
